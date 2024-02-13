@@ -40,6 +40,7 @@ repositories {
         content { includeGroup("com.jamieswhiteshirt") }
     }
     maven { url = "https://maven.ladysnake.org/releases" } // CCA, for Trinkets
+    mavenLocal()
 }
 
 dependencies {
@@ -79,6 +80,7 @@ def setup(DependencyHandler deps) {
         it.officialMojangMappings { nameSyntheticMembers = false }
     })
     deps.modImplementation("net.fabricmc:fabric-loader:$loader_version")
+    deps.modApi("me.shedaniel.cloth:basic-math:+")
 }
 
 // setup mods that enhance development
@@ -98,7 +100,7 @@ def devEnv(DependencyHandler deps) {
 
 // setup mods that are available for compatibility reasons
 def compat(DependencyHandler deps) {
-    deps.modCompileOnly("cc.tweaked:cc-tweaked-$minecraft_version-fabric-api:$cc_version")
+    deps.modCompileOnly("cc.tweaked:cc-tweaked-1.20.1-fabric-api:$cc_version")
 
     deps.modCompileOnly("vazkii.botania:Botania:$botania_version") { transitive = false }
     deps.modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
