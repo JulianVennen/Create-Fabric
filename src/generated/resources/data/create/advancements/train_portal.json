@@ -2,7 +2,6 @@
   "parent": "create:train_whistle",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:train_portal_builtin"
     }
   },

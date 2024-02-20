@@ -11,8 +11,11 @@
   ],
   "results": [
     {
-      "count": 2,
-      "item": "create:brass_ingot"
+      "chance": 1.0,
+      "item": {
+        "Count": 2,
+        "id": "create:brass_ingot"
+      }
     }
   ]
 }

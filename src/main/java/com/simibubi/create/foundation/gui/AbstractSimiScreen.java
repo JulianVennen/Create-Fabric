@@ -144,7 +144,7 @@ public abstract class AbstractSimiScreen extends Screen {
 	}
 
 	protected void renderWindowBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(graphics);
+		renderBackground(graphics, mouseX, mouseY, partialTicks);
 	}
 
 	protected abstract void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks);

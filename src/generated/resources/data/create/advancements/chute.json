@@ -2,7 +2,6 @@
   "parent": "create:funnel",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:chute_builtin"
     }
   },

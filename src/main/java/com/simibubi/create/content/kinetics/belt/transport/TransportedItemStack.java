@@ -5,7 +5,7 @@ import java.util.Random;
 import com.simibubi.create.content.kinetics.belt.BeltHelper;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -78,7 +78,7 @@ public class TransportedItemStack implements Comparable<TransportedItemStack> {
 
 	public CompoundTag serializeNBT() {
 		CompoundTag nbt = new CompoundTag();
-		nbt.put("Item", NBTSerializer.serializeNBT(stack));
+		//nbt.put("Item", NBTSerializer.serializeNBT(stack));
 		nbt.putFloat("Pos", beltPosition);
 		nbt.putFloat("PrevPos", prevBeltPosition);
 		nbt.putFloat("Offset", sideOffset);

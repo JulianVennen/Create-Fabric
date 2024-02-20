@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "twilightforest:dark_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "twilightforest:stripped_dark_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

@@ -2,7 +2,6 @@
   "parent": "create:hose_pulley_lava",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:steam_engine_maxed_builtin"
     }
   },

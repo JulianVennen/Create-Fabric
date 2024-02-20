@@ -16,9 +16,9 @@ import com.simibubi.create.foundation.utility.VecHelper;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 
-import io.github.fabricators_of_create.porting_lib.block.LightEmissiveBlock;
-import io.github.fabricators_of_create.porting_lib.item.CustomMaxCountItem;
-import io.github.fabricators_of_create.porting_lib.item.EntityTickListenerItem;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.LightEmissiveBlock;
+import io.github.fabricators_of_create.porting_lib.item.api.common.addons.CustomMaxCountItem;
+import io.github.fabricators_of_create.porting_lib.item.api.common.addons.EntityTickListenerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

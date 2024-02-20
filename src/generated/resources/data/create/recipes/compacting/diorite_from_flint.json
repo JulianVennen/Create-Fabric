@@ -1,5 +1,13 @@
 {
   "type": "create:compacting",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 8100,
+        "FluidName": "minecraft:lava"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "item": "minecraft:flint"
@@ -9,16 +17,15 @@
     },
     {
       "item": "minecraft:calcite"
-    },
-    {
-      "amount": 8100,
-      "fluid": "minecraft:lava",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "minecraft:diorite"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:diorite"
+      }
     }
   ]
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class GenericItemEmptying {
@@ -46,9 +47,9 @@ public class GenericItemEmptying {
 			return PotionFluidHandler.emptyPotion(stack, simulate);
 
 		WRAPPER.setItem(0, stack);
-		Optional<Recipe<Container>> recipe = AllRecipeTypes.EMPTYING.find(WRAPPER, world);
+		Optional<RecipeHolder<Recipe<Container>>> recipe = AllRecipeTypes.EMPTYING.find(WRAPPER, world);
 		if (recipe.isPresent()) {
-			EmptyingRecipe emptyingRecipe = (EmptyingRecipe) recipe.get();
+			EmptyingRecipe emptyingRecipe = (EmptyingRecipe) recipe.get().value();
 			List<ItemStack> results = emptyingRecipe.rollResults();
 			if (!simulate)
 				stack.shrink(1);

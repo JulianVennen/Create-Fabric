@@ -15,8 +15,8 @@ import com.simibubi.create.content.schematics.requirement.ISpecialBlockItemRequi
 import com.simibubi.create.content.schematics.requirement.ItemRequirement;
 import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 import com.simibubi.create.foundation.block.IBE;
-import io.github.fabricators_of_create.porting_lib.block.MinecartPassHandlerBlock;
-import io.github.fabricators_of_create.porting_lib.block.SlopeCreationCheckingRailBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.MinecartPassHandlerBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.SlopeCreationCheckingRailBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

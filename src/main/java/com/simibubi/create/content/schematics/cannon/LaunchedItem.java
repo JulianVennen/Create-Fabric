@@ -12,7 +12,7 @@ import com.simibubi.create.content.kinetics.belt.BeltSlope;
 import com.simibubi.create.content.kinetics.belt.item.BeltConnectorItem;
 import com.simibubi.create.content.kinetics.simpleRelays.AbstractSimpleShaftBlock;
 import com.simibubi.create.foundation.utility.BlockHelper;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
@@ -68,7 +68,7 @@ public abstract class LaunchedItem {
 		CompoundTag c = new CompoundTag();
 		c.putInt("TotalTicks", totalTicks);
 		c.putInt("TicksLeft", ticksRemaining);
-		c.put("Stack", NBTSerializer.serializeNBT(stack));
+		// c.put("Stack", NBTSerializer.serializeNBT(stack));
 		c.put("Target", NbtUtils.writeBlockPos(target));
 		return c;
 	}
@@ -220,8 +220,8 @@ public abstract class LaunchedItem {
 		@Override
 		public CompoundTag serializeNBT() {
 			CompoundTag serializeNBT = super.serializeNBT();
-			if (entity != null)
-				serializeNBT.put("Entity", NBTSerializer.serializeNBT(entity));
+			/*if (entity != null)
+				serializeNBT.put("Entity", NBTSerializer.serializeNBT(entity));*/
 			return serializeNBT;
 		}
 

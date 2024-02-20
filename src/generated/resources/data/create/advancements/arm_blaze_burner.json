@@ -2,7 +2,6 @@
   "parent": "create:linked_controller",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:arm_blaze_burner_builtin"
     }
   },

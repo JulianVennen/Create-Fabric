@@ -1,18 +1,25 @@
 {
   "type": "create:mixing",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 81000,
+        "FluidName": "minecraft:water"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "tag": "c:wheat_flour"
-    },
-    {
-      "amount": 81000,
-      "fluid": "minecraft:water",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "create:dough"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:dough"
+      }
     }
   ]
 }

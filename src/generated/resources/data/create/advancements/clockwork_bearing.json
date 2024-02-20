@@ -2,7 +2,6 @@
   "parent": "create:haunted_bell",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:clockwork_bearing_builtin"
     }
   },

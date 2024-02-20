@@ -1,18 +1,25 @@
 {
   "type": "create:filling",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 27000,
+        "FluidName": "minecraft:lava"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "item": "create:blaze_cake_base"
-    },
-    {
-      "amount": 27000,
-      "fluid": "minecraft:lava",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "create:blaze_cake"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:blaze_cake"
+      }
     }
   ]
 }

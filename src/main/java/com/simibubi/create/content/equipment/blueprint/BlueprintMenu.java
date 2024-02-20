@@ -23,6 +23,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -67,7 +68,7 @@ public class BlueprintMenu extends GhostItemMenu<BlueprintSection> {
 
 		ServerPlayer serverplayerentity = (ServerPlayer) player;
 		CraftingContainer craftingInventory = new BlueprintCraftingInventory(this, ghostInventory);
-		Optional<CraftingRecipe> optional = player.getServer()
+		Optional<RecipeHolder<CraftingRecipe>> optional = player.getServer()
 				.getRecipeManager()
 				.getRecipeFor(RecipeType.CRAFTING, craftingInventory, player.getCommandSenderWorld());
 
@@ -84,7 +85,7 @@ public class BlueprintMenu extends GhostItemMenu<BlueprintSection> {
 			return;
 		}
 
-		CraftingRecipe icraftingrecipe = optional.get();
+		CraftingRecipe icraftingrecipe = optional.get().value();
 		ItemStack itemstack = icraftingrecipe.assemble(craftingInventory, level.registryAccess());
 		ghostInventory.setStackInSlot(9, itemstack);
 		contentHolder.inferredIcon = true;

@@ -2,7 +2,6 @@
   "parent": "create:train",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:conductor_builtin"
     }
   },

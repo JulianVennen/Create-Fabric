@@ -31,7 +31,7 @@ import com.simibubi.create.foundation.utility.VecHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -54,6 +54,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ClipContext.Block;
 import net.minecraft.world.level.ClipContext.Fluid;
@@ -409,7 +410,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements SidedStor
 			player.getInventory()
 				.save(invNBT);
 			compound.put("Inventory", invNBT);
-			compound.put("HeldItem", NBTSerializer.serializeNBT(player.getMainHandItem()));
+			// compound.put("HeldItem", NBTSerializer.serializeNBT(player.getMainHandItem()));
 			compound.put("Overflow", NBTHelper.writeItemList(overflowItems));
 		} else if (deferredInventoryList != null) {
 			compound.put("Inventory", deferredInventoryList);
@@ -423,9 +424,9 @@ public class DeployerBlockEntity extends KineticBlockEntity implements SidedStor
 		compound.putFloat("Reach", reach);
 		if (player == null)
 			return;
-		compound.put("HeldItem", NBTSerializer.serializeNBT(player.getMainHandItem()));
+		// compound.put("HeldItem", NBTSerializer.serializeNBT(player.getMainHandItem()));
 		if (player.spawnedItemEffects != null) {
-			compound.put("Particle", NBTSerializer.serializeNBT(player.spawnedItemEffects));
+			// compound.put("Particle", NBTSerializer.serializeNBT(player.spawnedItemEffects));
 			player.spawnedItemEffects = null;
 		}
 	}
@@ -557,7 +558,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements SidedStor
 	SandPaperInv sandpaperInv = new SandPaperInv(ItemStack.EMPTY);
 
 	@Nullable
-	public Recipe<? extends Container> getRecipe(ItemStack stack) {
+	public Recipe<?> getRecipe(ItemStack stack) {
 		if (player == null || level == null)
 			return null;
 
@@ -565,7 +566,8 @@ public class DeployerBlockEntity extends KineticBlockEntity implements SidedStor
 		if (heldItemMainhand.getItem() instanceof SandPaperItem) {
 			sandpaperInv.setItem(0, stack);
 			return AllRecipeTypes.SANDPAPER_POLISHING.find(sandpaperInv, level)
-				.orElse(null);
+					.map(RecipeHolder::value)
+					.orElse(null);
 		}
 
 		recipeInv.setItem(0, stack);
@@ -575,8 +577,8 @@ public class DeployerBlockEntity extends KineticBlockEntity implements SidedStor
 
 		event.addRecipe(() -> SequencedAssemblyRecipe.getRecipe(level, event.getInventory(),
 			AllRecipeTypes.DEPLOYING.getType(), DeployerApplicationRecipe.class), 100);
-		event.addRecipe(() -> AllRecipeTypes.DEPLOYING.find(event.getInventory(), level), 50);
-		event.addRecipe(() -> AllRecipeTypes.ITEM_APPLICATION.find(event.getInventory(), level), 50);
+		event.addRecipe(() -> AllRecipeTypes.DEPLOYING.find(event.getInventory(), level).map(RecipeHolder::value), 50);
+		event.addRecipe(() -> AllRecipeTypes.ITEM_APPLICATION.find(event.getInventory(), level).map(RecipeHolder::value), 50);
 
 		DeployerRecipeSearchEvent.EVENT.invoker().handle(event);
 		return event.getRecipe();

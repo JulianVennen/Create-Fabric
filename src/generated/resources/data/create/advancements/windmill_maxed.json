@@ -2,7 +2,6 @@
   "parent": "create:andesite_alloy",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:windmill_maxed_builtin"
     }
   },

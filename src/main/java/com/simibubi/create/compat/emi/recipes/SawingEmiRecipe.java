@@ -6,10 +6,11 @@ import com.simibubi.create.content.kinetics.saw.CuttingRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class SawingEmiRecipe extends CreateEmiRecipe<CuttingRecipe> {
 
-	public SawingEmiRecipe(CuttingRecipe recipe) {
+	public SawingEmiRecipe(RecipeHolder<CuttingRecipe> recipe) {
 		super(CreateEmiPlugin.SAWING, recipe, 134, 80);
 	}
 

@@ -2,7 +2,6 @@
   "parent": "create:clockwork_bearing",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:display_link_builtin"
     }
   },

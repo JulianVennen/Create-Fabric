@@ -10,19 +10,20 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class DeployingEmiRecipe extends CreateEmiRecipe<DeployerApplicationRecipe> {
 
-	public DeployingEmiRecipe(DeployerApplicationRecipe recipe) {
+	public DeployingEmiRecipe(RecipeHolder<DeployerApplicationRecipe> recipe) {
 		super(CreateEmiPlugin.DEPLOYING, recipe, 134, 80, (r) -> {});
-		EmiIngredient held = EmiIngredient.of(recipe.getRequiredHeldItem());
-		if (recipe.shouldKeepHeldItem()) {
+		EmiIngredient held = EmiIngredient.of(recipe.value().getRequiredHeldItem());
+		if (recipe.value().shouldKeepHeldItem()) {
 			for (EmiStack stack : held.getEmiStacks()) {
 				stack.setRemainder(stack);
 			}
 		}
-		this.input = List.of(EmiIngredient.of(recipe.getProcessedItem()), held);
-		this.output = List.of(getResultEmi(recipe));
+		this.input = List.of(EmiIngredient.of(recipe.value().getProcessedItem()), held);
+		this.output = List.of(getResultEmi(recipe.value()));
 	}
 
 	@Override

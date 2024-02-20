@@ -2,7 +2,6 @@
   "parent": "create:foods",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:diving_suit_lava_builtin"
     }
   },

@@ -27,7 +27,7 @@ import com.simibubi.create.foundation.utility.LongAttached;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.Pointing;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -420,8 +420,8 @@ public class ProcessingScenes {
 		scene.world.createItemOnBeltLike(basin, Direction.UP, blue);
 		scene.idle(80);
 		scene.world.modifyBlockEntityNBT(util.select.position(basin), BasinBlockEntity.class, nbt -> {
-			nbt.put("VisualizedItems",
-				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, purple)), ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
+			/*nbt.put("VisualizedItems",
+				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, purple)), ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));*/
 		});
 		scene.idle(4);
 		scene.world.createItemOnBelt(util.grid.at(1, 1, 1), Direction.UP, purple);
@@ -501,8 +501,8 @@ public class ProcessingScenes {
 		scene.world.modifyBlockEntity(pressPos, type, pte -> pte.getPressingBehaviour()
 			.makeCompactingParticleEffect(util.vector.centerOf(basin), copper));
 		scene.world.modifyBlockEntityNBT(util.select.position(basin), BasinBlockEntity.class, nbt -> {
-			nbt.put("VisualizedItems",
-				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, copperBlock)), ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
+			/*nbt.put("VisualizedItems",
+				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, copperBlock)), ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));*/
 		});
 		scene.idle(4);
 		scene.world.createItemOnBelt(util.grid.at(1, 1, 1), Direction.UP, copperBlock);
@@ -526,9 +526,9 @@ public class ProcessingScenes {
 		scene.world.modifyBlockEntity(pressPos, type, pte -> pte.getPressingBehaviour()
 			.makeCompactingParticleEffect(util.vector.centerOf(basin), log));
 		scene.world.modifyBlockEntityNBT(util.select.position(basin), BasinBlockEntity.class, nbt -> {
-			nbt.put("VisualizedItems",
+			/*nbt.put("VisualizedItems",
 				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, bark)), ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
-		});
+		*/});
 		scene.idle(4);
 		scene.world.createItemOnBelt(util.grid.at(1, 1, 1), Direction.UP, bark);
 		scene.idle(30);
@@ -703,8 +703,8 @@ public class ProcessingScenes {
 		scene.idle(90);
 
 		Class<DeployerBlockEntity> teType = DeployerBlockEntity.class;
-		scene.world.modifyBlockEntityNBT(util.select.position(4, 1, 2), teType,
-			nbt -> nbt.put("HeldItem", NBTSerializer.serializeNBT(AllItems.BLAZE_CAKE.asStack())));
+		/*scene.world.modifyBlockEntityNBT(util.select.position(4, 1, 2), teType,
+			nbt -> nbt.put("HeldItem", NBTSerializer.serializeNBT(AllItems.BLAZE_CAKE.asStack())));*/
 
 		scene.world.showSection(util.select.fromTo(3, 0, 5, 2, 0, 5), Direction.UP);
 		scene.idle(5);
@@ -824,9 +824,9 @@ public class ProcessingScenes {
 		scene.world.modifyBlockEntity(pressPos, type, pte -> pte.getPressingBehaviour()
 			.makeCompactingParticleEffect(util.vector.centerOf(basinPos), stack));
 		scene.world.modifyBlockEntityNBT(util.select.position(basinPos), BasinBlockEntity.class, nbt -> {
-			nbt.put("VisualizedItems",
+			/*nbt.put("VisualizedItems",
 				NBTHelper.writeCompoundList(ImmutableList.of(LongAttached.with(1, new ItemStack(Blocks.BRICKS))),
-					ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
+					ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));*/
 		});
 		scene.idle(4);
 		scene.overlay.showControls(new InputWindowElement(util.vector.topOf(basinPos.below()

@@ -3,6 +3,9 @@ package com.simibubi.create;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.compat.rei.ConversionRecipe;
@@ -128,16 +131,16 @@ public enum AllRecipeTypes implements IRecipeTypeInfo {
 		return (T) type.get();
 	}
 
-	public <C extends Container, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
+	public <C extends Container, T extends Recipe<C>> Optional<RecipeHolder<T>> find(C inv, Level world) {
 		return world.getRecipeManager()
 			.getRecipeFor(getType(), inv, world);
 	}
 
-	public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {
-		RecipeSerializer<?> serializer = recipe.getSerializer();
+	public static boolean shouldIgnoreInAutomation(RecipeHolder<?> recipe) {
+		RecipeSerializer<?> serializer = recipe.value().getSerializer();
 		if (serializer != null && AllTags.AllRecipeSerializerTags.AUTOMATION_IGNORE.matches(serializer))
 			return true;
-		return recipe.getId()
+		return recipe.id()
 			.getPath()
 			.endsWith("_manual_only");
 	}

@@ -15,8 +15,11 @@
   ],
   "results": [
     {
-      "count": 9,
-      "item": "alloygery:nickel_nugget"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

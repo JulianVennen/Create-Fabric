@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "botania:glimmering_dreamwood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "botania:glimmering_stripped_dreamwood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

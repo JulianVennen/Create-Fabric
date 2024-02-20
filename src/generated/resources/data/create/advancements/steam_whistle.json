@@ -2,7 +2,6 @@
   "parent": "create:steam_engine",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:steam_whistle_builtin"
     }
   },

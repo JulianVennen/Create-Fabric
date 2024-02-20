@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,22 +39,22 @@ import net.minecraft.world.item.crafting.Recipe;
 
 public abstract class CreateEmiRecipe<T extends Recipe<?>> implements EmiRecipe {
 	protected final EmiRecipeCategory category;
-	protected final T recipe;
+	protected final RecipeHolder<T> recipe;
 	protected ResourceLocation id;
 	protected List<EmiIngredient> input;
 	protected List<EmiStack> output;
 	protected int width, height;
 
-	public CreateEmiRecipe(EmiRecipeCategory category, T recipe, int width, int height) {
+	public CreateEmiRecipe(EmiRecipeCategory category, RecipeHolder<T> recipe, int width, int height) {
 		this.category = category;
 		this.recipe = recipe;
-		this.id = recipe.getId();
+		this.id = recipe.id();
 		this.width = width;
 		this.height = height;
-		if (recipe instanceof BasinRecipe basin) {
+		if (recipe.value() instanceof BasinRecipe basin) {
 			ImmutableList.Builder<EmiIngredient> input = ImmutableList.builder();
 			ImmutableList.Builder<EmiStack> output = ImmutableList.builder();
-			for (Pair<Ingredient, MutableInt> pair : ItemHelper.condenseIngredients(recipe.getIngredients())) {
+			for (Pair<Ingredient, MutableInt> pair : ItemHelper.condenseIngredients(recipe.value().getIngredients())) {
 				input.add(EmiIngredient.of(pair.getFirst(), pair.getSecond().getValue()));
 			}
 			for (FluidIngredient ingredient : basin.getFluidIngredients()) {
@@ -66,8 +68,8 @@ public abstract class CreateEmiRecipe<T extends Recipe<?>> implements EmiRecipe 
 			}
 			this.input = input.build();
 			this.output = output.build();
-		} else if (recipe instanceof SequencedAssemblyRecipe sequenced) {
-			this.output = List.of(getResultEmi(recipe).setChance(sequenced.getOutputChance()));
+		} else if (recipe.value() instanceof SequencedAssemblyRecipe sequenced) {
+			this.output = List.of(getResultEmi(recipe.value()).setChance(sequenced.getOutputChance()));
 			int loops = sequenced.getLoops();
 			ImmutableList.Builder<EmiIngredient> input = ImmutableList.builder();
 			input.add(EmiIngredient.of(sequenced.getIngredient()));
@@ -83,23 +85,23 @@ public abstract class CreateEmiRecipe<T extends Recipe<?>> implements EmiRecipe 
 			}
 			this.input = input.build();
 		} else {
-			this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-			if (recipe instanceof ProcessingRecipe<?> processing) {
+			this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+			if (recipe.value() instanceof ProcessingRecipe<?> processing) {
 				ImmutableList.Builder<EmiStack> builder = ImmutableList.builder();
 				for (ProcessingOutput output : processing.getRollableResults()) {
 					builder.add(EmiStack.of(output.getStack()).setChance(output.getChance()));
 				}
 				this.output = builder.build();
 			} else {
-				this.output = List.of(getResultEmi(recipe));
+				this.output = List.of(getResultEmi(recipe.value()));
 			}
 		}
 	}
 
-	public CreateEmiRecipe(EmiRecipeCategory category, T recipe, int width, int height, Consumer<CreateEmiRecipe<T>> setup) {
+	public CreateEmiRecipe(EmiRecipeCategory category, RecipeHolder<T> recipe, int width, int height, Consumer<CreateEmiRecipe<T>> setup) {
 		this.category = category;
 		this.recipe = recipe;
-		this.id = recipe.getId();
+		this.id = recipe.id();
 		this.width = width;
 		this.height = height;
 		setup.accept(this);

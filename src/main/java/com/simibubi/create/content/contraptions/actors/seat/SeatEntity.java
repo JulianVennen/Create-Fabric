@@ -60,8 +60,9 @@ public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
 	protected void positionRider(Entity pEntity, Entity.MoveFunction pCallback) {
 		if (!this.hasPassenger(pEntity))
 			return;
-		double d0 = this.getY() + this.getPassengersRidingOffset() + pEntity.getMyRidingOffset();
-		pCallback.accept(pEntity, this.getX(), d0 + getCustomEntitySeatOffset(pEntity), this.getZ());
+		// TODO: Seat.Ride
+		// double d0 = this.getY() + this.getPassengersRidingOffset() + pEntity.getMyRidingOffset();
+		// pCallback.accept(pEntity, this.getX(), d0 + getCustomEntitySeatOffset(pEntity), this.getZ());
 	}
 
 	public static double getCustomEntitySeatOffset(Entity entity) {

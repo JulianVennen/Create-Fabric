@@ -15,10 +15,11 @@ import me.shedaniel.math.Point;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class MysteriousItemConversionCategory extends CreateRecipeCategory<ConversionRecipe> {
 
-	public static final List<ConversionRecipe> RECIPES = new ArrayList<>();
+	public static final List<RecipeHolder<? extends ConversionRecipe>> RECIPES = new ArrayList<>();
 
 	static {
 		RECIPES.add(ConversionRecipe.create(AllItems.EMPTY_BLAZE_BURNER.asStack(), AllBlocks.BLAZE_BURNER.asStack()));

@@ -14,7 +14,7 @@ import com.simibubi.create.foundation.utility.Lang;
 
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
@@ -69,7 +69,7 @@ public class FluidThresholdCondition extends CargoThresholdCondition {
 	@Override
 	protected void writeAdditional(CompoundTag tag) {
 		super.writeAdditional(tag);
-		tag.put("Bucket", NBTSerializer.serializeNBTCompound(compareStack));
+		// tag.put("Bucket", NBTSerializer.serializeNBTCompound(compareStack));
 	}
 
 	@Override

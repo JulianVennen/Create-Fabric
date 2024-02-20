@@ -1,18 +1,25 @@
 {
   "type": "create:filling",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 27000,
+        "FluidName": "create:tea"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "create:tea",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "create:builders_tea"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:builders_tea"
+      }
     }
   ]
 }

@@ -8,16 +8,25 @@
   "processingTime": 350,
   "results": [
     {
-      "count": 18,
-      "item": "minecraft:gold_nugget"
+      "chance": 1.0,
+      "item": {
+        "Count": 18,
+        "id": "minecraft:gold_nugget"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:experience_nugget"
+      }
     },
     {
       "chance": 0.125,
-      "item": "minecraft:netherrack"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:netherrack"
+      }
     }
   ]
 }

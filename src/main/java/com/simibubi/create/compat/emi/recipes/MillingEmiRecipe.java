@@ -6,10 +6,11 @@ import com.simibubi.create.content.kinetics.millstone.MillingRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class MillingEmiRecipe extends CreateEmiRecipe<MillingRecipe> {
 
-	public MillingEmiRecipe(MillingRecipe recipe) {
+	public MillingEmiRecipe(RecipeHolder<MillingRecipe> recipe) {
 		super(CreateEmiPlugin.MILLING, recipe, 177, 61);
 	}
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -13,10 +12,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
-
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -24,8 +25,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -36,6 +37,22 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 	public static final FluidIngredient EMPTY = new FluidStackIngredient();
 
 	public List<FluidStack> matchingFluidStacks;
+
+	public static Codec<FluidIngredient> CODEC() {
+		return EITHER_CODEC().xmap(either -> either.map(x -> x, y -> y), ingredient -> {
+			if (ingredient instanceof FluidTagIngredient tagIngredient) {
+				return Either.left(tagIngredient);
+			} else if (ingredient instanceof FluidStackIngredient stackIngredient) {
+				return Either.right(stackIngredient);
+			} else {
+				throw new IllegalStateException("Unknown ingredient type: " + ingredient.getClass());
+			}
+		});
+	}
+
+	public static Codec<Either<FluidTagIngredient, FluidStackIngredient>> EITHER_CODEC() {
+		return Codec.either(FluidTagIngredient.CODEC, FluidStackIngredient.CODEC);
+	}
 
 	public static FluidIngredient fromTag(TagKey<Fluid> tag, long amount) {
 		FluidTagIngredient ingredient = new FluidTagIngredient();
@@ -142,6 +159,11 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 	}
 
 	public static class FluidStackIngredient extends FluidIngredient {
+		public static final Codec<FluidStackIngredient> CODEC = Codec.list(FluidStack.CODEC).xmap(list -> {
+			FluidStackIngredient ingredient = new FluidStackIngredient();
+			ingredient.matchingFluidStacks = list;
+			return ingredient;
+		}, FluidIngredient::getMatchingFluidStacks);
 
 		protected Fluid fluid;
 		protected CompoundTag tagToMatch;
@@ -203,6 +225,10 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 	}
 
 	public static class FluidTagIngredient extends FluidIngredient {
+		public static final Codec<FluidTagIngredient> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				TagKey.codec(Registries.FLUID).fieldOf("fluidTag").forGetter(FluidTagIngredient::tag),
+				Codec.LONG.fieldOf("amount").forGetter(FluidTagIngredient::getRequiredAmount)
+		).apply(instance, (x, y) -> (FluidTagIngredient) FluidIngredient.fromTag(x, y)));
 
 		protected TagKey<Fluid> tag;
 
@@ -246,6 +272,10 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 		protected void writeInternal(JsonObject json) {
 			json.addProperty("fluidTag", tag.location()
 				.toString());
+		}
+
+		public TagKey<Fluid> tag() {
+			return tag;
 		}
 
 		@Override

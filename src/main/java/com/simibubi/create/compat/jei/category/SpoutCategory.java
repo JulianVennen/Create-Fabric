@@ -40,6 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 @ParametersAreNonnullByDefault
 public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
@@ -50,17 +51,17 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 		super(info);
 	}
 
-	public static void consumeRecipes(Consumer<FillingRecipe> consumer, IIngredientManager ingredientManager) {
+	public static void consumeRecipes(Consumer<RecipeHolder<FillingRecipe>> consumer, IIngredientManager ingredientManager) {
 		Collection<IJeiFluidIngredient> fluidStacks = ingredientManager.getAllIngredients(FabricTypes.FLUID_STACK);
 		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK)) {
 			if (stack.getItem() instanceof PotionItem) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient bottle = Ingredient.of(Items.GLASS_BOTTLE);
-				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new, Create.asResource("potions"))
+				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new)
 					.withItemIngredients(bottle)
 					.withFluidIngredients(FluidIngredient.fromFluidStack(fluidFromPotionItem))
 					.withSingleItemOutput(stack)
-					.build());
+					.build(Create.asResource("potions")));
 				continue;
 			}
 
@@ -90,13 +91,12 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 						);
 				ResourceLocation fluidName = RegisteredObjects.getKeyOrThrow(fluidCopy.getFluid()
 						);
-				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new,
-						Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
-								+ "_with_" + fluidName.getNamespace() + "_" + fluidName.getPath()))
+				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new)
 						.withItemIngredients(bucket)
 						.withFluidIngredients(FluidIngredient.fromFluidStack(fluidCopy))
 						.withSingleItemOutput(container.toStack(ItemHelper.truncateLong(ctx.getAmount())))
-						.build());
+						.build(Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
+								+ "_with_" + fluidName.getNamespace() + "_" + fluidName.getPath())));
 			}
 		}
 	}

@@ -6,10 +6,11 @@ import com.simibubi.create.content.kinetics.press.PressingRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class PressingEmiRecipe extends CreateEmiRecipe<PressingRecipe> {
 
-	public PressingEmiRecipe(PressingRecipe recipe) {
+	public PressingEmiRecipe(RecipeHolder<PressingRecipe> recipe) {
 		super(CreateEmiPlugin.PRESSING, recipe, 134, 90);
 	}
 

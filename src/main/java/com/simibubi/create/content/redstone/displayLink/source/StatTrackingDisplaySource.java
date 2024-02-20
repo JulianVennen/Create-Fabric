@@ -29,7 +29,7 @@ public abstract class StatTrackingDisplaySource extends ScoreboardDisplaySource 
 
 		String name = "create_auto_" + getObjectiveName();
 		Scoreboard scoreboard = level.getScoreboard();
-		if (!scoreboard.hasObjective(name))
+		if (scoreboard.getObjective(name) == null)
 			scoreboard.addObjective(name, ObjectiveCriteria.DUMMY, getObjectiveDisplayName(), RenderType.INTEGER);
 		Objective objective = scoreboard.getObjective(name);
 

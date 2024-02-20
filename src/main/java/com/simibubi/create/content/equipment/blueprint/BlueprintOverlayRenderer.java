@@ -25,7 +25,6 @@ import com.simibubi.create.foundation.utility.Pair;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
@@ -33,9 +32,8 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -44,8 +42,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.EntityHitResult;
@@ -148,7 +145,7 @@ public class BlueprintOverlayRenderer {
 		PlayerInventoryStorage playerInv = PlayerInventoryStorage.of(mc.player);
 
 		int amountCrafted = 0;
-		Optional<CraftingRecipe> recipe = Optional.empty();
+		Optional<RecipeHolder<CraftingRecipe>> recipe = Optional.empty();
 		Map<Integer, ItemStack> craftingGrid = new HashMap<>();
 		ingredients.clear();
 		ItemStackHandler missingItems = new ItemStackHandler(64);
@@ -188,8 +185,8 @@ public class BlueprintOverlayRenderer {
 					if (!recipe.isPresent())
 						recipe = mc.level.getRecipeManager()
 								.getRecipeFor(RecipeType.CRAFTING, craftingInventory, mc.level);
-					ItemStack resultFromRecipe = recipe.filter(r -> r.matches(craftingInventory, mc.level))
-							.map(r -> r.assemble(craftingInventory, mc.level.registryAccess()))
+					ItemStack resultFromRecipe = recipe.filter(r -> r.value().matches(craftingInventory, mc.level))
+							.map(r -> r.value().assemble(craftingInventory, mc.level.registryAccess()))
 							.orElse(ItemStack.EMPTY);
 
 					if (resultFromRecipe.isEmpty()) {

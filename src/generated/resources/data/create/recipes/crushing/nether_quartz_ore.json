@@ -8,20 +8,32 @@
   "processingTime": 350,
   "results": [
     {
-      "count": 2,
-      "item": "minecraft:quartz"
+      "chance": 1.0,
+      "item": {
+        "Count": 2,
+        "id": "minecraft:quartz"
+      }
     },
     {
       "chance": 0.25,
-      "item": "minecraft:quartz"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:quartz"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:experience_nugget"
+      }
     },
     {
       "chance": 0.125,
-      "item": "minecraft:netherrack"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:netherrack"
+      }
     }
   ]
 }

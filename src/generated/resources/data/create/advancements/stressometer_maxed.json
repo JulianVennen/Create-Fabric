@@ -2,7 +2,6 @@
   "parent": "create:mechanical_mixer",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:stressometer_maxed_builtin"
     }
   },

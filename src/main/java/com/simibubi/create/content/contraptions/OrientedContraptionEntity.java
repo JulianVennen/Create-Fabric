@@ -21,9 +21,8 @@ import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -420,7 +419,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 		// Notify to not trigger serialization side-effects
 		isSerializingFurnaceCart = true;
-		CompoundTag nbt = NBTSerializer.serializeNBTCompound(furnaceCart);
+		/* CompoundTag nbt = NBTSerializer.serializeNBTCompound(furnaceCart);
 		isSerializingFurnaceCart = false;
 
 		int fuel = nbt.getInt("Fuel");
@@ -453,7 +452,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 			nbt.putDouble("PushX", 0);
 			nbt.putDouble("PushZ", 0);
 			NBTSerializer.deserializeNBT(furnaceCart, nbt);
-		}
+		}*/
 	}
 
 	@Nullable
@@ -580,7 +579,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		Vec3 passengerPosition = parent.getPassengerPosition(this, partialTicks);
 		if (passengerPosition == null)
 			return Vec3.ZERO;
-		
+
 		double x = passengerPosition.x - Mth.lerp(partialTicks, this.xOld, this.getX());
 		double y = passengerPosition.y - Mth.lerp(partialTicks, this.yOld, this.getY());
 		double z = passengerPosition.z - Mth.lerp(partialTicks, this.zOld, this.getZ());

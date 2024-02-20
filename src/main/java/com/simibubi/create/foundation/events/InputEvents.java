@@ -8,10 +8,9 @@ import com.simibubi.create.content.trains.TrainHUD;
 import com.simibubi.create.content.trains.entity.TrainRelocator;
 import com.simibubi.create.content.trains.track.CurvedTrackInteraction;
 
-import io.github.fabricators_of_create.porting_lib.event.client.InteractEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.KeyInputCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents.Action;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.InteractEvents;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.KeyInputCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.MouseInputEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,11 +39,11 @@ public class InputEvents {
 		return cancelled;
 	}
 
-	public static boolean onMouseInput(int button, int modifiers, Action action) {
+	public static boolean onMouseInput(int button, int modifiers, MouseInputEvents.Action action) {
 		if (Minecraft.getInstance().screen != null)
 			return false;
 
-		boolean pressed = action == Action.PRESS;
+		boolean pressed = action == MouseInputEvents.Action.PRESS;
 
 		if (CreateClient.SCHEMATIC_HANDLER.onMouseInput(button, pressed))
 			return true;

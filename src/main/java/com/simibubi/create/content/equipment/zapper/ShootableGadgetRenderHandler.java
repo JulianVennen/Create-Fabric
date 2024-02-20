@@ -3,8 +3,8 @@ package com.simibubi.create.content.equipment.zapper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderHandCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderHandCallback.RenderHandEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderHandCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderHandCallback.RenderHandEvent;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -97,7 +97,7 @@ public abstract class ShootableGadgetRenderHandler {
 
 		// Render arm
 		ms.pushPose();
-		RenderSystem.setShaderTexture(0, player.getSkinTextureLocation());
+		RenderSystem.setShaderTexture(0, player.getSkin().texture());
 
 		float flip = rightHand ? 1.0F : -1.0F;
 		float f1 = Mth.sqrt(event.getSwingProgress());

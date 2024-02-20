@@ -69,7 +69,7 @@ public class ContraptionData {
 	public static long packetSize(CompoundTag data) {
 		FriendlyByteBuf test = new FriendlyByteBuf(Unpooled.buffer());
 		test.writeNbt(data);
-		NbtAccounter sizeTracker = new NbtAccounter(Long.MAX_VALUE);
+		NbtAccounter sizeTracker = NbtAccounter.unlimitedHeap();
 		test.readNbt(sizeTracker);
 		long size = ((NbtAccounterAccessor) sizeTracker).create$getUsage();
 		test.release();

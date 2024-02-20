@@ -8,8 +8,11 @@
   "processingTime": 200,
   "results": [
     {
-      "count": 6,
-      "item": "create:shaft"
+      "chance": 1.0,
+      "item": {
+        "Count": 6,
+        "id": "create:shaft"
+      }
     }
   ]
 }

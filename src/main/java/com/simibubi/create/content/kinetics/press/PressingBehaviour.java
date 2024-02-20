@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -93,7 +93,7 @@ public class PressingBehaviour extends BeltProcessingBehaviour {
 		super.write(compound, clientPacket);
 
 		if (clientPacket) {
-			compound.put("ParticleItems", NBTHelper.writeCompoundList(particleItems, NBTSerializer::serializeNBTCompound));
+			// compound.put("ParticleItems", NBTHelper.writeCompoundList(particleItems, NBTSerializer::serializeNBTCompound));
 			particleItems.clear();
 		}
 	}

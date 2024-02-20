@@ -2,7 +2,6 @@
   "parent": "create:ejector_maxed",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:pulley_maxed_builtin"
     }
   },

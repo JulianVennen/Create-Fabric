@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "quark:azalea_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "quark:stripped_azalea_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

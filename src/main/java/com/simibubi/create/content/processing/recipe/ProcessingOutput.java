@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.utility.Pair;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
@@ -22,6 +24,11 @@ import net.minecraft.world.item.ItemStack;
 public class ProcessingOutput {
 
 	public static final ProcessingOutput EMPTY = new ProcessingOutput(ItemStack.EMPTY, 1);
+
+	public static final Codec<ProcessingOutput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ItemStack.CODEC.fieldOf("item").forGetter(ProcessingOutput::getStack),
+		Codec.FLOAT.fieldOf("chance").orElse(1.0f).forGetter(ProcessingOutput::getChance))
+		.apply(instance, ProcessingOutput::new));
 
 	private static final Random r = new Random();
 	private final ItemStack stack;

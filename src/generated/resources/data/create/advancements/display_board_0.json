@@ -2,7 +2,6 @@
   "parent": "create:track_signal",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:display_board_0_builtin"
     }
   },

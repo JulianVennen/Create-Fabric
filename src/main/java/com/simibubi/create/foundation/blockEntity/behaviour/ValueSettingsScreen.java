@@ -255,7 +255,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		AllGuiTextures.BRASS_FRAME_BL.render(graphics, x, y + h - 4);
 		AllGuiTextures.BRASS_FRAME_BR.render(graphics, x + w - 4, y + h - 4);
 		int zLevel = 0;
-		
+
 		if (h > 8) {
 			UIRenderHelper.drawStretched(graphics, x, y + 4, 3, h - 8, zLevel, AllGuiTextures.BRASS_FRAME_LEFT);
 			UIRenderHelper.drawStretched(graphics, x + w - 3, y + 4, 3, h - 8, zLevel, AllGuiTextures.BRASS_FRAME_RIGHT);
@@ -269,7 +269,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics) {
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		int a = ((int) (0x50 * Math.min(1, (ticksOpen + AnimationTickHolder.getPartialTicks()) / 20f))) << 24;
 		graphics.fillGradient(0, 0, this.width, this.height, 0x101010 | a, 0x101010 | a);
 	}
@@ -283,9 +283,9 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+	public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
 		ValueSettings closest = getClosestCoordinate((int) pMouseX, (int) pMouseY);
-		int column = closest.value() + ((int) Math.signum(pDelta)) * (hasShiftDown() ? board.milestoneInterval() : 1);
+		int column = closest.value() + ((int) Math.signum(pScrollY)) * (hasShiftDown() ? board.milestoneInterval() : 1);
 		column = Mth.clamp(column, 0, board.maxValue());
 		if (column == closest.value())
 			return false;

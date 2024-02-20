@@ -15,7 +15,7 @@ import com.simibubi.create.foundation.utility.IPartialSafeNBT;
 import com.simibubi.create.foundation.utility.Iterate;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -181,7 +181,7 @@ public class CopycatBlockEntity extends SmartBlockEntity
 	}
 
 	protected void write(CompoundTag tag, ItemStack stack, BlockState material) {
-		tag.put("Item", NBTSerializer.serializeNBT(stack));
+		//tag.put("Item", NBTSerializer.serializeNBT(stack));
 		tag.put("Material", NbtUtils.writeBlockState(material));
 	}
 

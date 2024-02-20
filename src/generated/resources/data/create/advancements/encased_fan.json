@@ -2,7 +2,6 @@
   "parent": "create:mechanical_press",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:encased_fan_builtin"
     }
   },

@@ -3,6 +3,8 @@ package com.simibubi.create.compat.emi.recipes;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.compress.utils.Lists;
 
 import com.simibubi.create.compat.emi.CreateEmiAnimations;
@@ -21,7 +23,7 @@ import net.minecraft.world.item.crafting.StonecutterRecipe;
 
 public class BlockCuttingEmiRecipe extends CreateEmiRecipe<CondensedBlockCuttingRecipe> {
 
-	public BlockCuttingEmiRecipe(EmiRecipeCategory category, CondensedBlockCuttingRecipe recipe) {
+	public BlockCuttingEmiRecipe(EmiRecipeCategory category, RecipeHolder<CondensedBlockCuttingRecipe> recipe) {
 		super(category, recipe, 177, 75);
 		id = null;
 	}
@@ -38,7 +40,7 @@ public class BlockCuttingEmiRecipe extends CreateEmiRecipe<CondensedBlockCutting
 
 		addSlot(widgets, input.get(0), 4, 8);
 
-		List<List<ItemStack>> results = recipe.getCondensedOutputs();
+		List<List<ItemStack>> results = recipe.value().getCondensedOutputs();
 		for (int i = 0; i < results.size(); i++) {
 			int x = (i % 5) * 19;
 			int y = (i / 5) * -19;
@@ -52,7 +54,7 @@ public class BlockCuttingEmiRecipe extends CreateEmiRecipe<CondensedBlockCutting
 		private List<ItemStack> outputs = Lists.newArrayList();
 
 		public CondensedBlockCuttingRecipe(Ingredient ingredient) {
-			super(new ResourceLocation(""), "", ingredient, ItemStack.EMPTY);
+			super("", ingredient, ItemStack.EMPTY);
 		}
 
 		public void addOutput(ItemStack stack) {

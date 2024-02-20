@@ -105,7 +105,7 @@ public abstract class NumberEntry<T extends Number> extends ValueEntry<T> {
 			}
 		});
 
-		textField.moveCursorToStart();
+		textField.moveCursorToStart(true);
 		listeners.add(textField);
 		onReset();
 	}
@@ -138,12 +138,6 @@ public abstract class NumberEntry<T extends Number> extends ValueEntry<T> {
 				textField.setValue(String.valueOf(newValue));
 			}
 		} catch (IllegalArgumentException ignored) {}
-	}
-
-	@Override
-	public void tick() {
-		super.tick();
-		textField.tick();
 	}
 
 	@Override

@@ -42,6 +42,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public abstract class CreateRecipeCategory<T extends Recipe<?>> implements DisplayCategory<CreateDisplay<T>> {
 
@@ -50,7 +51,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements Displ
 	protected final Renderer background;
 	protected final Renderer icon;
 
-	private final Supplier<List<T>> recipes;
+	private final Supplier<List<RecipeHolder<? extends T>>> recipes;
 	private final List<Supplier<? extends ItemStack>> catalysts;
 
 	private final int width;
@@ -76,8 +77,8 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements Displ
 	}
 
 	public void registerRecipes(DisplayRegistry registry) {
-		for (T recipe : recipes.get()) {
-			registry.add(displayFactory.apply(recipe), recipe);
+		for (RecipeHolder<? extends T> recipe : recipes.get()) {
+			registry.add(displayFactory.apply(recipe.value()), recipe);
 		}
 	}
 
@@ -311,7 +312,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements Displ
 	}
 
 	public record Info<T extends Recipe<?>>(CategoryIdentifier<CreateDisplay<T>> recipeType, Component title,
-											Renderer background, Renderer icon, Supplier<List<T>> recipes,
+											Renderer background, Renderer icon, Supplier<List<RecipeHolder<? extends T>>> recipes,
 											List<Supplier<? extends ItemStack>> catalysts, int width, int height,
 											Function<T, ? extends CreateDisplay<T>> displayFactory) {
 	}

@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.base.Predicates;
@@ -19,7 +21,7 @@ import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Pointing;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.RegistryAccess;
@@ -151,17 +153,17 @@ public class RecipeGridHandler {
 			result = world.getRecipeManager()
 				.getRecipeFor(RecipeType.CRAFTING, craftinginventory, world)
 				.filter(r -> isRecipeAllowed(r, craftinginventory))
-				.map(r -> r.assemble(craftinginventory, registryAccess))
+				.map(r -> r.value().assemble(craftinginventory, registryAccess))
 				.orElse(null);
 		if (result == null)
 			result = AllRecipeTypes.MECHANICAL_CRAFTING.find(craftinginventory, world)
-				.map(r -> r.assemble(craftinginventory, registryAccess))
+				.map(r -> r.value().assemble(craftinginventory, registryAccess))
 				.orElse(null);
 		return result;
 	}
 
-	public static boolean isRecipeAllowed(CraftingRecipe recipe, CraftingContainer inventory) {
-		if (recipe instanceof FireworkRocketRecipe) {
+	public static boolean isRecipeAllowed(RecipeHolder<CraftingRecipe> recipe, CraftingContainer inventory) {
+		if (recipe.value() instanceof FireworkRocketRecipe) {
 			int numItems = 0;
 			for (int i = 0; i < inventory.getContainerSize(); i++) {
 				if (!inventory.getItem(i).isEmpty()) {
@@ -172,10 +174,8 @@ public class RecipeGridHandler {
 				return false;
 			}
 		}
-		if (AllRecipeTypes.shouldIgnoreInAutomation(recipe))
-			return false;
-		return true;
-	}
+        return !AllRecipeTypes.shouldIgnoreInAutomation(recipe);
+    }
 
 	public static class GroupedItems {
 		Map<Pair<Integer, Integer>, ItemStack> grid = new HashMap<>();
@@ -202,7 +202,7 @@ public class RecipeGridHandler {
 				CompoundTag entry = new CompoundTag();
 				entry.putInt("x", pair.getKey());
 				entry.putInt("y", pair.getValue());
-				entry.put("item", NBTSerializer.serializeNBT(stack));
+				// entry.put("item", NBTSerializer.serializeNBT(stack));
 				gridNBT.add(entry);
 			});
 			nbt.put("Grid", gridNBT);

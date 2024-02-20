@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "minecraft:water",
+    "minecraft:lava",
+    "minecraft:water",
     "minecraft:lava"
   ]
 }

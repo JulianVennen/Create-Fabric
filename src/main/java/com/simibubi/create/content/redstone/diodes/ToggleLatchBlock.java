@@ -3,7 +3,7 @@ package com.simibubi.create.content.redstone.diodes;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 
-import io.github.fabricators_of_create.porting_lib.block.ConnectableRedstoneBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.ConnectableRedstoneBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

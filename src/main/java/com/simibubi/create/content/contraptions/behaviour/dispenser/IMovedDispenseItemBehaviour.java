@@ -178,7 +178,7 @@ public interface IMovedDispenseItemBehaviour {
 					BlockState state = context.world.getBlockState(interactAt);
 					Block block = state.getBlock();
 					if (block instanceof BucketPickup) {
-						ItemStack bucket = ((BucketPickup) block).pickupBlock(context.world, interactAt, state);
+						ItemStack bucket = ((BucketPickup) block).pickupBlock(null, context.world, interactAt, state);
 						return placeItemInInventory(itemStack, bucket, context, pos, facing);
 					}
 					return super.dispenseStack(itemStack, context, pos, facing);

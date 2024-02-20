@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_stone_types_asurine",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_stone_types_asurine"
     ]
   ],
   "rewards": {

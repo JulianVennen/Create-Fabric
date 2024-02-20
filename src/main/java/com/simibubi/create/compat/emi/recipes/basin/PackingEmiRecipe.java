@@ -6,10 +6,11 @@ import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class PackingEmiRecipe extends BasinEmiRecipe {
+public class PackingEmiRecipe extends BasinEmiRecipe<BasinRecipe> {
 
-	public PackingEmiRecipe(BasinRecipe recipe) {
+	public PackingEmiRecipe(RecipeHolder<BasinRecipe> recipe) {
 		super(CreateEmiPlugin.PACKING, recipe, false);
 	}
 
@@ -17,7 +18,7 @@ public class PackingEmiRecipe extends BasinEmiRecipe {
 	public void addWidgets(WidgetHolder widgets) {
 		super.addWidgets(widgets);
 
-		HeatCondition requiredHeat = recipe.getRequiredHeat();
+		HeatCondition requiredHeat = recipe.value().getRequiredHeat();
 		if (requiredHeat != HeatCondition.NONE) {
 			CreateEmiAnimations.addBlazeBurner(widgets, widgets.getWidth() / 2 + 3, 55, requiredHeat.visualizeAsBlazeBurner());
 		}

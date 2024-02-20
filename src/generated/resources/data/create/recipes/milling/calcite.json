@@ -9,7 +9,10 @@
   "results": [
     {
       "chance": 0.75,
-      "item": "minecraft:bone_meal"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:bone_meal"
+      }
     }
   ]
 }

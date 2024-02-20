@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "byg:bulbis_stem"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "byg:stripped_bulbis_stem"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

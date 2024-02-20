@@ -8,18 +8,22 @@
     }
   ],
   "type": "create:emptying",
-  "ingredients": [
+  "fluidResults": [
     {
-      "item": "farmersdelight:milk_bottle"
+      "Amount": 27000,
+      "FluidName": "milk:still_milk"
     }
+  ],
+  "ingredients": [
+    []
   ],
   "results": [
     {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "milk:still_milk"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:glass_bottle"
+      }
     }
   ]
 }

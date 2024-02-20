@@ -255,7 +255,7 @@ public class SubMenuConfigScreen extends ConfigScreen {
 		search = new ConfigTextField(font, width / 2 - listWidth / 2, height - 35, listWidth, 20);
 		search.setResponder(this::updateFilter);
 		search.setHint("Search...");
-		search.moveCursorToStart();
+		search.moveCursorToStart(true);
 		addRenderableWidget(search);
 
 		configGroup.valueMap().forEach((key, obj) -> {

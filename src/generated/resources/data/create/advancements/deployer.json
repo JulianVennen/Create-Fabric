@@ -2,7 +2,6 @@
   "parent": "create:rose_quartz",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:deployer_builtin"
     }
   },

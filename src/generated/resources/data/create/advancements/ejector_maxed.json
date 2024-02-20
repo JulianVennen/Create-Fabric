@@ -2,7 +2,6 @@
   "parent": "create:windmill_maxed",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:ejector_maxed_builtin"
     }
   },

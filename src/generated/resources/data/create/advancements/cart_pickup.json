@@ -2,7 +2,6 @@
   "parent": "create:pulley_maxed",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:cart_pickup_builtin"
     }
   },

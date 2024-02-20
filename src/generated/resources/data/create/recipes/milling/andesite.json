@@ -8,7 +8,11 @@
   "processingTime": 200,
   "results": [
     {
-      "item": "minecraft:cobblestone"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:cobblestone"
+      }
     }
   ]
 }

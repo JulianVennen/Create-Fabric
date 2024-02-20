@@ -4,7 +4,7 @@ import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.block.IBE;
-import io.github.fabricators_of_create.porting_lib.block.ConnectableRedstoneBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.ConnectableRedstoneBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

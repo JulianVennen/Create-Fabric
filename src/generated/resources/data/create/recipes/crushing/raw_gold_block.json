@@ -8,13 +8,18 @@
   "processingTime": 400,
   "results": [
     {
-      "count": 9,
-      "item": "create:crushed_raw_gold"
+      "chance": 1.0,
+      "item": {
+        "Count": 9,
+        "id": "create:crushed_raw_gold"
+      }
     },
     {
       "chance": 0.75,
-      "count": 18,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 18,
+        "id": "create:experience_nugget"
+      }
     }
   ]
 }

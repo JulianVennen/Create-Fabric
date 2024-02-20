@@ -8,11 +8,10 @@ import com.simibubi.create.content.logistics.filter.FilterItem;
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.util.MultiItemValue;
+// import io.github.fabricators_of_create.porting_lib.util.MultiItemValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -118,8 +117,8 @@ public class BlueprintItem extends Item {
 				return itemStack;
 		}
 
-		if (itemList instanceof TagValue) {
-			ResourceLocation resourcelocation = new ResourceLocation(GsonHelper.getAsString(itemList.serialize(), "tag"));
+		if (itemList instanceof TagValue x) {
+			ResourceLocation resourcelocation = x.tag().location();
 			ItemStack filterItem = AllItems.ATTRIBUTE_FILTER.asStack();
 			filterItem.getOrCreateTag()
 					.putInt("WhitelistMode", WhitelistMode.WHITELIST_DISJ.ordinal());
@@ -134,7 +133,7 @@ public class BlueprintItem extends Item {
 			return filterItem;
 		}
 
-		if (itemList instanceof MultiItemValue) {
+		/*if (itemList instanceof MultiItemValue) {
 			ItemStack result = AllItems.FILTER.asStack();
 			ItemStackHandler filterItems = FilterItem.getFilterItems(result);
 			int i = 0;
@@ -147,7 +146,7 @@ public class BlueprintItem extends Item {
 			tag.put("Items", filterItems.serializeNBT());
 			tag.putBoolean("RespectNBT", true);
 			return result;
-		}
+		}*/
 
 		return ItemStack.EMPTY;
 	}

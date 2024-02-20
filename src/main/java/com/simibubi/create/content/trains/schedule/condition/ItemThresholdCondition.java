@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Lang;
 
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -71,7 +71,7 @@ public class ItemThresholdCondition extends CargoThresholdCondition {
 	@Override
 	protected void writeAdditional(CompoundTag tag) {
 		super.writeAdditional(tag);
-		tag.put("Item", NBTSerializer.serializeNBTCompound(stack));
+		// tag.put("Item", NBTSerializer.serializeNBTCompound(stack));
 	}
 
 	@Override

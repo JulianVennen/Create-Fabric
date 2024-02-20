@@ -11,7 +11,11 @@
   "keepHeldItem": true,
   "results": [
     {
-      "item": "create:waxed_oxidized_copper_shingles"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:waxed_oxidized_copper_shingles"
+      }
     }
   ]
 }

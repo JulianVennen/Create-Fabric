@@ -2,7 +2,6 @@
   "parent": "create:encased_fan",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:fan_processing_builtin"
     }
   },

@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.simibubi.create.AllDamageTypes;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllRecipeTypes;
@@ -25,7 +27,7 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 import io.github.fabricators_of_create.porting_lib.util.ItemStackUtil;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -317,17 +319,16 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 	}
 
 	public Optional<ProcessingRecipe<Container>> findRecipe() {
-		Optional<ProcessingRecipe<Container>> crushingRecipe = AllRecipeTypes.CRUSHING.find(inventory, level);
-		if (!crushingRecipe.isPresent())
-			crushingRecipe = AllRecipeTypes.MILLING.find(inventory, level);
-		return crushingRecipe;
+		Optional<RecipeHolder<ProcessingRecipe<Container>>> crushingRecipe = AllRecipeTypes.CRUSHING.find(inventory, level);
+		crushingRecipe.or(() -> AllRecipeTypes.MILLING.find(inventory, level));
+		return crushingRecipe.map(RecipeHolder::value);
 	}
 
 	@Override
 	public void write(CompoundTag compound, boolean clientPacket) {
 		if (hasEntity())
 			compound.put("Entity", NbtUtils.createUUID(entityUUID));
-		compound.put("Inventory", NBTSerializer.serializeNBT(inventory));
+		// compound.put("Inventory", NBTSerializer.serializeNBT(inventory));
 		compound.putFloat("Speed", crushingspeed);
 		super.write(compound, clientPacket);
 	}

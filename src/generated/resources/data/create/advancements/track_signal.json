@@ -2,7 +2,6 @@
   "parent": "create:conductor",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:track_signal_builtin"
     }
   },

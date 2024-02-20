@@ -15,8 +15,11 @@
   ],
   "results": [
     {
-      "count": 9,
-      "item": "thermal:lead_nugget"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

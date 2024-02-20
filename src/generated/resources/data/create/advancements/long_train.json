@@ -2,7 +2,6 @@
   "parent": "create:track_crafting_factory",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:long_train_builtin"
     }
   },

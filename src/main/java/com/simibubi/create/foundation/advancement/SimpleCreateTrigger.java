@@ -1,6 +1,7 @@
 package com.simibubi.create.foundation.advancement;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
@@ -9,9 +10,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.gson.JsonObject;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 @MethodsReturnNonnullByDefault
@@ -24,7 +24,7 @@ public class SimpleCreateTrigger extends CriterionTriggerBase<SimpleCreateTrigge
 
 	@Override
 	public Instance createInstance(JsonObject json, DeserializationContext context) {
-		return new Instance(getId());
+		return new Instance();
 	}
 
 	public void trigger(ServerPlayer player) {
@@ -32,13 +32,17 @@ public class SimpleCreateTrigger extends CriterionTriggerBase<SimpleCreateTrigge
 	}
 
 	public Instance instance() {
-		return new Instance(getId());
+		return new Instance();
+	}
+
+	public Criterion<Instance> criterion() {
+		return new Criterion<>(this, instance());
 	}
 
 	public static class Instance extends CriterionTriggerBase.Instance {
 
-		public Instance(ResourceLocation idIn) {
-			super(idIn, ContextAwarePredicate.ANY);
+		public Instance() {
+			super(Optional.empty());
 		}
 
 		@Override

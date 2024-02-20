@@ -12,11 +12,12 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public abstract class FanEmiRecipe<T extends Recipe<?>> extends CreateEmiRecipe<T> {
 	protected static final int SCALE = 24;
 
-	public FanEmiRecipe(EmiRecipeCategory type, T recipe) {
+	public FanEmiRecipe(EmiRecipeCategory type, RecipeHolder<T> recipe) {
 		super(type, recipe, 134, 76);
 	}
 
@@ -42,7 +43,7 @@ public abstract class FanEmiRecipe<T extends Recipe<?>> extends CreateEmiRecipe<
 
 	public static abstract class MultiOutput<T extends ProcessingRecipe<?>> extends FanEmiRecipe<T> {
 
-		public MultiOutput(EmiRecipeCategory type, T recipe) {
+		public MultiOutput(EmiRecipeCategory type, RecipeHolder<T> recipe) {
 			super(type, recipe);
 			if (output.size() > 1) {
 				width = 178;

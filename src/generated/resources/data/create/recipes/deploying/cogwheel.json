@@ -10,7 +10,11 @@
   ],
   "results": [
     {
-      "item": "create:cogwheel"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:cogwheel"
+      }
     }
   ]
 }

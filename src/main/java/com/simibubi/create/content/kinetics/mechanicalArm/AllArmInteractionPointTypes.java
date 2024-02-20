@@ -3,6 +3,8 @@ package com.simibubi.create.content.kinetics.mechanicalArm;
 import java.util.Optional;
 import java.util.function.Function;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import com.simibubi.create.AllBlocks;
@@ -553,7 +555,7 @@ public class AllArmInteractionPointTypes {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
 			if (!(blockEntity instanceof CampfireBlockEntity campfireBE))
 				return stack;
-			Optional<CampfireCookingRecipe> recipe = campfireBE.getCookableRecipe(stack);
+			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = campfireBE.getCookableRecipe(stack);
 			if (recipe.isEmpty())
 				return stack;
 			boolean hasSpace = false;
@@ -566,7 +568,7 @@ public class AllArmInteractionPointTypes {
 			if (!hasSpace)
 				return stack;
 			ItemStack inserted = ItemHandlerHelper.copyStackWithSize(stack, 1);
-			TransactionCallback.onSuccess(ctx, () -> campfireBE.placeFood(null, inserted, recipe.get().getCookingTime()));
+			TransactionCallback.onSuccess(ctx, () -> campfireBE.placeFood(null, inserted, recipe.get().value().getCookingTime()));
 			ItemStack remainder = stack.copy();
 			remainder.shrink(1);
 			return remainder;

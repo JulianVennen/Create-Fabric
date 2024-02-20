@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderHandCallback.RenderHandEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderHandCallback.RenderHandEvent;
 import io.github.fabricators_of_create.porting_lib.util.FirstPersonRendererHelper;
 
 import net.minecraft.client.Minecraft;
@@ -62,7 +62,7 @@ public class ExtendoGripRenderHandler {
 		PoseStack ms = event.getPoseStack();
 		TransformStack msr = TransformStack.cast(ms);
 		AbstractClientPlayer abstractclientplayerentity = mc.player;
-		RenderSystem.setShaderTexture(0, abstractclientplayerentity.getSkinTextureLocation());
+		RenderSystem.setShaderTexture(0, abstractclientplayerentity.getSkin().texture());
 
 		float flip = rightHand ? 1.0F : -1.0F;
 		float swingProgress = event.getSwingProgress();

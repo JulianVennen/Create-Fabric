@@ -8,19 +8,32 @@
   "processingTime": 250,
   "results": [
     {
-      "item": "create:crushed_raw_iron"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:crushed_raw_iron"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:crushed_raw_iron"
+      "item": {
+        "Count": 1,
+        "id": "create:crushed_raw_iron"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:experience_nugget"
+      }
     },
     {
       "chance": 0.125,
-      "item": "minecraft:cobblestone"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:cobblestone"
+      }
     }
   ]
 }

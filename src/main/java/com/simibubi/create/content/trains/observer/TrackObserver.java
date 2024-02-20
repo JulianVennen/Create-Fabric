@@ -13,7 +13,7 @@ import com.simibubi.create.content.trains.signal.SingleBlockEntityEdgePoint;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
@@ -100,7 +100,7 @@ public class TrackObserver extends SingleBlockEntityEdgePoint {
 	public void write(CompoundTag nbt, DimensionPalette dimensions) {
 		super.write(nbt, dimensions);
 		nbt.putInt("Activated", activated);
-		nbt.put("Filter", NBTSerializer.serializeNBTCompound(filter));
+		//nbt.put("Filter", NBTSerializer.serializeNBTCompound(filter));
 		if (currentTrain != null)
 			nbt.putUUID("TrainId", currentTrain);
 	}

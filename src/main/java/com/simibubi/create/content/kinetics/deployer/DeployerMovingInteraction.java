@@ -13,7 +13,7 @@ import com.simibubi.create.content.contraptions.behaviour.MovingInteractionBehav
 import com.simibubi.create.content.contraptions.mounted.MountedContraption;
 import com.simibubi.create.foundation.utility.NBTHelper;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
@@ -64,8 +64,8 @@ public class DeployerMovingInteraction extends MovingInteractionBehaviour {
 			ItemStack deployerItem = fake.getMainHandItem();
 			player.setItemInHand(activeHand, deployerItem.copy());
 			fake.setItemInHand(InteractionHand.MAIN_HAND, heldStack.copy());
-			ctx.blockEntityData.put("HeldItem", NBTSerializer.serializeNBT(heldStack));
-			ctx.data.put("HeldItem", NBTSerializer.serializeNBT(heldStack));
+			// ctx.blockEntityData.put("HeldItem", NBTSerializer.serializeNBT(heldStack));
+			// ctx.data.put("HeldItem", NBTSerializer.serializeNBT(heldStack));
 		}
 //		if (index >= 0)
 //			setContraptionActorData(contraptionEntity, index, info, ctx);

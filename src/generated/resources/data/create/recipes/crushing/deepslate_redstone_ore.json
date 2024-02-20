@@ -8,20 +8,32 @@
   "processingTime": 350,
   "results": [
     {
-      "count": 7,
-      "item": "minecraft:redstone"
+      "chance": 1.0,
+      "item": {
+        "Count": 7,
+        "id": "minecraft:redstone"
+      }
     },
     {
       "chance": 0.5,
-      "item": "minecraft:redstone"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:redstone"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:experience_nugget"
+      }
     },
     {
       "chance": 0.125,
-      "item": "minecraft:cobbled_deepslate"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:cobbled_deepslate"
+      }
     }
   ]
 }

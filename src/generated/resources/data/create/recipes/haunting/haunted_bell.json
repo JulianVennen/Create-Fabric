@@ -7,7 +7,11 @@
   ],
   "results": [
     {
-      "item": "create:haunted_bell"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:haunted_bell"
+      }
     }
   ]
 }

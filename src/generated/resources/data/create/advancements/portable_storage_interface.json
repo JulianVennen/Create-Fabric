@@ -2,7 +2,6 @@
   "parent": "create:contraption_actors",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:portable_storage_interface_builtin"
     }
   },

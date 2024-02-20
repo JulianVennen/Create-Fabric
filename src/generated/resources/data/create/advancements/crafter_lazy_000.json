@@ -2,7 +2,6 @@
   "parent": "create:mechanical_crafter",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:crafter_lazy_000_builtin"
     }
   },

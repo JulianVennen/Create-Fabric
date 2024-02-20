@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 
+import com.mojang.serialization.Codec;
 import com.simibubi.create.Create;
 
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
@@ -61,6 +62,7 @@ public class BlockTagIngredient implements CustomIngredient {
 	public static class Serializer implements CustomIngredientSerializer<BlockTagIngredient> {
 		public static final ResourceLocation ID = Create.asResource("block_tag_ingredient");
 		public static final Serializer INSTANCE = new Serializer();
+		public static final Codec<BlockTagIngredient> CODEC = TagKey.codec(Registries.BLOCK).xmap(BlockTagIngredient::create, BlockTagIngredient::getTag);
 
 		@Override
 		public ResourceLocation getIdentifier() {
@@ -68,15 +70,8 @@ public class BlockTagIngredient implements CustomIngredient {
 		}
 
 		@Override
-		public BlockTagIngredient read(JsonObject json) {
-			ResourceLocation rl = new ResourceLocation(GsonHelper.getAsString(json, "tag"));
-			TagKey<Block> tag = TagKey.create(Registries.BLOCK, rl);
-			return new BlockTagIngredient(tag);
-		}
-
-		@Override
-		public void write(JsonObject json, BlockTagIngredient ingredient) {
-			json.addProperty("tag", ingredient.tag.location().toString());
+		public Codec<BlockTagIngredient> getCodec(boolean allowEmpty) {
+			return CODEC;
 		}
 
 		@Override

@@ -11,7 +11,11 @@
   "keepHeldItem": true,
   "results": [
     {
-      "item": "minecraft:waxed_weathered_copper"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:waxed_weathered_copper"
+      }
     }
   ]
 }

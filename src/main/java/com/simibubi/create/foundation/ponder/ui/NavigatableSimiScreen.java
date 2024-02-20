@@ -126,24 +126,24 @@ public abstract class NavigatableSimiScreen extends AbstractSimiScreen {
 		}
 
 		if (transition.getChaseTarget() == 0 || transition.settled()) {
-			renderBackground(graphics);
+			renderBackground(graphics, mouseX, mouseY, partialTicks);
 			return;
 		}
 
-		renderBackground(graphics);
+		renderBackground(graphics, mouseX, mouseY, partialTicks);
 
 		PoseStack ms = graphics.pose();
-		
+
 //		Screen lastScreen = ScreenOpener.getPreviouslyRenderedScreen();
 		float transitionValue = transition.getValue(partialTicks);
 		float scale = 1 + 0.5f * transitionValue;
 
-		
+
 		/*
 		 * Looks like this stopped working sometime before 1.18
 		 * Now commented as it does mess with the background alpha since 1.20
 		 */
-		
+
 		// draw last screen into buffer
 //		if (lastScreen != null && lastScreen != this && !transition.settled()) {
 //			ms.pushPose();

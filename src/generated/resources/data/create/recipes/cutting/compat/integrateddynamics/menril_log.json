@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "integrateddynamics:menril_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "integrateddynamics:menril_log_stripped"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

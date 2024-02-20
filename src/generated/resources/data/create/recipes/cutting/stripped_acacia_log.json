@@ -8,8 +8,11 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "minecraft:acacia_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 6,
+        "id": "minecraft:acacia_planks"
+      }
     }
   ]
 }

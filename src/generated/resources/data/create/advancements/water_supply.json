@@ -2,7 +2,6 @@
   "parent": "create:glass_pipe",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:water_supply_builtin"
     }
   },

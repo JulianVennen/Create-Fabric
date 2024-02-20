@@ -2,7 +2,6 @@
   "parent": "create:copper",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:mechanical_pump_0_builtin"
     }
   },

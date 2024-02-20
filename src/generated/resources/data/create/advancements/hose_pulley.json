@@ -2,7 +2,6 @@
   "parent": "create:water_supply",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:hose_pulley_builtin"
     }
   },

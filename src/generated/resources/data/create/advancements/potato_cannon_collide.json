@@ -2,7 +2,6 @@
   "parent": "create:arm_many_targets",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:potato_cannon_collide_builtin"
     }
   },

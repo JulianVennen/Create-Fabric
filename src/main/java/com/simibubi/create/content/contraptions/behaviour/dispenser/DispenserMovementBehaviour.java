@@ -8,8 +8,10 @@ import com.simibubi.create.foundation.mixin.accessor.DispenserBlockAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -72,7 +74,8 @@ public class DispenserMovementBehaviour extends DropperMovementBehaviour {
 				facingVec = context.rotation.apply(facingVec);
 				facingVec.normalize();
 				Direction clostestFacing = Direction.getNearest(facingVec.x, facingVec.y, facingVec.z);
-				ContraptionBlockSource blockSource = new ContraptionBlockSource(context, pos, clostestFacing);
+				ServerLevel level = context.world.getServer() != null ? context.world.getServer().getLevel(context.world.dimension()) : null;
+				BlockSource blockSource = new BlockSource(level, pos, context.state, null);
 
 				if (behavior.getClass() != DefaultDispenseItemBehavior.class) { // There is a dispense item behaviour registered for the vanilla dispenser
 					setItemStackAt(location, behavior.dispense(blockSource, itemStack), context);

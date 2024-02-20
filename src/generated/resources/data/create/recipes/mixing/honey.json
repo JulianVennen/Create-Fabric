@@ -1,15 +1,16 @@
 {
   "type": "create:mixing",
+  "fluidResults": [
+    {
+      "Amount": 81000,
+      "FluidName": "create:honey"
+    }
+  ],
   "heatRequirement": "heated",
   "ingredients": [
     {
       "item": "minecraft:honey_block"
     }
   ],
-  "results": [
-    {
-      "amount": 81000,
-      "fluid": "create:honey"
-    }
-  ]
+  "results": []
 }

@@ -71,7 +71,7 @@ public class ConfigModListScreen extends ConfigScreen {
 		search = new HintableTextFieldWidget(font, width / 2 - listWidth / 2, height - 35, listWidth, 20);
 		search.setResponder(this::updateFilter);
 		search.setHint("Search...");
-		search.moveCursorToStart();
+		search.moveCursorToStart(true);
 		addRenderableWidget(search);
 	}
 

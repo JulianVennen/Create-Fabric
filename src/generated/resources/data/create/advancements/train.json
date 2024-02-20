@@ -2,7 +2,6 @@
   "parent": "create:train_casing_00",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:train_builtin"
     }
   },

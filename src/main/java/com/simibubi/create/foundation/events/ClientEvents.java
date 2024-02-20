@@ -73,20 +73,18 @@ import com.simibubi.create.foundation.utility.worldWrappers.WrappedClientWorld;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.gui.OpenCreateMenuButton;
 
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.CameraSetupCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ClientWorldEvents;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.DrawSelectionEvents;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.FogEvents;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.InteractEvents;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ParticleManagerRegistrationCallback;
 import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderArmCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderHandCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderTickStartCallback;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.RenderTooltipBorderColorCallback;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityMountEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.CameraSetupCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.CameraSetupCallback.CameraInfo;
-import io.github.fabricators_of_create.porting_lib.event.client.ClientWorldEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.DrawSelectionEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
-import io.github.fabricators_of_create.porting_lib.event.client.InteractEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.ParticleManagerRegistrationCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderHandCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderTickStartCallback;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderTooltipBorderColorCallback;
 import io.github.fabricators_of_create.porting_lib.event.common.AttackAirCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
@@ -252,7 +250,7 @@ public class ClientEvents {
 		ms.popPose();
 	}
 
-	public static boolean onCameraSetup(CameraInfo info) {
+	public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
 		float partialTicks = AnimationTickHolder.getPartialTicks();
 
 		if (CameraAngleAnimationService.isYawAnimating())
@@ -343,7 +341,7 @@ public class ClientEvents {
 		return false;
 	}
 
-	public static void getFogColor(ColorData event, float partialTicks) {
+	public static void getFogColor(FogEvents.ColorData event, float partialTicks) {
 		Camera info = event.getCamera();
 		Level level = Minecraft.getInstance().level;
 		BlockPos blockPos = info.getBlockPosition();

@@ -4,69 +4,95 @@
     "tag": "create:sleepers"
   },
   "loops": 1,
-  "results": [
+  "resultPool": [
     {
-      "item": "create:track"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:track"
+      }
     }
   ],
   "sequence": [
     {
       "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "create:incomplete_track"
-        },
-        [
+      "value": {
+        "ingredients": [
           {
-            "tag": "c:iron_nuggets"
+            "item": "create:incomplete_track"
           },
+          [
+            {
+              "tag": "c:iron_nuggets"
+            },
+            {
+              "tag": "c:zinc_nuggets"
+            }
+          ]
+        ],
+        "results": [
           {
-            "tag": "c:zinc_nuggets"
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_track"
+            }
           }
         ]
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_track"
-        }
-      ]
+      }
     },
     {
       "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "create:incomplete_track"
-        },
-        [
+      "value": {
+        "ingredients": [
           {
-            "tag": "c:iron_nuggets"
+            "item": "create:incomplete_track"
           },
+          [
+            {
+              "tag": "c:iron_nuggets"
+            },
+            {
+              "tag": "c:zinc_nuggets"
+            }
+          ]
+        ],
+        "results": [
           {
-            "tag": "c:zinc_nuggets"
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_track"
+            }
           }
         ]
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_track"
-        }
-      ]
+      }
     },
     {
       "type": "create:pressing",
-      "ingredients": [
-        {
-          "item": "create:incomplete_track"
-        }
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_track"
-        }
-      ]
+      "value": {
+        "ingredients": [
+          {
+            "item": "create:incomplete_track"
+          }
+        ],
+        "results": [
+          {
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_track"
+            }
+          }
+        ]
+      }
     }
   ],
   "transitionalItem": {
-    "item": "create:incomplete_track"
+    "chance": 1.0,
+    "item": {
+      "Count": 1,
+      "id": "create:incomplete_track"
+    }
   }
 }

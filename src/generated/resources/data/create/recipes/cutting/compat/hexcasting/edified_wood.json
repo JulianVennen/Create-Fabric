@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "hexcasting:edified_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "hexcasting:stripped_edified_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

@@ -1,5 +1,17 @@
 {
   "type": "create:mixing",
+  "fluidIngredients": [
+    {
+      "amount": 27000,
+      "fluidTag": "c:milk"
+    }
+  ],
+  "fluidResults": [
+    {
+      "Amount": 27000,
+      "FluidName": "create:chocolate"
+    }
+  ],
   "heatRequirement": "heated",
   "ingredients": [
     {
@@ -7,16 +19,7 @@
     },
     {
       "item": "minecraft:cocoa_beans"
-    },
-    {
-      "amount": 27000,
-      "fluidTag": "c:milk"
     }
   ],
-  "results": [
-    {
-      "amount": 27000,
-      "fluid": "create:chocolate"
-    }
-  ]
+  "results": []
 }

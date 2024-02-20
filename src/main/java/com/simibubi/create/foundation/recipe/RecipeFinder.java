@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 /**
@@ -30,7 +31,7 @@ import net.minecraft.world.level.Level;
  */
 public class RecipeFinder {
 
-	private static Cache<Object, List<Recipe<?>>> cachedSearches = CacheBuilder.newBuilder().build();
+	private static Cache<Object, List<RecipeHolder<?>>> cachedSearches = CacheBuilder.newBuilder().build();
 
 	/**
 	 * Find all IRecipes matching the condition predicate. If this search is made
@@ -42,7 +43,7 @@ public class RecipeFinder {
 	 * @param conditions
 	 * @return A started search to continue with more specific conditions.
 	 */
-	public static List<Recipe<?>> get(@Nullable Object cacheKey, Level world, Predicate<Recipe<?>> conditions) {
+	public static List<RecipeHolder<?>> get(@Nullable Object cacheKey, Level world, Predicate<RecipeHolder<?>> conditions) {
 		if (cacheKey == null)
 			return startSearch(world, conditions);
 
@@ -55,10 +56,9 @@ public class RecipeFinder {
 		return Collections.emptyList();
 	}
 
-	private static List<Recipe<?>> startSearch(Level world, Predicate<? super Recipe<?>> conditions) {
-		List<Recipe<?>> list = world.getRecipeManager().getRecipes().stream().filter(conditions)
+	private static List<RecipeHolder<?>> startSearch(Level world, Predicate<? super RecipeHolder<?>> conditions) {
+		return world.getRecipeManager().getRecipes().stream().filter(conditions)
 				.collect(Collectors.toList());
-		return list;
 	}
 
 	public static final IdentifiableResourceReloadListener LISTENER = new SimpleSynchronousResourceReloadListener() {

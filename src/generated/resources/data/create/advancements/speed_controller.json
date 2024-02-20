@@ -2,7 +2,6 @@
   "parent": "create:precision_mechanism",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:speed_controller_builtin"
     }
   },

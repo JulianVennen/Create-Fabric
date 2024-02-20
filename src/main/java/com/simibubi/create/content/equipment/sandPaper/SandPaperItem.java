@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.utility.VecHelper;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.AxeItemAccessor;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -69,8 +69,8 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			ItemStack item = itemInOtherHand.copy();
 			ItemStack toPolish = item.split(1);
 			playerIn.startUsingItem(handIn);
-			itemstack.getOrCreateTag()
-				.put("Polishing", NBTSerializer.serializeNBT(toPolish));
+/*			itemstack.getOrCreateTag()
+				.put("Polishing", NBTSerializer.serializeNBT(toPolish));*/
 			playerIn.setItemInHand(otherHand, item);
 			return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 		}
@@ -106,8 +106,8 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		playerIn.startUsingItem(handIn);
 
 		if (!worldIn.isClientSide) {
-			itemstack.getOrCreateTag()
-				.put("Polishing", NBTSerializer.serializeNBT(toPolish));
+			/*itemstack.getOrCreateTag()
+				.put("Polishing", NBTSerializer.serializeNBT(toPolish));*/
 			if (item.isEmpty())
 				pickUp.discard();
 			else

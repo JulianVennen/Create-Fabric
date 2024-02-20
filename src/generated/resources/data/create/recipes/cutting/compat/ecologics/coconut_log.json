@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "ecologics:coconut_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "ecologics:stripped_coconut_log"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

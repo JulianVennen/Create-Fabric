@@ -1,5 +1,11 @@
 {
   "type": "create:emptying",
+  "fluidResults": [
+    {
+      "Amount": 27000,
+      "FluidName": "create:tea"
+    }
+  ],
   "ingredients": [
     {
       "item": "create:builders_tea"
@@ -7,11 +13,11 @@
   ],
   "results": [
     {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "create:tea"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:glass_bottle"
+      }
     }
   ]
 }

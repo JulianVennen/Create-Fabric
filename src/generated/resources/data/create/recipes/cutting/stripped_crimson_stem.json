@@ -8,8 +8,11 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "minecraft:crimson_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 6,
+        "id": "minecraft:crimson_planks"
+      }
     }
   ]
 }

@@ -128,7 +128,7 @@ public class PonderRegistry {
 		StructureTemplate t = new StructureTemplate();
 		DataInputStream stream =
 				new DataInputStream(new BufferedInputStream(new GZIPInputStream(resourceStream)));
-		CompoundTag nbt = NbtIo.read(stream, new NbtAccounter(0x20000000L));
+		CompoundTag nbt = NbtIo.read(stream, NbtAccounter.create(0x20000000L));
 		t.load(Minecraft.getInstance().level.holderLookup(Registries.BLOCK), nbt);
 		return t;
 	}

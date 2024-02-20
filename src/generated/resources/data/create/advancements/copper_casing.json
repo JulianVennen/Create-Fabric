@@ -2,7 +2,6 @@
   "parent": "create:copper",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:copper_casing_builtin"
     }
   },

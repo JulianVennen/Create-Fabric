@@ -19,6 +19,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class SequencedAssemblyEmiRecipe extends CreateEmiRecipe<SequencedAssemblyRecipe> {
 	public static final String[] ROMAN = {
@@ -28,9 +29,9 @@ public class SequencedAssemblyEmiRecipe extends CreateEmiRecipe<SequencedAssembl
 	private final int margin = 3;
 	private int width;
 
-	public SequencedAssemblyEmiRecipe(SequencedAssemblyRecipe recipe) {
+	public SequencedAssemblyEmiRecipe(RecipeHolder<SequencedAssemblyRecipe> recipe) {
 		super(CreateEmiPlugin.SEQUENCED_ASSEMBLY, recipe, 180, 120);
-		for (SequencedRecipe<?> r : recipe.getSequence()) {
+		for (SequencedRecipe<?> r : recipe.value().getSequence()) {
 			width += getSubCategory(r).getWidth() + margin;
 		}
 		width -= margin;
@@ -43,17 +44,17 @@ public class SequencedAssemblyEmiRecipe extends CreateEmiRecipe<SequencedAssembl
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		int xOff = recipe.getOutputChance() == 1 ? 0 : -7;
+		int xOff = recipe.value().getOutputChance() == 1 ? 0 : -7;
 		int mid = widgets.getWidth() / 2;
 
 		addTexture(widgets, AllGuiTextures.JEI_LONG_ARROW, mid - 38 + xOff, 94);
 
 		widgets.addDrawable(mid - 38 + xOff, 94, AllGuiTextures.JEI_LONG_ARROW.width, 20, (matrices, mx, my, delta) -> {})
 			.tooltip((mouseX, mouseY) -> List.of(ClientTooltipComponent.create(
-				Lang.translateDirect("recipe.assembly.repeat", recipe.getLoops()).getVisualOrderText())));
+				Lang.translateDirect("recipe.assembly.repeat", recipe.value().getLoops()).getVisualOrderText())));
 
-		if (recipe.getOutputChance() != 1) {
-			float chance = recipe.getOutputChance();
+		if (recipe.value().getOutputChance() != 1) {
+			float chance = recipe.value().getOutputChance();
 			addTexture(widgets, AllGuiTextures.JEI_CHANCE_SLOT, mid + 60 + xOff, 90)
 				.tooltip((mouseX, mouseY) -> List.of(
 					ClientTooltipComponent.create(Lang.translateDirect("recipe.assembly.junk").getVisualOrderText()),
@@ -62,14 +63,14 @@ public class SequencedAssemblyEmiRecipe extends CreateEmiRecipe<SequencedAssembl
 				));
 		}
 
-		addSlot(widgets, EmiIngredient.of(recipe.getIngredient()), mid - 64 + xOff, 90);
+		addSlot(widgets, EmiIngredient.of(recipe.value().getIngredient()), mid - 64 + xOff, 90);
 
 		addSlot(widgets, output.get(0), mid + 41 + xOff, 90).recipeContext(this);
 
 		int sx = width / -2 + mid;
 		int x = sx;
 		int index = 0;
-		for (SequencedRecipe<?> recipe : recipe.getSequence()) {
+		for (SequencedRecipe<?> recipe : recipe.value().getSequence()) {
 			EmiSequencedAssemblySubCategory category = getSubCategory(recipe);
 			category.addWidgets(widgets, x, 0, recipe, index++);
 			x += category.getWidth() + margin;
@@ -80,23 +81,23 @@ public class SequencedAssemblyEmiRecipe extends CreateEmiRecipe<SequencedAssembl
 			Minecraft client = Minecraft.getInstance();
 			matrices.pushPose();
 			matrices.translate(0, 15, 0);
-			if (recipe.getOutputChance() != 1) {
+			if (recipe.value().getOutputChance() != 1) {
 				graphics.drawString(client.font, "?", mid + 69 + xOff - client.font.width("?") / 2, 80, 0xefefef, true);
 			}
 
-			if (recipe.getLoops() > 1) {
+			if (recipe.value().getLoops() > 1) {
 				matrices.pushPose();
 				matrices.translate(15, 9, 0);
 				AllIcons.I_SEQ_REPEAT.render(graphics, mid - 40 + xOff, 75);
-				graphics.drawString(client.font, "x" + recipe.getLoops(), mid - 24 + xOff, 80, 0x888888, true);
+				graphics.drawString(client.font, "x" + recipe.value().getLoops(), mid - 24 + xOff, 80, 0x888888, true);
 				matrices.popPose();
 			}
 			matrices.popPose();
 
 			int cx = sx;
-			for (int i = 0; i < recipe.getSequence().size(); i++) {
+			for (int i = 0; i < recipe.value().getSequence().size(); i++) {
 				String text = ROMAN[Math.min(i, ROMAN.length)];
-				int w = getSubCategory(recipe.getSequence().get(i)).getWidth();
+				int w = getSubCategory(recipe.value().getSequence().get(i)).getWidth();
 				int off = w / 2 - client.font.width(text) / 2;
 				graphics.drawString(client.font, text, cx + off, 2, 0x888888, true);
 				cx += w + margin;

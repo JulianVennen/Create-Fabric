@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.utility.NBTHelper;
 
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -190,7 +190,7 @@ public class MountedStorage {
 			return tag;
 
 		NBTHelper.putMarker(tag, "Bottomless");
-		tag.put("ProvidedStack", NBTSerializer.serializeNBT(handler.getStackInSlot(0)));
+		//tag.put("ProvidedStack", NBTSerializer.serializeNBT(handler.getStackInSlot(0)));
 		return tag;
 	}
 

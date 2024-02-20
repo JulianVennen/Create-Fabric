@@ -359,8 +359,8 @@ public class ClipboardScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
-		changePage(pDelta < 0);
+	public boolean mouseScrolled(double pMouseX, double pMouseY, double scrollX, double scrollY) {
+		changePage(scrollY < 0);
 		return true;
 	}
 

@@ -18,6 +18,7 @@
     "create:green_sail",
     "create:red_sail",
     "create:black_sail",
+    "#minecraft:wool",
     "#minecraft:wool"
   ]
 }

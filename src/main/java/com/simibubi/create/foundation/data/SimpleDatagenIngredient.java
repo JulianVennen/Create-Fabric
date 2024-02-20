@@ -20,7 +20,7 @@ public class SimpleDatagenIngredient extends Ingredient {
 	}
 
 	@Override
-	public JsonElement toJson() {
+	public JsonElement toJson(boolean allowEmpty) {
 		JsonObject jsonobject = new JsonObject();
 		jsonobject.addProperty("item", mod.asResource(id)
 			.toString());

@@ -10,7 +10,11 @@
   ],
   "results": [
     {
-      "item": "create:brass_casing"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:brass_casing"
+      }
     }
   ]
 }

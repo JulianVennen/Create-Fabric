@@ -3,7 +3,11 @@ package com.simibubi.create.foundation.data.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
+
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.AxeItemAccessor;
+
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -30,8 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class LogStrippingFakeRecipes {
 
-	public static List<ManualApplicationRecipe> createRecipes() {
-		List<ManualApplicationRecipe> recipes = new ArrayList<>();
+	public static List<RecipeHolder<? extends ItemApplicationRecipe>> createRecipes() {
+		List<RecipeHolder<? extends ItemApplicationRecipe>> recipes = new ArrayList<>();
 		if (!AllConfigs.server().recipes.displayLogStrippingRecipes.get())
 			return recipes;
 
@@ -45,7 +49,7 @@ public class LogStrippingFakeRecipes {
 		return recipes;
 	}
 
-	private static void process(Item item, List<ManualApplicationRecipe> list, ItemStack axe) {
+	private static void process(Item item, List<RecipeHolder<? extends ItemApplicationRecipe>> list, ItemStack axe) {
 		if (!(item instanceof BlockItem blockItem))
 			return;
 		BlockState state = blockItem.getBlock()
@@ -60,13 +64,13 @@ public class LogStrippingFakeRecipes {
 		list.add(create(item, resultItem, axe));
 	}
 
-	private static ManualApplicationRecipe create(Item fromItem, Item toItem, ItemStack axe) {
+	private static RecipeHolder<ManualApplicationRecipe> create(Item fromItem, Item toItem, ItemStack axe) {
 		ResourceLocation rn = RegisteredObjects.getKeyOrThrow(toItem);
-		return new ProcessingRecipeBuilder<>(ManualApplicationRecipe::new,
-			new ResourceLocation(rn.getNamespace(), rn.getPath() + "_via_vanilla_stripping")).require(fromItem)
+		return new ProcessingRecipeBuilder<>(ManualApplicationRecipe::new)
+				.require(fromItem)
 				.require(Ingredient.of(axe))
 				.output(toItem)
-				.build();
+				.build(new ResourceLocation(rn.getNamespace(), rn.getPath() + "_via_vanilla_stripping"));
 	}
 
 	@Nullable

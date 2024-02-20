@@ -31,6 +31,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -38,7 +39,6 @@ import net.minecraft.world.level.Level;
 
 public class SequencedAssemblyRecipe implements Recipe<Container> {
 
-	protected ResourceLocation id;
 	protected SequencedAssemblyRecipeSerializer serializer;
 
 	protected Ingredient ingredient;
@@ -49,8 +49,7 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 
 	public final List<ProcessingOutput> resultPool;
 
-	public SequencedAssemblyRecipe(ResourceLocation recipeId, SequencedAssemblyRecipeSerializer serializer) {
-		this.id = recipeId;
+	public SequencedAssemblyRecipe(SequencedAssemblyRecipeSerializer serializer) {
 		this.serializer = serializer;
 		sequence = new ArrayList<>();
 		resultPool = new ArrayList<>();
@@ -70,16 +69,16 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 
 	public static <R extends ProcessingRecipe<?>> Optional<R> getRecipe(Level world, ItemStack item,
 		RecipeType<R> type, Class<R> recipeClass) {
-		List<SequencedAssemblyRecipe> all = world.getRecipeManager()
+		List<RecipeHolder<SequencedAssemblyRecipe>> all = world.getRecipeManager()
 			.getAllRecipesFor(AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
-		for (SequencedAssemblyRecipe sequencedAssemblyRecipe : all) {
-			if (!sequencedAssemblyRecipe.appliesTo(item))
+		for (RecipeHolder<SequencedAssemblyRecipe> sequencedAssemblyRecipe : all) {
+			if (!sequencedAssemblyRecipe.value().appliesTo(item))
 				continue;
-			SequencedRecipe<?> nextRecipe = sequencedAssemblyRecipe.getNextRecipe(item);
+			SequencedRecipe<?> nextRecipe = sequencedAssemblyRecipe.value().getNextRecipe(item);
 			ProcessingRecipe<?> recipe = nextRecipe.getRecipe();
 			if (recipe.getType() != type || !recipeClass.isInstance(recipe))
 				continue;
-			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.advance(item));
+			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(item));
 			return Optional.of(recipeClass.cast(recipe));
 		}
 		return Optional.empty();
@@ -87,17 +86,17 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 
 	public static <R extends ProcessingRecipe<?>> Stream<R> getRecipes(Level world, ItemStack item,
 		RecipeType<R> type, Class<R> recipeClass) {
-		List<SequencedAssemblyRecipe> all = world.getRecipeManager()
+		List<RecipeHolder<SequencedAssemblyRecipe>> all = world.getRecipeManager()
 			.getAllRecipesFor(AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
 
 		return all.stream()
-				.filter(it -> it.appliesTo(item))
-				.map(it -> Pair.of(it, it.getNextRecipe(item).getRecipe()))
+				.filter(it -> it.value().appliesTo(item))
+				.map(it -> Pair.of(it, it.value().getNextRecipe(item).getRecipe()))
 				.filter(it -> it.getSecond()
 						.getType() == type && recipeClass.isInstance(it.getSecond()))
 				.map(it -> {
 					it.getSecond()
-							.enforceNextResult(() -> it.getFirst().advance(item));
+							.enforceNextResult(() -> it.getFirst().value().advance(item));
 					return it.getSecond();
 				})
 				.map(recipeClass::cast);
@@ -111,7 +110,6 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 		ItemStack advancedItem = ItemHandlerHelper.copyStackWithSize(getTransitionalItem(), 1);
 		CompoundTag itemTag = advancedItem.getOrCreateTag();
 		CompoundTag tag = new CompoundTag();
-		tag.putString("id", id.toString());
 		tag.putInt("Step", step + 1);
 		tag.putFloat("Progress", (step + 1f) / (sequence.size() * loops));
 		itemTag.put("SequencedAssembly", tag);
@@ -159,9 +157,10 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 		if (input.hasTag()) {
 			if (getTransitionalItem().getItem() == input.getItem()) {
 				if (input.getTag().contains("SequencedAssembly")) {
-					CompoundTag tag = input.getTag().getCompound("SequencedAssembly");
-					String id = tag.getString("id");
-					return id.equals(this.id.toString());
+					return true;
+//					CompoundTag tag = input.getTag().getCompound("SequencedAssembly");
+//					String id = tag.getString("id");
+//					return id.equals(this.id.toString());
 				}
 			}
 		}
@@ -213,11 +212,6 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
-	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return serializer;
 	}
@@ -240,11 +234,11 @@ public class SequencedAssemblyRecipe implements Recipe<Container> {
 		CompoundTag compound = stack.getTag()
 			.getCompound("SequencedAssembly");
 		ResourceLocation resourceLocation = new ResourceLocation(compound.getString("id"));
-		Optional<? extends Recipe<?>> optionalRecipe = Minecraft.getInstance().level.getRecipeManager()
+		Optional<RecipeHolder<?>> optionalRecipe = Minecraft.getInstance().level.getRecipeManager()
 			.byKey(resourceLocation);
 		if (!optionalRecipe.isPresent())
 			return;
-		Recipe<?> recipe = optionalRecipe.get();
+		Recipe<?> recipe = optionalRecipe.get().value();
 		if (!(recipe instanceof SequencedAssemblyRecipe))
 			return;
 

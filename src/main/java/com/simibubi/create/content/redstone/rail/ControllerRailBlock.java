@@ -7,7 +7,7 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.fabricators_of_create.porting_lib.block.MinecartPassHandlerBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.MinecartPassHandlerBlock;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
 
 import net.minecraft.MethodsReturnNonnullByDefault;

@@ -70,7 +70,7 @@ import com.simibubi.create.foundation.ponder.instruction.TextInstruction;
 import com.simibubi.create.foundation.utility.Color;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -575,7 +575,7 @@ public class SceneBuilder {
 		public void hideIndependentSectionImmediately(ElementLink<WorldSectionElement> link) {
 			addInstruction(new FadeOutOfSceneInstruction<>(0, Direction.DOWN, link));
 		}
-		
+
 
 		public void restoreBlocks(Selection selection) {
 			addInstruction(scene -> scene.getWorld()
@@ -818,7 +818,7 @@ public class SceneBuilder {
 
 		public void setFilterData(Selection selection, Class<? extends BlockEntity> teType, ItemStack filter) {
 			modifyBlockEntityNBT(selection, teType, nbt -> {
-				nbt.put("Filter", NBTSerializer.serializeNBT(filter));
+				// nbt.put("Filter", NBTSerializer.serializeNBT(filter));
 			});
 		}
 
@@ -850,7 +850,9 @@ public class SceneBuilder {
 			modifyBlockEntityNBT(scene.getSceneBuildingUtil().select.position(armLocation), ArmBlockEntity.class,
 				compound -> {
 					NBTHelper.writeEnum(compound, "Phase", phase);
+/*
 					compound.put("HeldItem", NBTSerializer.serializeNBT(heldItem));
+*/
 					compound.putInt("TargetPointIndex", targetedPoint);
 					compound.putFloat("MovementProgress", 0);
 				});

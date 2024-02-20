@@ -13,14 +13,14 @@ import com.simibubi.create.foundation.block.IBE;
 
 import com.simibubi.create.foundation.utility.AdventureUtil;
 
-import io.github.fabricators_of_create.porting_lib.block.CustomFrictionBlock;
-import io.github.fabricators_of_create.porting_lib.block.CustomLandingEffectsBlock;
-import io.github.fabricators_of_create.porting_lib.block.CustomRunningEffectsBlock;
-import io.github.fabricators_of_create.porting_lib.block.CustomSoundTypeBlock;
-import io.github.fabricators_of_create.porting_lib.block.ExplosionResistanceBlock;
-import io.github.fabricators_of_create.porting_lib.block.LightEmissiveBlock;
-import io.github.fabricators_of_create.porting_lib.block.ValidSpawnBlock;
-import io.github.fabricators_of_create.porting_lib.enchant.EnchantmentBonusBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomFrictionBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomLandingEffectsBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomRunningEffectsBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomSoundTypeBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.ExplosionResistanceBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.LightEmissiveBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.ValidSpawnBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.EnchantmentBonusBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.BlockPickInteractionAware;

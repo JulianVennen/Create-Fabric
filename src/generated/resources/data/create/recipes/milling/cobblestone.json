@@ -8,7 +8,11 @@
   "processingTime": 250,
   "results": [
     {
-      "item": "minecraft:gravel"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:gravel"
+      }
     }
   ]
 }

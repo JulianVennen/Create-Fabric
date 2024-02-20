@@ -96,7 +96,7 @@ public class ScrollInput extends AbstractSimiWidget {
 			writeToLabel();
 		return this;
 	}
-	
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -122,19 +122,19 @@ public class ScrollInput extends AbstractSimiWidget {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
 		if (inverted)
-			delta *= -1;
+			scrollY *= -1;
 
 		StepContext context = new StepContext();
 		context.control = AllKeys.ctrlDown();
 		context.shift = AllKeys.shiftDown();
 		context.currentValue = state;
-		context.forward = delta > 0;
+		context.forward = scrollY > 0;
 
 		int priorState = state;
 		boolean shifted = AllKeys.shiftDown();
-		int step = (int) Math.signum(delta) * this.step.apply(context);
+		int step = (int) Math.signum(scrollY) * this.step.apply(context);
 
 		state += step;
 		if (shifted)

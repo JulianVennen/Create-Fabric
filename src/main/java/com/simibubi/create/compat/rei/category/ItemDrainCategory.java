@@ -40,6 +40,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 
@@ -49,7 +50,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 		super(info);
 	}
 
-		public static void consumeRecipes(Consumer<EmptyingRecipe> consumer) {
+		public static void consumeRecipes(Consumer<RecipeHolder<EmptyingRecipe>> consumer) {
 			EntryRegistry.getInstance().getEntryStacks()
 					.filter(stack -> Objects.equals(stack.getType(), VanillaEntryTypes.ITEM))
 					.<EntryStack<ItemStack>>map(EntryStack::cast)
@@ -61,11 +62,11 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			if (item == Items.POTION || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient potion = Ingredient.of(stack);
-				consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new, Create.asResource("potions"))
+				consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new)
 					.withItemIngredients(potion)
 					.withFluidOutputs(fluidFromPotionItem)
 					.withSingleItemOutput(new ItemStack(Items.GLASS_BOTTLE))
-					.build());
+					.build(Create.asResource("potions")));
 				return;
 			}
 
@@ -88,12 +89,12 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			ResourceLocation fluidName = BuiltInRegistries.FLUID
 					.getKey(extracted.getFluid());
 
-			consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new,
-				Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
-					+ fluidName.getNamespace() + "_" + fluidName.getPath())).withItemIngredients(ingredient)
-						.withFluidOutputs(extracted)
-						.withSingleItemOutput(result)
-						.build());
+			consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new)
+					.withItemIngredients(ingredient)
+					.withFluidOutputs(extracted)
+					.withSingleItemOutput(result)
+					.build(Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
+							+ fluidName.getNamespace() + "_" + fluidName.getPath())));
 		});
 	}
 

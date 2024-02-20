@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "quark:blossom_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "quark:stripped_blossom_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

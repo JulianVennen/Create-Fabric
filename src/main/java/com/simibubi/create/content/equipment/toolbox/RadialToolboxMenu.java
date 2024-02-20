@@ -214,7 +214,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics) {
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 		int a = ((int) (0x50 * Math.min(1, (ticksOpen + AnimationTickHolder.getPartialTicks()) / 20f))) << 24;
 		graphics.fillGradient(0, 0, this.width, this.height, 0x101010 | a, 0x101010 | a);
 	}
@@ -270,14 +270,14 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
 		Window window = Minecraft.getInstance().getWindow();
 		double hoveredX = mouseX - window.getGuiScaledWidth() / 2;
 		double hoveredY = mouseY - window.getGuiScaledHeight() / 2;
 		double distance = hoveredX * hoveredX + hoveredY * hoveredY;
 		if (distance <= 150) {
 			scrollMode = true;
-			scrollSlot = (((int) (scrollSlot - delta)) + 8) % 8;
+			scrollSlot = (((int) (scrollSlot - scrollY)) + 8) % 8;
 			for (int i = 0; i < 10; i++) {
 
 				if (state == State.SELECT_ITEM || state == State.SELECT_ITEM_UNEQUIP) {
@@ -295,13 +295,13 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 				if (state == State.DETACH)
 					break;
 
-				scrollSlot -= Mth.sign(delta);
+				scrollSlot -= Mth.sign(scrollY);
 				scrollSlot = (scrollSlot + 8) % 8;
 			}
 			return true;
 		}
 
-		return super.mouseScrolled(mouseX, mouseY, delta);
+		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 	}
 
 	@Override

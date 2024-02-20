@@ -3,6 +3,7 @@ package com.simibubi.create.content.trains.station;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -105,7 +106,8 @@ public class StationMarker {
 		return Objects.hash(target, name);
 	}
 
-	public static class Decoration extends MapDecoration implements CustomRenderedMapDecoration {
+	//TODO: SM.Deco
+	/*public static class Decoration extends MapDecoration implements CustomRenderedMapDecoration {
 		private static final ResourceLocation TEXTURE = Create.asResource("textures/gui/station_map_icon.png");
 
 		public Decoration(byte x, byte y, Component name) {
@@ -113,7 +115,7 @@ public class StationMarker {
 		}
 
 		public static Decoration from(MapDecoration decoration) {
-			return new StationMarker.Decoration(decoration.getX(), decoration.getY(), decoration.getName());
+			return new StationMarker.Decoration(decoration.x(), decoration.y(), decoration.name());
 		}
 
 		@Override
@@ -125,7 +127,7 @@ public class StationMarker {
 		public void render(PoseStack poseStack, MultiBufferSource bufferSource, boolean active, int packedLight, MapItemSavedData mapData, int index) {
 			poseStack.pushPose();
 
-			poseStack.translate(getX() / 2D + 64.0, getY() / 2D + 64.0, -0.02D);
+			poseStack.translate(x() / 2D + 64.0, y() / 2D + 64.0, -0.02D);
 
 			poseStack.pushPose();
 
@@ -142,9 +144,9 @@ public class StationMarker {
 
 			poseStack.popPose();
 
-			if (getName() != null) {
+			if (name() != null) {
 				Font font = Minecraft.getInstance().font;
-				Component component = getName();
+				Component component = name();
 				float f6 = (float)font.width(component);
 //				float f7 = Mth.clamp(25.0F / f6, 0.0F, 6.0F / 9.0F);
 				poseStack.pushPose();
@@ -162,9 +164,8 @@ public class StationMarker {
 			poseStack.popPose();
 		}
 
-		@Override
 		public boolean render(int index) {
 			return true;
 		}
-	}
+	}*/
 }

@@ -1,17 +1,23 @@
 {
   "type": "create:filling",
-  "ingredients": [
-    {
-      "item": "minecraft:bread"
-    },
+  "fluidIngredients": [
     {
       "amount": 27000,
       "fluidTag": "c:milk"
     }
   ],
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    }
+  ],
   "results": [
     {
-      "item": "create:sweet_roll"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:sweet_roll"
+      }
     }
   ]
 }

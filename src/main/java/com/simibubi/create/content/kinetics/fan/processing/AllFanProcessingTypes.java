@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -23,7 +26,7 @@ import com.simibubi.create.foundation.utility.VecHelper;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -159,14 +162,14 @@ public class AllFanProcessingTypes {
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<SmeltingRecipe> smeltingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<SmeltingRecipe>> smeltingRecipe = level.getRecipeManager()
 				.getRecipeFor(RecipeType.SMELTING, RECIPE_WRAPPER, level);
 
 			if (smeltingRecipe.isPresent())
 				return true;
 
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<BlastingRecipe> blastingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<BlastingRecipe>> blastingRecipe = level.getRecipeManager()
 				.getRecipeFor(RecipeType.BLASTING, RECIPE_WRAPPER, level);
 
 			if (blastingRecipe.isPresent())
@@ -180,25 +183,27 @@ public class AllFanProcessingTypes {
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<SmokingRecipe> smokingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<SmokingRecipe>> smokingRecipe = level.getRecipeManager()
 				.getRecipeFor(RecipeType.SMOKING, RECIPE_WRAPPER, level);
 
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<? extends AbstractCookingRecipe> smeltingRecipe = level.getRecipeManager()
-				.getRecipeFor(RecipeType.SMELTING, RECIPE_WRAPPER, level);
+			Optional<RecipeHolder<? extends AbstractCookingRecipe>> smeltingRecipe = level.getRecipeManager()
+					.getRecipeFor(RecipeType.SMELTING, RECIPE_WRAPPER, level)
+					.map(h -> h);
 			if (!smeltingRecipe.isPresent()) {
 				RECIPE_WRAPPER.setItem(0, stack);
 				smeltingRecipe = level.getRecipeManager()
-					.getRecipeFor(RecipeType.BLASTING, RECIPE_WRAPPER, level);
+					.getRecipeFor(RecipeType.BLASTING, RECIPE_WRAPPER, level)
+					.map(h -> h);
 			}
 
 			if (smeltingRecipe.isPresent()) {
 				RegistryAccess registryAccess = level.registryAccess();
-				if (!smokingRecipe.isPresent() || !ItemStack.isSameItem(smokingRecipe.get()
-					.getResultItem(registryAccess),
-					smeltingRecipe.get()
-						.getResultItem(registryAccess))) {
-					return RecipeApplier.applyRecipeOn(level, stack, smeltingRecipe.get());
+				if (smokingRecipe.isEmpty() || !ItemStack.isSameItem(
+						smokingRecipe.get().value().getResultItem(registryAccess),
+						smeltingRecipe.get().value().getResultItem(registryAccess))
+				) {
+					return RecipeApplier.applyRecipeOn(level, stack, smeltingRecipe.get().value());
 				}
 			}
 
@@ -264,19 +269,17 @@ public class AllFanProcessingTypes {
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
 			HAUNTING_WRAPPER.setItem(0, stack);
-			Optional<HauntingRecipe> recipe = AllRecipeTypes.HAUNTING.find(HAUNTING_WRAPPER, level);
-			return recipe.isPresent();
+			return AllRecipeTypes.HAUNTING.find(HAUNTING_WRAPPER, level).isPresent();
 		}
 
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
 			HAUNTING_WRAPPER.setItem(0, stack);
-			Optional<HauntingRecipe> recipe = AllRecipeTypes.HAUNTING.find(HAUNTING_WRAPPER, level);
-			if (recipe.isPresent())
-				return RecipeApplier.applyRecipeOn(level, stack, recipe.get());
-			return null;
-		}
+			return AllRecipeTypes.HAUNTING.find(HAUNTING_WRAPPER, level)
+					.map(recipeRecipeHolder -> RecipeApplier.applyRecipeOn(level, stack, recipeRecipeHolder.value()))
+					.orElse(null);
+        }
 
 		@Override
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
@@ -346,7 +349,7 @@ public class AllFanProcessingTypes {
 					.isEmpty())
 					horse.spawnAtLocation(horse.getArmor());
 
-				NBTSerializer.deserializeNBT(skeletonHorse, serializeNBT);
+				// NBTSerializer.deserializeNBT(skeletonHorse, serializeNBT);
 				skeletonHorse.setPos(horse.getPosition(0));
 				level.addFreshEntity(skeletonHorse);
 				horse.discard();
@@ -387,22 +390,19 @@ public class AllFanProcessingTypes {
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<SmokingRecipe> recipe = level.getRecipeManager()
-				.getRecipeFor(RecipeType.SMOKING, RECIPE_WRAPPER, level);
-			return recipe.isPresent();
+			return level.getRecipeManager()
+					.getRecipeFor(RecipeType.SMOKING, RECIPE_WRAPPER, level)
+					.isPresent();
 		}
 
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
 			RECIPE_WRAPPER.setItem(0, stack);
-			Optional<SmokingRecipe> smokingRecipe = level.getRecipeManager()
-				.getRecipeFor(RecipeType.SMOKING, RECIPE_WRAPPER, level);
-
-			if (smokingRecipe.isPresent())
-				return RecipeApplier.applyRecipeOn(level, stack, smokingRecipe.get());
-
-			return null;
+			return level.getRecipeManager()
+					.getRecipeFor(RecipeType.SMOKING, RECIPE_WRAPPER, level)
+					.map(recipeRecipeHolder -> RecipeApplier.applyRecipeOn(level, stack, recipeRecipeHolder.value()))
+					.orElse(null);
 		}
 
 		@Override
@@ -458,18 +458,16 @@ public class AllFanProcessingTypes {
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
 			SPLASHING_WRAPPER.setItem(0, stack);
-			Optional<SplashingRecipe> recipe = AllRecipeTypes.SPLASHING.find(SPLASHING_WRAPPER, level);
-			return recipe.isPresent();
+			return AllRecipeTypes.SPLASHING.find(SPLASHING_WRAPPER, level).isPresent();
 		}
 
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
 			SPLASHING_WRAPPER.setItem(0, stack);
-			Optional<SplashingRecipe> recipe = AllRecipeTypes.SPLASHING.find(SPLASHING_WRAPPER, level);
-			if (recipe.isPresent())
-				return RecipeApplier.applyRecipeOn(level, stack, recipe.get());
-			return null;
+			return AllRecipeTypes.SPLASHING.find(SPLASHING_WRAPPER, level)
+					.map(recipeRecipeHolder -> RecipeApplier.applyRecipeOn(level, stack, recipeRecipeHolder.value()))
+					.orElse(null);
 		}
 
 		@Override

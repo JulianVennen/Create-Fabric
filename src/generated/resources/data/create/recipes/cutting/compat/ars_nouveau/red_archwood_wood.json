@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "ars_nouveau:red_archwood_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "ars_nouveau:stripped_red_archwood_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

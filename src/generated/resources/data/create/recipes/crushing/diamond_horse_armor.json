@@ -8,22 +8,32 @@
   "processingTime": 200,
   "results": [
     {
-      "item": "minecraft:diamond"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:diamond"
+      }
     },
     {
       "chance": 0.5,
-      "count": 2,
-      "item": "minecraft:leather"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:leather"
+      }
     },
     {
       "chance": 0.1,
-      "count": 3,
-      "item": "minecraft:diamond"
+      "item": {
+        "Count": 3,
+        "id": "minecraft:diamond"
+      }
     },
     {
       "chance": 0.25,
-      "count": 2,
-      "item": "minecraft:string"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:string"
+      }
     }
   ]
 }

@@ -2,7 +2,6 @@
   "parent": "create:brass",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:crusher_maxed_0000_builtin"
     }
   },

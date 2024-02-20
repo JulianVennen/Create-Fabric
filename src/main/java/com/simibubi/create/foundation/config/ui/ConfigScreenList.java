@@ -37,8 +37,8 @@ public class ConfigScreenList extends ObjectSelectionList<ConfigScreenList.Entry
 	public ConfigScreenList(Minecraft client, int width, int height, int top, int bottom, int elementHeight) {
 		super(client, width, height, top, bottom, elementHeight);
 		setRenderBackground(false);
-		setRenderTopAndBottom(false);
-		setRenderSelection(false);
+		// setRenderTopAndBottom(false);
+		// setRenderSelection(false);
 		currentText = null;
 		headerHeight = 3;
 	}

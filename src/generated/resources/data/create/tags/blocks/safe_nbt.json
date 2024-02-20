@@ -25,6 +25,8 @@
     "create:pulse_extender",
     "create:clipboard",
     "#minecraft:banners",
+    "#minecraft:signs",
+    "#minecraft:banners",
     "#minecraft:signs"
   ]
 }

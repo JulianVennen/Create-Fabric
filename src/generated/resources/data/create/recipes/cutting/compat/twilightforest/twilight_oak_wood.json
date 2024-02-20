@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "twilightforest:twilight_oak_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "twilightforest:stripped_twilight_oak_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

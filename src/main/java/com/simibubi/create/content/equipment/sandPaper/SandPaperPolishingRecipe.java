@@ -12,6 +12,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.Pro
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -43,15 +44,15 @@ public class SandPaperPolishingRecipe extends ProcessingRecipe<SandPaperInv> {
 	}
 
 	public static ItemStack applyPolish(Level world, Vec3 position, ItemStack stack, ItemStack sandPaperStack) {
-		List<Recipe<SandPaperInv>> matchingRecipes = getMatchingRecipes(world, stack);
+		List<RecipeHolder<Recipe<SandPaperInv>>> matchingRecipes = getMatchingRecipes(world, stack);
 		if (!matchingRecipes.isEmpty())
-			return matchingRecipes.get(0)
+			return matchingRecipes.get(0).value()
 				.assemble(new SandPaperInv(stack), world.registryAccess())
 				.copy();
 		return stack;
 	}
 
-	public static List<Recipe<SandPaperInv>> getMatchingRecipes(Level world, ItemStack stack) {
+	public static List<RecipeHolder<Recipe<SandPaperInv>>> getMatchingRecipes(Level world, ItemStack stack) {
 		return world.getRecipeManager()
 			.getRecipesFor(AllRecipeTypes.SANDPAPER_POLISHING.getType(), new SandPaperInv(stack), world);
 	}

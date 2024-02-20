@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "byg:cherry_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "byg:stripped_cherry_log"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

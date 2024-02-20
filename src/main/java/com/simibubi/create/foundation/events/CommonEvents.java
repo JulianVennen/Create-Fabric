@@ -3,7 +3,10 @@ package com.simibubi.create.foundation.events;
 import java.util.concurrent.Executor;
 
 
+import io.github.fabricators_of_create.porting_lib.blocks.api.event.BlockEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
+
+import io.github.fabricators_of_create.porting_lib.entity.events.ProjectileImpactCallback;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -55,7 +58,6 @@ import com.simibubi.create.infrastructure.command.AllCommands;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityDataEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityMountEvents;
-import io.github.fabricators_of_create.porting_lib.event.common.BlockEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -262,10 +264,10 @@ public class CommonEvents {
 		LivingEntityEvents.LOOTING_LEVEL.register(CrushingWheelBlockEntity::crushingIsFortunate);
 		LivingEntityEvents.DROPS.register(DeployerFakePlayer::deployerCollectsDropsFromKilledEntities);
 		ServerEntityEvents.EQUIPMENT_CHANGE.register(NetheriteDivingHandler::onLivingEquipmentChange);
-		EntityEvents.SIZE.register(DeployerFakePlayer::deployerHasEyesOnHisFeet);
+		// EntityEvents.SIZE.register(DeployerFakePlayer::deployerHasEyesOnHisFeet);
 		BlockEvents.AFTER_PLACE.register(SymmetryHandler::onBlockPlaced);
 		BlockEvents.AFTER_PLACE.register(SuperGlueHandler::glueListensForBlockPlacement);
-		EntityEvents.PROJECTILE_IMPACT.register(BlazeBurnerHandler::onThrowableImpact);
+		ProjectileImpactCallback.EVENT.register(BlazeBurnerHandler::onThrowableImpact);
 		EntityDataEvents.LOAD.register(ExtendoGripItem::addReachToJoiningPlayersHoldingExtendo);
 		PlayerBlockBreakEvents.BEFORE.register(SymmetryHandler::onBlockDestroyed);
 	}

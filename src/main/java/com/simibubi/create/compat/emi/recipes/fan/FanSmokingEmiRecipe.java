@@ -7,14 +7,15 @@ import com.simibubi.create.foundation.gui.element.GuiGameElement;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.block.Blocks;
 
 public class FanSmokingEmiRecipe extends FanEmiRecipe<SmokingRecipe> {
 
-	public FanSmokingEmiRecipe(SmokingRecipe recipe) {
+	public FanSmokingEmiRecipe(RecipeHolder<SmokingRecipe> recipe) {
 		super(CreateEmiPlugin.FAN_SMOKING, recipe);
-		ResourceLocation rid = recipe.getId();
+		ResourceLocation rid = recipe.id();
 		this.id = new ResourceLocation("emi", "create/fan_smoking/" + rid.getNamespace() + "/" + rid.getPath());
 	}
 

@@ -1,18 +1,25 @@
 {
   "type": "create:filling",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 27000,
+        "FluidName": "create:chocolate"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "item": "minecraft:sweet_berries"
-    },
-    {
-      "amount": 27000,
-      "fluid": "create:chocolate",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "create:chocolate_glazed_berries"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:chocolate_glazed_berries"
+      }
     }
   ]
 }

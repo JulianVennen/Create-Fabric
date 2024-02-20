@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -60,7 +60,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 	@Override
 	protected void write(CompoundTag tag, boolean clientPacket) {
 		super.write(tag, clientPacket);
-		tag.put("Item", NBTSerializer.serializeNBT(dataContainer));
+		//tag.put("Item", NBTSerializer.serializeNBT(dataContainer));
 		if (clientPacket && lastEdit != null)
 			tag.putUUID("LastEdit", lastEdit);
 	}

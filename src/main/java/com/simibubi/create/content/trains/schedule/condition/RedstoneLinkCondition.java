@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.Pair;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -98,7 +98,7 @@ public class RedstoneLinkCondition extends ScheduleWaitCondition {
 
 	@Override
 	protected void writeAdditional(CompoundTag tag) {
-		tag.put("Frequency", freq.serializeEach(f -> NBTSerializer.serializeNBTCompound(f.getStack())));
+		// tag.put("Frequency", freq.serializeEach(f -> NBTSerializer.serializeNBTCompound(f.getStack())));
 	}
 
 	public boolean lowActivation() {

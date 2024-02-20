@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "byg:maple_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "byg:stripped_maple_wood"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

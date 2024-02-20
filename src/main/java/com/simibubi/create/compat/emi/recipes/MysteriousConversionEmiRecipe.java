@@ -8,12 +8,14 @@ import com.simibubi.create.compat.emi.CreateEmiPlugin;
 import com.simibubi.create.compat.rei.ConversionRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.compress.utils.Lists;
 
 import dev.emi.emi.api.widget.WidgetHolder;
 
 public class MysteriousConversionEmiRecipe extends CreateEmiRecipe<ConversionRecipe> {
-	public static final List<ConversionRecipe> RECIPES = Lists.newArrayList();
+	public static final List<RecipeHolder<ConversionRecipe>> RECIPES = Lists.newArrayList();
 
 	static {
 		RECIPES.add(ConversionRecipe.create(AllItems.EMPTY_BLAZE_BURNER.asStack(), AllBlocks.BLAZE_BURNER.asStack()));
@@ -22,7 +24,7 @@ public class MysteriousConversionEmiRecipe extends CreateEmiRecipe<ConversionRec
 		RECIPES.add(ConversionRecipe.create(AllItems.CHROMATIC_COMPOUND.asStack(), AllItems.REFINED_RADIANCE.asStack()));
 	}
 
-	public MysteriousConversionEmiRecipe(ConversionRecipe recipe) {
+	public MysteriousConversionEmiRecipe(RecipeHolder<ConversionRecipe> recipe) {
 		super(CreateEmiPlugin.MYSTERY_CONVERSION, recipe, 134, 50);
 	}
 

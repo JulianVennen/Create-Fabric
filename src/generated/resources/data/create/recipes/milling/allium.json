@@ -8,17 +8,25 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 2,
-      "item": "minecraft:magenta_dye"
+      "chance": 1.0,
+      "item": {
+        "Count": 2,
+        "id": "minecraft:magenta_dye"
+      }
     },
     {
       "chance": 0.1,
-      "count": 2,
-      "item": "minecraft:purple_dye"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:purple_dye"
+      }
     },
     {
       "chance": 0.1,
-      "item": "minecraft:pink_dye"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:pink_dye"
+      }
     }
   ]
 }

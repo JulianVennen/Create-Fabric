@@ -7,7 +7,7 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 
 import dev.emi.emi.api.widget.WidgetHolder;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -15,10 +15,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class PolishingEmiRecipe extends CreateEmiRecipe<SandPaperPolishingRecipe> {
 
-	public PolishingEmiRecipe(SandPaperPolishingRecipe recipe) {
+	public PolishingEmiRecipe(RecipeHolder<SandPaperPolishingRecipe> recipe) {
 		super(CreateEmiPlugin.SANDPAPER_POLISHING, recipe, 134, 55);
 	}
 
@@ -31,12 +32,12 @@ public class PolishingEmiRecipe extends CreateEmiRecipe<SandPaperPolishingRecipe
 
 		addSlot(widgets, output.get(0), 110, 33).recipeContext(this);
 
-		NonNullList<Ingredient> ingredients = recipe.getIngredients();
+		NonNullList<Ingredient> ingredients = recipe.value().getIngredients();
 		if (!ingredients.isEmpty() && !ingredients.get(0).isEmpty()) {
 			ItemStack[] matchingStacks = ingredients.get(0).getItems();
 			ItemStack stack = AllItems.SAND_PAPER.asStack();
 			CompoundTag tag = stack.getOrCreateTag();
-			tag.put("Polishing", NBTSerializer.serializeNBT(matchingStacks[0]));
+			// tag.put("Polishing", NBTSerializer.serializeNBT(matchingStacks[0]));
 			tag.putBoolean("JEI", true);
 			widgets.addDrawable(49, 4, 0, 0, (graphics, mouseX, mouseY, delta) -> {
 				PoseStack matrices = graphics.pose();

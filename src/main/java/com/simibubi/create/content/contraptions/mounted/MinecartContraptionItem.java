@@ -6,6 +6,8 @@ import javax.annotation.Nullable;
 
 import com.simibubi.create.foundation.utility.AdventureUtil;
 
+import net.minecraft.core.dispenser.BlockSource;
+
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import com.simibubi.create.AllItems;
@@ -26,7 +28,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -87,14 +88,13 @@ public class MinecartContraptionItem extends Item {
 			if (!canPlace())
 				return behaviourDefaultDispenseItem.dispense(source, stack);
 
-			Direction direction = source.getBlockState()
+			Direction direction = source.state()
 				.getValue(DispenserBlock.FACING);
-			Level world = source.getLevel();
-			double d0 = source.x() + (double) direction.getStepX() * 1.125D;
-			double d1 = Math.floor(source.y()) + (double) direction.getStepY();
-			double d2 = source.z() + (double) direction.getStepZ() * 1.125D;
-			BlockPos blockpos = source.getPos()
-				.relative(direction);
+			Level world = source.level();
+			double d0 = source.pos().getX() + (double) direction.getStepX() * 1.125D;
+			double d1 = source.pos().getY() + (double) direction.getStepY();
+			double d2 = source.pos().getZ() + (double) direction.getStepZ() * 1.125D;
+			BlockPos blockpos = source.pos().relative(direction);
 			BlockState blockstate = world.getBlockState(blockpos);
 			RailShape railshape = blockstate.getBlock() instanceof BaseRailBlock
 				? MinecartAndRailUtil.getDirectionOfRail(blockstate, world, blockpos, null)
@@ -137,8 +137,7 @@ public class MinecartContraptionItem extends Item {
 
 		@Override
 		protected void playSound(BlockSource source) {
-			source.getLevel()
-				.levelEvent(1000, source.getPos(), 0);
+			source.level().levelEvent(1000, source.pos(), 0);
 		}
 	};
 

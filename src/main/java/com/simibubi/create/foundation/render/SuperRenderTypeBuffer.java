@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.Util;
-import net.minecraft.client.renderer.ChunkBufferBuilderPack;
+import net.minecraft.client.renderer.SectionBufferBuilderPack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -59,7 +59,7 @@ public class SuperRenderTypeBuffer implements MultiBufferSource {
 	private static class SuperRenderTypeBufferPhase {
 
 		// Visible clones from RenderBuffers
-		private final ChunkBufferBuilderPack fixedBufferPack = new ChunkBufferBuilderPack();
+		private final SectionBufferBuilderPack fixedBufferPack = new SectionBufferBuilderPack();
 		private final SortedMap<RenderType, BufferBuilder> fixedBuffers = Util.make(new Object2ObjectLinkedOpenHashMap<>(), map -> {
 				map.put(Sheets.solidBlockSheet(), fixedBufferPack.builder(RenderType.solid()));
 				map.put(Sheets.cutoutBlockSheet(), fixedBufferPack.builder(RenderType.cutout()));

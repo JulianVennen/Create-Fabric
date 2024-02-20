@@ -10,9 +10,10 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ManualItemApplicationEmiRecipe extends CreateEmiRecipe<ItemApplicationRecipe> {
-	public ManualItemApplicationEmiRecipe(ItemApplicationRecipe recipe) {
+	public ManualItemApplicationEmiRecipe(RecipeHolder<ItemApplicationRecipe> recipe) {
 		super(CreateEmiPlugin.ITEM_APPLICATION, recipe, 177, 60);
 	}
 
@@ -27,7 +28,7 @@ public class ManualItemApplicationEmiRecipe extends CreateEmiRecipe<ItemApplicat
 		}
 
 		SlotWidget held = addSlot(widgets, input.get(1), 51, 5);
-		if (recipe.shouldKeepHeldItem()) {
+		if (recipe.value().shouldKeepHeldItem()) {
 			held.catalyst(true);
 			held.appendTooltip(Lang.translateDirect("recipe.deploying.not_consumed").withStyle(ChatFormatting.GOLD));
 		}

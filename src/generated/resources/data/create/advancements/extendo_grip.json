@@ -2,7 +2,6 @@
   "parent": "create:potato_cannon",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:extendo_grip_builtin"
     }
   },

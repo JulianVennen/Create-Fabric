@@ -14,6 +14,8 @@ import io.github.fabricators_of_create.porting_lib.entity.IEntityAdditionalSpawn
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.EntityAccessor;
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 
+import net.minecraft.nbt.NbtAccounter;
+
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.tuple.MutablePair;
 
@@ -247,7 +249,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 			return null;
 
 		Vec3 transformedVector = toGlobalVector(Vec3.atLowerCornerOf(seat)
-			.add(.5, passenger.getMyRidingOffset() + ySize - .15f, .5), partialTicks)
+			.add(.5, passenger.getMyRidingOffset(this) + ySize - .15f, .5), partialTicks)
 				.add(VecHelper.getCenterOf(BlockPos.ZERO))
 				.subtract(0.5, ySize, 0.5);
 		return transformedVector;
@@ -422,7 +424,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		float angle = AngleHelper.deg(-Mth.atan2(motion.x, motion.z));
 		angle = AngleHelper.angleLerp(0.4f, prevAngle, angle);
 		if (level().isClientSide) {
-			living.lerpTo(0, 0, 0, 0, 0, 0, false);
+			living.lerpTo(0, 0, 0, 0, 0, 0);
 			living.lerpHeadTo(0, 0);
 			living.setYRot(angle);
 			living.setXRot(0);
@@ -635,9 +637,9 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 
 	@Override
 	public void readSpawnData(FriendlyByteBuf additionalData) {
-		CompoundTag nbt = additionalData.readAnySizeNbt();
-		if (nbt != null) {
-			readAdditional(nbt, true);
+		Tag nbt = additionalData.readNbt(NbtAccounter.unlimitedHeap());
+		if (nbt instanceof CompoundTag compound) {
+			readAdditional(compound, true);
 		}
 	}
 

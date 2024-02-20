@@ -3,6 +3,9 @@
   "values": [
     "#minecraft:cauldrons",
     "#minecraft:saplings",
+    "#minecraft:climbable",
+    "#minecraft:cauldrons",
+    "#minecraft:saplings",
     "#minecraft:climbable"
   ]
 }

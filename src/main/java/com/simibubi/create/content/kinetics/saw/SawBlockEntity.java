@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.base.Suppliers;
@@ -34,7 +36,7 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.util.ItemStackUtil;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// // import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -115,7 +117,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements S
 
 		if (!clientPacket || playEvent.isEmpty())
 			return;
-		compound.put("PlayEvent", NBTSerializer.serializeNBT(playEvent));
+		// compound.put("PlayEvent", NBTSerializer.serializeNBT(playEvent));
 		playEvent = ItemStack.EMPTY;
 	}
 
@@ -368,15 +370,16 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements S
 			.getResultItem(level.registryAccess())))
 			return ImmutableList.of(assemblyRecipe.get());
 
-		Predicate<Recipe<?>> types = RecipeConditions.isOfType(AllRecipeTypes.CUTTING.getType(),
+		Predicate<RecipeHolder<?>> types = RecipeConditions.isOfType(AllRecipeTypes.CUTTING.getType(),
 			AllConfigs.server().recipes.allowStonecuttingOnSaw.get() ? RecipeType.STONECUTTING : null,
 			AllConfigs.server().recipes.allowWoodcuttingOnSaw.get() ? woodcuttingRecipeType.get() : null);
 
-		List<Recipe<?>> startedSearch = RecipeFinder.get(cuttingRecipesKey, level, types);
+		List<RecipeHolder<?>> startedSearch = RecipeFinder.get(cuttingRecipesKey, level, types);
 		return startedSearch.stream()
 			.filter(RecipeConditions.outputMatchesFilter(filtering))
 			.filter(RecipeConditions.firstIngredientMatches(inventory.getStackInSlot(0)))
 			.filter(r -> !AllRecipeTypes.shouldIgnoreInAutomation(r))
+			.map(RecipeHolder::value)
 			.collect(Collectors.toList());
 	}
 

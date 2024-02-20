@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -55,7 +56,7 @@ public abstract class CriterionTriggerBase<T extends CriterionTriggerBase.Instan
 		this.listeners.remove(playerAdvancementsIn);
 	}
 
-	@Override
+	//@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -67,7 +68,7 @@ public abstract class CriterionTriggerBase<T extends CriterionTriggerBase.Instan
 			List<Listener<T>> list = new LinkedList<>();
 
 			for (Listener<T> listener : playerListeners) {
-				if (listener.getTriggerInstance()
+				if (listener.trigger()
 					.test(suppliers)) {
 					list.add(listener);
 				}
@@ -79,9 +80,8 @@ public abstract class CriterionTriggerBase<T extends CriterionTriggerBase.Instan
 	}
 
 	public abstract static class Instance extends AbstractCriterionTriggerInstance {
-
-		public Instance(ResourceLocation idIn, ContextAwarePredicate predicate) {
-			super(idIn, predicate);
+		public Instance(Optional<ContextAwarePredicate> predicate) {
+			super(predicate);
 		}
 
 		protected abstract boolean test(@Nullable List<Supplier<Object>> suppliers);

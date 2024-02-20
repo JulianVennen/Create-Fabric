@@ -2,7 +2,6 @@
   "parent": "create:extendo_grip",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:linked_controller_builtin"
     }
   },

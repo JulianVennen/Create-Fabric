@@ -2,7 +2,6 @@
   "parent": "create:saw_processing",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:compacting_builtin"
     }
   },

@@ -8,16 +8,25 @@
   "processingTime": 100,
   "results": [
     {
-      "count": 3,
-      "item": "minecraft:yellow_dye"
+      "chance": 1.0,
+      "item": {
+        "Count": 3,
+        "id": "minecraft:yellow_dye"
+      }
     },
     {
       "chance": 0.25,
-      "item": "minecraft:orange_dye"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:orange_dye"
+      }
     },
     {
       "chance": 0.25,
-      "item": "minecraft:yellow_dye"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:yellow_dye"
+      }
     }
   ]
 }

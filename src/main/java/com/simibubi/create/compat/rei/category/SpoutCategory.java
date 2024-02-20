@@ -41,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 
@@ -49,7 +50,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 	}
 
 	@SuppressWarnings("UnstableApiUsage")
-	public static void consumeRecipes(Consumer<FillingRecipe> consumer) {
+	public static void consumeRecipes(Consumer<RecipeHolder<FillingRecipe>> consumer) {
 		List<EntryStack<dev.architectury.fluid.FluidStack>> fluidStacks = EntryRegistry.getInstance().getEntryStacks()
 				.filter(stack -> Objects.equals(stack.getType(), VanillaEntryTypes.FLUID))
 				.<EntryStack<dev.architectury.fluid.FluidStack>>map(EntryStack::cast)
@@ -62,11 +63,11 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 			if (stack.getItem() instanceof PotionItem) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient bottle = Ingredient.of(Items.GLASS_BOTTLE);
-				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new, Create.asResource("potions"))
+				consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new)
 					.withItemIngredients(bottle)
 					.withFluidIngredients(FluidIngredient.fromFluidStack(fluidFromPotionItem))
 					.withSingleItemOutput(stack)
-					.build());
+					.build(Create.asResource("potions")));
 				return;
 			}
 
@@ -95,13 +96,12 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 								.getKey(stack.getItem());
 						ResourceLocation fluidName = BuiltInRegistries.FLUID
 								.getKey(fluidCopy.getFluid());
-						consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new,
-								Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
-										+ "_with_" + fluidName.getNamespace() + "_" + fluidName.getPath()))
+						consumer.accept(new ProcessingRecipeBuilder<>(FillingRecipe::new)
 								.withItemIngredients(bucket)
 								.withFluidIngredients(FluidIngredient.fromFluidStack(fluidCopy))
 								.withSingleItemOutput(container)
-								.build());
+								.build(Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
+										+ "_with_" + fluidName.getNamespace() + "_" + fluidName.getPath())));
 					}
 			}
 		});

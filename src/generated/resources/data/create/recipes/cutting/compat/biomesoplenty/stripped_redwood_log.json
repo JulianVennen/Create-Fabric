@@ -9,15 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "biomesoplenty:stripped_redwood_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "biomesoplenty:redwood_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

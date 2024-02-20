@@ -15,36 +15,40 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.Pro
 
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+
+import org.jetbrains.annotations.Nullable;
 
 public class SequencedAssemblyRecipeBuilder {
 
 	private SequencedAssemblyRecipe recipe;
 	protected List<ConditionJsonProvider> recipeConditions;
 
-	public SequencedAssemblyRecipeBuilder(ResourceLocation id) {
+	public SequencedAssemblyRecipeBuilder() {
 		recipeConditions = new ArrayList<>();
-		this.recipe = new SequencedAssemblyRecipe(id,
-			AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer());
+		this.recipe = new SequencedAssemblyRecipe(AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer());
 	}
 
 	public <T extends ProcessingRecipe<?>> SequencedAssemblyRecipeBuilder addStep(ProcessingRecipeFactory<T> factory,
 		UnaryOperator<ProcessingRecipeBuilder<T>> builder) {
-		ProcessingRecipeBuilder<T> recipeBuilder =
-			new ProcessingRecipeBuilder<>(factory, new ResourceLocation("dummy"));
+		ProcessingRecipeBuilder<T> recipeBuilder = new ProcessingRecipeBuilder<>(factory);
 		Item placeHolder = recipe.getTransitionalItem()
 			.getItem();
-		recipe.getSequence()
-			.add(new SequencedRecipe<>(builder.apply(recipeBuilder.require(placeHolder)
-				.output(placeHolder))
-				.build()));
+		recipe.getSequence().add(new SequencedRecipe<>(builder.apply(recipeBuilder
+						.require(placeHolder)
+						.output(placeHolder))
+						.build()
+		));
 		return this;
 	}
 
@@ -84,8 +88,8 @@ public class SequencedAssemblyRecipeBuilder {
 		return recipe;
 	}
 
-	public void build(Consumer<FinishedRecipe> consumer) {
-		consumer.accept(new DataGenResult(build(), recipeConditions));
+	public void build(RecipeOutput consumer, ResourceLocation id) {
+		consumer.accept(new DataGenResult(new RecipeHolder<>(id, build()), recipeConditions));
 	}
 
 	public static class DataGenResult implements FinishedRecipe {
@@ -95,12 +99,12 @@ public class SequencedAssemblyRecipeBuilder {
 		private ResourceLocation id;
 		private SequencedAssemblyRecipeSerializer serializer;
 
-		public DataGenResult(SequencedAssemblyRecipe recipe, List<ConditionJsonProvider> recipeConditions) {
+		public DataGenResult(RecipeHolder<SequencedAssemblyRecipe> recipe, List<ConditionJsonProvider> recipeConditions) {
 			this.recipeConditions = recipeConditions;
-			this.recipe = recipe;
-			this.id = new ResourceLocation(recipe.getId().getNamespace(),
-					AllRecipeTypes.SEQUENCED_ASSEMBLY.getId().getPath() + "/" + recipe.getId().getPath());
-			this.serializer = (SequencedAssemblyRecipeSerializer) recipe.getSerializer();
+			this.recipe = recipe.value();
+			this.id = new ResourceLocation(recipe.id().getNamespace(),
+					AllRecipeTypes.SEQUENCED_ASSEMBLY.getId().getPath() + "/" + recipe.id().getPath());
+			this.serializer = (SequencedAssemblyRecipeSerializer) recipe.value().getSerializer();
 		}
 
 		@Override
@@ -115,25 +119,20 @@ public class SequencedAssemblyRecipeBuilder {
 		}
 
 		@Override
-		public ResourceLocation getId() {
+		public ResourceLocation id() {
 			return id;
 		}
 
 		@Override
-		public RecipeSerializer<?> getType() {
+		public RecipeSerializer<?> type() {
 			return serializer;
 		}
 
+		@Nullable
 		@Override
-		public JsonObject serializeAdvancement() {
+		public AdvancementHolder advancement() {
 			return null;
 		}
-
-		@Override
-		public ResourceLocation getAdvancementId() {
-			return null;
-		}
-
 	}
 
 }

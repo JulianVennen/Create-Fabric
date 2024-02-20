@@ -2,7 +2,6 @@
   "parent": "create:spout",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:drain_builtin"
     }
   },

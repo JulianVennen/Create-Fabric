@@ -13,6 +13,7 @@ import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -29,8 +30,8 @@ public abstract class CreateRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(Consumer<FinishedRecipe> p_200404_1_) {
-		all.forEach(c -> c.register(p_200404_1_));
+	public void buildRecipes(RecipeOutput exporter) {
+		all.forEach(c -> c.register(exporter));
 		Create.LOGGER.info(getName() + " registered " + all.size() + " recipe" + (all.size() == 1 ? "" : "s"));
 	}
 
@@ -41,7 +42,7 @@ public abstract class CreateRecipeProvider extends FabricRecipeProvider {
 
 	@FunctionalInterface
 	public interface GeneratedRecipe {
-		void register(Consumer<FinishedRecipe> consumer);
+		void register(RecipeOutput consumer);
 	}
 
 	protected static class Marker {

@@ -10,7 +10,11 @@
   ],
   "results": [
     {
-      "item": "create:large_cogwheel"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:large_cogwheel"
+      }
     }
   ]
 }

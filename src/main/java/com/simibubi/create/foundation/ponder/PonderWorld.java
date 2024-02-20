@@ -21,7 +21,7 @@ import com.simibubi.create.foundation.ponder.element.WorldSectionElement;
 import com.simibubi.create.foundation.render.SuperRenderTypeBuffer;
 import com.simibubi.create.foundation.utility.worldWrappers.WrappedClientWorld;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -87,8 +87,8 @@ public class PonderWorld extends SchematicWorld {
 		originalBlockEntities.clear();
 		blocks.forEach((k, v) -> originalBlocks.put(k, v));
 		blockEntities.forEach((k, v) -> originalBlockEntities.put(k, v.saveWithFullMetadata()));
-		entities.forEach(e -> EntityType.create(NBTSerializer.serializeNBTCompound(e), this)
-			.ifPresent(originalEntities::add));
+		/*entities.forEach(e -> EntityType.create(NBTSerializer.serializeNBTCompound(e), this)
+			.ifPresent(originalEntities::add));*/
 	}
 
 	public void restore() {
@@ -104,8 +104,8 @@ public class PonderWorld extends SchematicWorld {
 			blockEntities.put(k, blockEntity);
 			renderedBlockEntities.add(blockEntity);
 		});
-		originalEntities.forEach(e -> EntityType.create(NBTSerializer.serializeNBTCompound(e), this)
-			.ifPresent(entities::add));
+		/*originalEntities.forEach(e -> EntityType.create(NBTSerializer.serializeNBTCompound(e), this)
+			.ifPresent(entities::add));*/
 		particles.clearEffects();
 		fixControllerBlockEntities();
 	}

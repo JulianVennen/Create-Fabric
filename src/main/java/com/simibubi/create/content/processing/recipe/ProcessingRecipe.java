@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import com.mojang.serialization.Codec;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import org.slf4j.Logger;
 
 import com.google.gson.JsonObject;
@@ -31,8 +35,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public abstract class ProcessingRecipe<T extends Container> implements Recipe<T> {
-
 	protected ResourceLocation id;
+
+
 	protected NonNullList<Ingredient> ingredients;
 	protected NonNullList<ProcessingOutput> results;
 	protected NonNullList<FluidIngredient> fluidIngredients;
@@ -56,7 +61,6 @@ public abstract class ProcessingRecipe<T extends Container> implements Recipe<T>
 		this.ingredients = params.ingredients;
 		this.type = typeInfo.getType();
 		this.results = params.results;
-		this.id = params.id;
 
 		validate(typeInfo.getId());
 	}
@@ -86,7 +90,7 @@ public abstract class ProcessingRecipe<T extends Container> implements Recipe<T>
 	//
 
 	private void validate(ResourceLocation recipeTypeId) {
-		String messageHeader = "Your custom " + recipeTypeId + " recipe (" + id.toString() + ")";
+		String messageHeader = "Your custom " + recipeTypeId + " recipe ("; // TODO: + id.toString() + ")";
 		Logger logger = Create.LOGGER;
 		int ingredientCount = ingredients.size();
 		int outputCount = results.size();
@@ -196,11 +200,6 @@ public abstract class ProcessingRecipe<T extends Container> implements Recipe<T>
 	@Override
 	public String getGroup() {
 		return "processing";
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return id;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -66,7 +66,8 @@ public class NBTHelper {
 	}
 
 	public static ListTag writeItemList(Iterable<ItemStack> stacks) {
-		return writeCompoundList(stacks, NBTSerializer::serializeNBTCompound);
+		return null;
+		// return writeCompoundList(stacks, NBTSerializer::serializeNBTCompound);
 	}
 
 	public static List<ItemStack> readItemList(ListTag stacks) {
@@ -110,13 +111,13 @@ public class NBTHelper {
 			return inbt;
 		return new CompoundTag();
 	}
-	
+
 	public static CompoundTag intToCompound(int i) {
 		CompoundTag compoundTag = new CompoundTag();
 		compoundTag.putInt("V", i);
 		return compoundTag;
 	}
-	
+
 	public static int intFromCompound(CompoundTag compoundTag) {
 		return compoundTag.getInt("V");
 	}

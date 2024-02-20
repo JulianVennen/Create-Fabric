@@ -377,10 +377,10 @@ public class PonderUI extends NavigatableSimiScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-		if (scroll(delta > 0))
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+		if (scroll(scrollY > 0))
 			return true;
-		return super.mouseScrolled(mouseX, mouseY, delta);
+		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 	}
 
 	protected void replay() {
@@ -429,11 +429,6 @@ public class PonderUI extends NavigatableSimiScreen {
 		renderVisibleScenes(graphics, mouseX, mouseY,
 			skipCooling > 0 ? 0 : identifyMode ? ponderPartialTicksPaused : partialTicks);
 		renderWidgets(graphics, mouseX, mouseY, identifyMode ? ponderPartialTicksPaused : partialTicks);
-	}
-
-	@Override
-	public void renderBackground(GuiGraphics graphics) {
-		super.renderBackground(graphics);
 	}
 
 	protected void renderVisibleScenes(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {

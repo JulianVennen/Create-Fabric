@@ -9,11 +9,17 @@
   "results": [
     {
       "chance": 0.4,
-      "item": "create:crushed_raw_iron"
+      "item": {
+        "Count": 1,
+        "id": "create:crushed_raw_iron"
+      }
     },
     {
       "chance": 0.4,
-      "item": "minecraft:iron_nugget"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:iron_nugget"
+      }
     }
   ]
 }

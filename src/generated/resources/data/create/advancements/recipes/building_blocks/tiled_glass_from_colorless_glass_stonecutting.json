@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_colorless_glass",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_colorless_glass"
     ]
   ],
   "rewards": {

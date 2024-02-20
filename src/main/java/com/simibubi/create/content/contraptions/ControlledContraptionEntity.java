@@ -51,7 +51,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 		entity.setContraption(contraption);
 		return entity;
 	}
-	
+
 	@Override
 	public void setPos(double x, double y, double z) {
 		super.setPos(x, y, z);
@@ -148,7 +148,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void lerpTo(double x, double y, double z, float yw, float pt, int inc, boolean t) {}
+	public void lerpTo(double x, double y, double z, float yw, float pt, int inc) {}
 
 	protected void tickContraption() {
 		angleDelta = angle - prevAngle;

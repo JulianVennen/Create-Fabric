@@ -28,9 +28,10 @@ public class MapRendererMapInstanceMixin {
 //	@Group(name = "custom_decoration_rendering", min = 1, max = 1)
 	@Inject(method = "draw(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ZI)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void onDraw(PoseStack poseStack, MultiBufferSource bufferSource, boolean active, int packedLight, CallbackInfo ci, int i, int j, float f, Matrix4f matrix4f, VertexConsumer vertexConsumer, int index, Iterator<MapDecoration> iterator, MapDecoration decoration) {
-		if (decoration instanceof CustomRenderedMapDecoration renderer) {
+		// TODO: SM.Deco
+		/*if (decoration instanceof CustomRenderedMapDecoration renderer) {
 			renderer.render(poseStack, bufferSource, active, packedLight, data, index);
-		}
+		}*/
 	}
 
 	// fabric: optifine is not supported

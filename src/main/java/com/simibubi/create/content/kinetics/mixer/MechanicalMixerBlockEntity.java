@@ -10,6 +10,7 @@ import com.simibubi.create.content.fluids.potion.PotionMixingRecipes;
 import com.simibubi.create.content.kinetics.press.MechanicalPressBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.advancement.CreateAdvancement;
@@ -42,6 +43,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -142,8 +144,8 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 			if ((!level.isClientSide || isVirtual()) && runningTicks == 20) {
 				if (processingTicks < 0) {
 					float recipeSpeed = 1;
-					if (currentRecipe instanceof ProcessingRecipe) {
-						int t = ((ProcessingRecipe<?>) currentRecipe).getProcessingDuration();
+					if (currentRecipe.value() instanceof ProcessingRecipe processingRecipe) {
+						int t = processingRecipe.getProcessingDuration();
 						if (t != 0)
 							recipeSpeed = t / 100f;
 					}
@@ -218,8 +220,8 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	}
 
 	@Override
-	protected List<Recipe<?>> getMatchingRecipes() {
-		List<Recipe<?>> matchingRecipes = super.getMatchingRecipes();
+	protected List<RecipeHolder<?>> getMatchingRecipes() {
+		List<RecipeHolder<?>> matchingRecipes = super.getMatchingRecipes();
 
 		if (!AllConfigs.server().recipes.allowBrewingInMixer.get())
 			return matchingRecipes;
@@ -239,12 +241,12 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 
 		try (Transaction t = TransferUtil.getTransaction()) {
 			for (StorageView<ItemVariant> view : availableItems.nonEmptyViews()) {
-				List<MixingRecipe> list = PotionMixingRecipes.BY_ITEM.get(view.getResource().getItem());
+				List<RecipeHolder<? extends BasinRecipe>> list = PotionMixingRecipes.BY_ITEM.get(view.getResource().getItem());
 				if (list == null)
 					continue;
-				for (MixingRecipe mixingRecipe : list)
-					if (matchBasinRecipe(mixingRecipe))
-						matchingRecipes.add(mixingRecipe);
+				for (RecipeHolder<? extends BasinRecipe> basinRecipe : list)
+					if (matchBasinRecipe(basinRecipe))
+						matchingRecipes.add(basinRecipe);
 			}
 		}
 
@@ -252,12 +254,17 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	}
 
 	@Override
-	protected <C extends Container> boolean matchStaticFilters(Recipe<C> r) {
-		return ((r instanceof CraftingRecipe && !(r instanceof ShapedRecipe)
-				 && AllConfigs.server().recipes.allowShapelessInMixer.get() && r.getIngredients()
-				.size() > 1
-				 && !MechanicalPressBlockEntity.canCompress(r)) && !AllRecipeTypes.shouldIgnoreInAutomation(r)
-			|| r.getType() == AllRecipeTypes.MIXING.getType());
+	protected boolean matchStaticFilters(RecipeHolder<?> r) {
+		return ((
+					r.value() instanceof CraftingRecipe
+					&& !(r.value() instanceof ShapedRecipe)
+					&& AllConfigs.server().recipes.allowShapelessInMixer.get()
+					&& r.value().getIngredients().size() > 1
+					&& !MechanicalPressBlockEntity.canCompress(r.value())
+			)
+			&& !AllRecipeTypes.shouldIgnoreInAutomation(r)
+			|| r.value().getType() == AllRecipeTypes.MIXING.getType()
+		);
 	}
 
 	@Override

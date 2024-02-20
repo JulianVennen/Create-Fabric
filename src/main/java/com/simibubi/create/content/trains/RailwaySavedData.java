@@ -16,7 +16,9 @@ import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.storage.DimensionDataStorage;
 
 public class RailwaySavedData extends SavedData {
 
@@ -95,8 +97,11 @@ public class RailwaySavedData extends SavedData {
 
 	public static RailwaySavedData load(MinecraftServer server) {
 		return server.overworld()
-			.getDataStorage()
-			.computeIfAbsent(RailwaySavedData::load, RailwaySavedData::new, "create_tracks");
+				.getDataStorage()
+				.computeIfAbsent(
+                        new Factory<>(RailwaySavedData::new, RailwaySavedData::load, DataFixTypes.STRUCTURE),
+						"create_tracks"
+				);
 	}
 
 }

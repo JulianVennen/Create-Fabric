@@ -65,7 +65,7 @@ public class KineticDebugger {
 	}
 
 	public static boolean isF3DebugModeActive() {
-		return Minecraft.getInstance().options.renderDebug;
+		return Minecraft.getInstance().getDebugOverlay().showDebugScreen();
 	}
 
 	public static KineticBlockEntity getSelectedBE() {

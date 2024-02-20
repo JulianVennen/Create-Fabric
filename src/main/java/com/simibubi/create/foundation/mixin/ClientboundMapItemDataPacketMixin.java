@@ -46,9 +46,10 @@ public class ClientboundMapItemDataPacketMixin {
 		IntList indices = new IntArrayList();
 		for (int i = 0; i < decorations.size(); i++) {
 			MapDecoration decoration = decorations.get(i);
-			if (decoration instanceof StationMarker.Decoration) {
+			// TODO: SM.Deco
+			/*if (decoration instanceof StationMarker.Decoration) {
 				indices.add(i);
-			}
+			}*/
 		}
 		return indices.toIntArray();
 	}
@@ -57,14 +58,15 @@ public class ClientboundMapItemDataPacketMixin {
 	private void create$onInit(FriendlyByteBuf buf, CallbackInfo ci) {
 		create$stationIndices = buf.readVarIntArray();
 
-		if (decorations != null) {
+		// TODO: SM.Deco
+		/*if (decorations != null) {
 			for (int i : create$stationIndices) {
 				if (i >= 0 && i < decorations.size()) {
 					MapDecoration decoration = decorations.get(i);
 					decorations.set(i, StationMarker.Decoration.from(decoration));
 				}
 			}
-		}
+		}*/
 	}
 
 	@Inject(method = "write(Lnet/minecraft/network/FriendlyByteBuf;)V", at = @At("RETURN"))

@@ -27,6 +27,7 @@ import com.simibubi.create.foundation.advancement.CreateAdvancement.Builder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -626,13 +627,12 @@ public class AllAdvancements implements DataProvider {
 		List<CompletableFuture<?>> futures = new ArrayList<>();
 
 		Set<ResourceLocation> set = Sets.newHashSet();
-		Consumer<Advancement> consumer = (advancement) -> {
-			ResourceLocation id = advancement.getId();
+		Consumer<AdvancementHolder> consumer = (advancement) -> {
+			ResourceLocation id = advancement.id();
 			if (!set.add(id))
 				throw new IllegalStateException("Duplicate advancement " + id);
 			Path path = pathProvider.json(id);
-			futures.add(DataProvider.saveStable(cache, advancement.deconstruct()
-				.serializeToJson(), path));
+			futures.add(DataProvider.saveStable(cache, advancement.value().serializeToJson(), path));
 		};
 
 		for (CreateAdvancement advancement : ENTRIES)

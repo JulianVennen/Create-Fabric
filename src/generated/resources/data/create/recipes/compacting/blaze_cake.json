@@ -13,7 +13,11 @@
   ],
   "results": [
     {
-      "item": "create:blaze_cake_base"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:blaze_cake_base"
+      }
     }
   ]
 }

@@ -7,10 +7,12 @@ import com.simibubi.create.content.processing.recipe.HeatCondition;
 
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class MixingEmiRecipe extends BasinEmiRecipe {
+public class MixingEmiRecipe<T extends BasinRecipe> extends BasinEmiRecipe<T> {
 
-	public MixingEmiRecipe(EmiRecipeCategory category, BasinRecipe recipe) {
+	public MixingEmiRecipe(EmiRecipeCategory category, RecipeHolder<T> recipe) {
 		super(category, recipe, category != CreateEmiPlugin.AUTOMATIC_SHAPELESS);
 	}
 
@@ -18,7 +20,7 @@ public class MixingEmiRecipe extends BasinEmiRecipe {
 	public void addWidgets(WidgetHolder widgets) {
 		super.addWidgets(widgets);
 
-		HeatCondition requiredHeat = recipe.getRequiredHeat();
+		HeatCondition requiredHeat = recipe.value().getRequiredHeat();
 		if (requiredHeat != HeatCondition.NONE) {
 			CreateEmiAnimations.addBlazeBurner(widgets, widgets.getWidth() / 2 + 3, 55, requiredHeat.visualizeAsBlazeBurner());
 		}

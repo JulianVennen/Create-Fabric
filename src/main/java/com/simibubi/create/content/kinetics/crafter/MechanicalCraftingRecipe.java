@@ -20,14 +20,14 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 
 	private boolean acceptMirrored;
 
-	public MechanicalCraftingRecipe(ResourceLocation idIn, String groupIn, int recipeWidthIn, int recipeHeightIn,
+	public MechanicalCraftingRecipe(String groupIn, int recipeWidthIn, int recipeHeightIn,
 		NonNullList<Ingredient> recipeItemsIn, ItemStack recipeOutputIn, boolean acceptMirrored) {
-		super(idIn, groupIn, CraftingBookCategory.MISC, recipeWidthIn, recipeHeightIn, recipeItemsIn, recipeOutputIn);
+		super(groupIn, CraftingBookCategory.MISC, recipeWidthIn, recipeHeightIn, recipeItemsIn, recipeOutputIn);
 		this.acceptMirrored = acceptMirrored;
 	}
 
 	private static MechanicalCraftingRecipe fromShaped(ShapedRecipe recipe, boolean acceptMirrored) {
-		return new MechanicalCraftingRecipe(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(),
+		return new MechanicalCraftingRecipe(recipe.getGroup(), recipe.getWidth(), recipe.getHeight(),
 			recipe.getIngredients(), recipe.getResultItem(null), acceptMirrored);
 	}
 
@@ -86,7 +86,7 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 
 	public static class Serializer extends ShapedRecipe.Serializer {
 
-		@Override
+/*		@Override
 		public ShapedRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			return fromShaped(super.fromJson(recipeId, json), GsonHelper.getAsBoolean(json, "acceptMirrored", true));
 		}
@@ -94,7 +94,7 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 		@Override
 		public ShapedRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			return fromShaped(super.fromNetwork(recipeId, buffer), buffer.readBoolean() && buffer.readBoolean());
-		}
+		}*/
 
 		@Override
 		public void toNetwork(FriendlyByteBuf p_199427_1_, ShapedRecipe p_199427_2_) {

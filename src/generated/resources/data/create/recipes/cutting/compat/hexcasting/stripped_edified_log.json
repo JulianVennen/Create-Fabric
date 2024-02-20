@@ -9,15 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "hexcasting:stripped_edified_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "hexcasting:edified_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

@@ -23,9 +23,8 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -166,10 +165,10 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 		entity.startRiding(cart);
 
 		if (cart instanceof MinecartFurnace) {
-			CompoundTag nbt = NBTSerializer.serializeNBTCompound(cart);
+			/*CompoundTag nbt = NBTSerializer.serializeNBTCompound(cart);
 			nbt.putDouble("PushZ", 0);
 			nbt.putDouble("PushX", 0);
-			NBTSerializer.deserializeNBT(cart, nbt);
+			NBTSerializer.deserializeNBT(cart, nbt);*/
 		}
 
 		if (contraption.containsBlockBreakers())
@@ -222,10 +221,10 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 	protected void disassembleCart(AbstractMinecart cart) {
 		cart.ejectPassengers();
 		if (cart instanceof MinecartFurnace) {
-			CompoundTag nbt = NBTSerializer.serializeNBTCompound(cart);
+			/*CompoundTag nbt = NBTSerializer.serializeNBTCompound(cart);
 			nbt.putDouble("PushZ", cart.getDeltaMovement().x);
 			nbt.putDouble("PushX", cart.getDeltaMovement().z);
-			NBTSerializer.deserializeNBT(cart, nbt);
+			NBTSerializer.deserializeNBT(cart, nbt); */
 		}
 	}
 

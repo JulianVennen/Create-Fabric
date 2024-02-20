@@ -11,6 +11,7 @@ import java.util.Set;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.potion.PotionFluid.BottleType;
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
+import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
@@ -33,16 +34,17 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class PotionMixingRecipes {
 
 	public static final List<Item> SUPPORTED_CONTAINERS = List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION);
 
-	public static final List<MixingRecipe> ALL = createRecipes();
-	public static final Map<Item, List<MixingRecipe>> BY_ITEM = sortRecipesByItem(ALL);
+	public static final List<RecipeHolder<? extends BasinRecipe>> ALL = createRecipes();
+	public static final Map<Item, List<RecipeHolder<? extends BasinRecipe>>> BY_ITEM = sortRecipesByItem(ALL);
 
-	private static List<MixingRecipe> createRecipes() {
-		List<MixingRecipe> mixingRecipes = new ArrayList<>();
+	private static List<RecipeHolder<? extends BasinRecipe>> createRecipes() {
+		List<RecipeHolder<? extends BasinRecipe>> mixingRecipes = new ArrayList<>();
 
 		int recipeIndex = 0;
 
@@ -120,20 +122,20 @@ public class PotionMixingRecipes {
 		return mixingRecipes;
 	}
 
-	private static MixingRecipe createRecipe(String id, Ingredient ingredient, FluidStack fromFluid, FluidStack toFluid) {
-		return new ProcessingRecipeBuilder<>(MixingRecipe::new,
-				Create.asResource(id)).require(ingredient)
+	private static RecipeHolder<MixingRecipe> createRecipe(String id, Ingredient ingredient, FluidStack fromFluid, FluidStack toFluid) {
+		return new ProcessingRecipeBuilder<>(MixingRecipe::new)
+				.require(ingredient)
 				.require(FluidIngredient.fromFluidStack(fromFluid))
 				.output(toFluid)
 				.requiresHeat(HeatCondition.HEATED)
-				.build();
+				.build(Create.asResource(id));
 	}
 
-	private static Map<Item, List<MixingRecipe>> sortRecipesByItem(List<MixingRecipe> all) {
-		Map<Item, List<MixingRecipe>> byItem = new HashMap<>();
+	private static Map<Item, List<RecipeHolder<? extends BasinRecipe>>> sortRecipesByItem(List<RecipeHolder<? extends BasinRecipe>> all) {
+		Map<Item, List<RecipeHolder<? extends BasinRecipe>>> byItem = new HashMap<>();
 		Set<Item> processedItems = new HashSet<>();
-		for (MixingRecipe recipe : all) {
-			for (Ingredient ingredient : recipe.getIngredients()) {
+		for (RecipeHolder<? extends BasinRecipe> recipe : all) {
+			for (Ingredient ingredient : recipe.value().getIngredients()) {
 				for (ItemStack itemStack : ingredient.getItems()) {
 					Item item = itemStack.getItem();
 					if (processedItems.add(item)) {

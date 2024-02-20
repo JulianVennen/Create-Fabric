@@ -106,10 +106,10 @@ public abstract class ConfigScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-		cogSpin.bump(3, -delta * 5);
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+		cogSpin.bump(3, -scrollY * 5);
 
-		return super.mouseScrolled(mouseX, mouseY, delta);
+		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 	}
 
 	@Override

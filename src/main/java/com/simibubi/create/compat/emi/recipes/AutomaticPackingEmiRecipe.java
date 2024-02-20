@@ -11,15 +11,16 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class AutomaticPackingEmiRecipe extends CreateEmiRecipe<BasinRecipe> {
 
-	public AutomaticPackingEmiRecipe(BasinRecipe recipe) {
+	public AutomaticPackingEmiRecipe(RecipeHolder<BasinRecipe> recipe) {
 		super(CreateEmiPlugin.AUTOMATIC_PACKING, recipe, 177, 108);
-		if (recipe.getRequiredHeat() == HeatCondition.NONE) {
+		if (recipe.value().getRequiredHeat() == HeatCondition.NONE) {
 			height = 90;
 		}
-		ResourceLocation id = recipe.getId();
+		ResourceLocation id = recipe.id();
 		this.id = new ResourceLocation("emi", "create/automatic_packing/" + id.getNamespace() + "/" + id.getPath());
 	}
 
@@ -28,7 +29,7 @@ public class AutomaticPackingEmiRecipe extends CreateEmiRecipe<BasinRecipe> {
 		addTexture(widgets, AllGuiTextures.JEI_DOWN_ARROW, 136, 32);
 		addTexture(widgets, AllGuiTextures.JEI_SHADOW, 81, 74);
 
-		NonNullList<Ingredient> ingredients = recipe.getIngredients();
+		NonNullList<Ingredient> ingredients = recipe.value().getIngredients();
 		int size = ingredients.size();
 		int rows = size == 4 ? 2 : 3;
 		for (int i = 0; i < size; i++) {
@@ -40,7 +41,7 @@ public class AutomaticPackingEmiRecipe extends CreateEmiRecipe<BasinRecipe> {
 
 		addSlot(widgets, output.get(0), 140, 50).recipeContext(this);
 
-		HeatCondition requiredHeat = recipe.getRequiredHeat();
+		HeatCondition requiredHeat = recipe.value().getRequiredHeat();
 		if (requiredHeat != HeatCondition.NONE) {
 			CreateEmiAnimations.addBlazeBurner(widgets, widgets.getWidth() / 2 + 3, 55, requiredHeat.visualizeAsBlazeBurner());
 		}

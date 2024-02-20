@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.simibubi.create.foundation.utility.AdventureUtil;
 
-import io.github.fabricators_of_create.porting_lib.block.CustomHitEffectsBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomHitEffectsBlock;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -14,8 +14,8 @@ import com.simibubi.create.content.equipment.goggles.IProxyHoveringInformation;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.render.MultiPosDestructionHandler;
 
-import io.github.fabricators_of_create.porting_lib.block.CustomDestroyEffectsBlock;
-import io.github.fabricators_of_create.porting_lib.block.CustomLandingEffectsBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomDestroyEffectsBlock;
+import io.github.fabricators_of_create.porting_lib.blocks.api.addons.CustomLandingEffectsBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;

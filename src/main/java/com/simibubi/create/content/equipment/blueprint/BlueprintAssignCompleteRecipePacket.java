@@ -34,7 +34,7 @@ public class BlueprintAssignCompleteRecipePacket extends SimplePacketBase {
 				player.level()
 						.getRecipeManager()
 						.byKey(recipeID)
-						.ifPresent(r -> BlueprintItem.assignCompleteRecipe(c.player.level(), c.ghostInventory, r));
+						.ifPresent(r -> BlueprintItem.assignCompleteRecipe(c.player.level(), c.ghostInventory, r.value()));
 			}
 		});
 		return true;

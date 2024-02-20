@@ -2,7 +2,6 @@
   "parent": "create:crusher_maxed_0000",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:arm_many_targets_builtin"
     }
   },

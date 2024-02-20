@@ -15,6 +15,7 @@ import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class FillingBySpout {
@@ -47,9 +48,9 @@ public class FillingBySpout {
 				return requiredFluid.getRequiredAmount();
 		}
 
-		for (Recipe<Container> recipe : world.getRecipeManager()
+		for (RecipeHolder<Recipe<Container>> recipe : world.getRecipeManager()
 			.getRecipesFor(AllRecipeTypes.FILLING.getType(), WRAPPER, world)) {
-			FillingRecipe fillingRecipe = (FillingRecipe) recipe;
+			FillingRecipe fillingRecipe = (FillingRecipe) recipe.value();
 			FluidIngredient requiredFluid = fillingRecipe.getRequiredFluid();
 			if (requiredFluid.test(availableFluid))
 				return requiredFluid.getRequiredAmount();
@@ -69,9 +70,9 @@ public class FillingBySpout {
 			.filter(fr -> fr.getRequiredFluid()
 					.test(toFill))
 				.orElseGet(() -> {
-					for (Recipe<Container> recipe : world.getRecipeManager()
+					for (RecipeHolder<Recipe<Container>> recipe : world.getRecipeManager()
 						.getRecipesFor(AllRecipeTypes.FILLING.getType(), WRAPPER, world)) {
-						FillingRecipe fr = (FillingRecipe) recipe;
+						FillingRecipe fr = (FillingRecipe) recipe.value();
 						FluidIngredient requiredFluid = fr.getRequiredFluid();
 						if (requiredFluid.test(toFill))
 							return fr;

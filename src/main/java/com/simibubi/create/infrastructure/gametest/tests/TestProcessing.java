@@ -64,7 +64,8 @@ public class TestProcessing {
 
 		SequencedAssemblyRecipe recipe = (SequencedAssemblyRecipe) helper.getLevel().getRecipeManager()
 				.byKey(Create.asResource("sequenced_assembly/precision_mechanism"))
-				.orElseThrow(() -> new GameTestAssertException("Precision Mechanism recipe not found"));
+				.orElseThrow(() -> new GameTestAssertException("Precision Mechanism recipe not found"))
+				.value();
 		Item result = recipe.getResultItem(helper.getLevel().registryAccess()).getItem();
 		Item[] possibleResults = recipe.resultPool.stream()
 				.map(ProcessingOutput::getStack)

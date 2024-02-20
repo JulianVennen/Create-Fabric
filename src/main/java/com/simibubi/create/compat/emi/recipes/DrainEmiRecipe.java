@@ -9,13 +9,15 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class DrainEmiRecipe extends CreateEmiRecipe<EmptyingRecipe> {
 
-	public DrainEmiRecipe(EmptyingRecipe recipe) {
+	public DrainEmiRecipe(RecipeHolder<EmptyingRecipe> recipe) {
 		super(CreateEmiPlugin.DRAINING, recipe, 134, 52, c -> {});
-		input = List.of(EmiStack.of(recipe.getIngredients().get(0).getItems()[0]));
-		output = List.of(fluidStack(recipe.getFluidResults().get(0)), EmiStack.of(recipe.getRollableResults().get(0).getStack()));
+		input = List.of(EmiStack.of(recipe.value().getIngredients().get(0).getItems()[0]));
+		output = List.of(fluidStack(recipe.value().getFluidResults().get(0)),
+				EmiStack.of(recipe.value().getRollableResults().get(0).getStack()));
 	}
 
 	@Override
@@ -29,6 +31,7 @@ public class DrainEmiRecipe extends CreateEmiRecipe<EmptyingRecipe> {
 		addSlot(widgets, stack, 109, 7).recipeContext(this);
 		addSlot(widgets, output.get(1), 109, 26).recipeContext(this);
 
-		CreateEmiAnimations.addDrain(widgets, widgets.getWidth() / 2 - 13, 40, recipe.getFluidResults().get(0));
+		CreateEmiAnimations.addDrain(widgets, widgets.getWidth() / 2 - 13, 40,
+				recipe.value().getFluidResults().get(0));
 	}
 }

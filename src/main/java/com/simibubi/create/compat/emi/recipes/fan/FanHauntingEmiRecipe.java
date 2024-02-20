@@ -7,11 +7,12 @@ import com.simibubi.create.content.kinetics.fan.processing.HauntingRecipe;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 
 public class FanHauntingEmiRecipe extends FanEmiRecipe.MultiOutput<HauntingRecipe> {
 
-	public FanHauntingEmiRecipe(HauntingRecipe recipe) {
+	public FanHauntingEmiRecipe(RecipeHolder<HauntingRecipe> recipe) {
 		super(CreateEmiPlugin.FAN_HAUNTING, recipe);
 	}
 

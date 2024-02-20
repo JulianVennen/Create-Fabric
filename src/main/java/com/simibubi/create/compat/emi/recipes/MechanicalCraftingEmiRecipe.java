@@ -17,17 +17,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public class MechanicalCraftingEmiRecipe extends CreateEmiRecipe<CraftingRecipe> {
 	private static final int MAX_SIZE = 100;
 	private int recipeAmount = 0;
 
-	public MechanicalCraftingEmiRecipe(EmiRecipeCategory category, CraftingRecipe recipe) {
+	public MechanicalCraftingEmiRecipe(EmiRecipeCategory category, RecipeHolder<CraftingRecipe> recipe) {
 		super(category, recipe, 177, 109, c -> {});
-		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-		this.output = List.of(getResultEmi(recipe));
-		for (Ingredient ingredient : recipe.getIngredients()) {
+		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+		this.output = List.of(getResultEmi(recipe.value()));
+		for (Ingredient ingredient : recipe.value().getIngredients()) {
 			if (!ingredient.isEmpty()) {
 				recipeAmount++;
 			}
@@ -49,11 +50,17 @@ public class MechanicalCraftingEmiRecipe extends CreateEmiRecipe<CraftingRecipe>
 	}
 
 	private int getWidth() {
-		return recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getWidth() : 1;
+		if (recipe.value() instanceof ShapedRecipe shapedRecipe) {
+			return shapedRecipe.getWidth();
+		}
+		return 1;
 	}
 
 	private int getHeight() {
-		return recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getHeight() : 1;
+		if (recipe.value() instanceof ShapedRecipe shapedRecipe) {
+			return shapedRecipe.getHeight();
+		}
+		return 1;
 	}
 
 	@Override

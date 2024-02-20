@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
 
 public class DeployerApplicationRecipe extends ItemApplicationRecipe implements IAssemblyRecipe {
@@ -34,16 +35,13 @@ public class DeployerApplicationRecipe extends ItemApplicationRecipe implements 
 		return 4;
 	}
 
-	public static DeployerApplicationRecipe convert(Recipe<?> sandpaperRecipe) {
-		return new ProcessingRecipeBuilder<>(DeployerApplicationRecipe::new,
-			new ResourceLocation(sandpaperRecipe.getId()
-				.getNamespace(),
-				sandpaperRecipe.getId()
-					.getPath() + "_using_deployer")).require(sandpaperRecipe.getIngredients()
-						.get(0))
-						.require(AllItemTags.SANDPAPER.tag)
-						.output(sandpaperRecipe.getResultItem(Minecraft.getInstance().level.registryAccess()))
-						.build();
+	public static RecipeHolder<DeployerApplicationRecipe> convert(RecipeHolder<?> sandpaperRecipe) {
+		return new ProcessingRecipeBuilder<>(DeployerApplicationRecipe::new)
+				.require(sandpaperRecipe.value().getIngredients().get(0))
+				.require(AllItemTags.SANDPAPER.tag)
+				.output(sandpaperRecipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()))
+				.build(new ResourceLocation(sandpaperRecipe.id().getNamespace(),
+						sandpaperRecipe.id().getPath() + "_using_deployer"));
 	}
 
 	@Override

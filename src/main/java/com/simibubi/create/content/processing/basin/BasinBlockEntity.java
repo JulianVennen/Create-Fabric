@@ -48,7 +48,7 @@ import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
 import io.github.fabricators_of_create.porting_lib.util.FluidTextUtil;
 import io.github.fabricators_of_create.porting_lib.util.FluidUnit;
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import it.unimi.dsi.fastutil.Pair;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
@@ -240,7 +240,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		if (!clientPacket)
 			return;
 
-		compound.put("VisualizedItems", NBTHelper.writeCompoundList(visualizedOutputItems, ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
+		// compound.put("VisualizedItems", NBTHelper.writeCompoundList(visualizedOutputItems, ia -> NBTSerializer.serializeNBTCompound(ia.getValue())));
 		compound.put("VisualizedFluids", NBTHelper.writeCompoundList(visualizedOutputFluids, ia -> ia.getValue()
 			.writeToNBT(new CompoundTag())));
 		visualizedOutputItems.clear();

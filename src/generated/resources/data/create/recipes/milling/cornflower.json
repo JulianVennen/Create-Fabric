@@ -8,8 +8,11 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 2,
-      "item": "minecraft:blue_dye"
+      "chance": 1.0,
+      "item": {
+        "Count": 2,
+        "id": "minecraft:blue_dye"
+      }
     }
   ]
 }

@@ -1,6 +1,6 @@
 package com.simibubi.create.content.logistics.funnel;
 
-import io.github.fabricators_of_create.porting_lib.item.BlockUseBypassingItem;
+import io.github.fabricators_of_create.porting_lib.item.api.common.addons.BlockUseBypassingItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

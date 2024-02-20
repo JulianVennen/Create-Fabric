@@ -2,7 +2,6 @@
   "parent": "create:belt",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:funnel_builtin"
     }
   },

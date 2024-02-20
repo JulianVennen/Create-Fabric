@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.effect.AttributeModifierTemplate;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -121,13 +122,11 @@ public class PotionFluidHandler {
 			for (MobEffectInstance effectinstance : list) {
 				MutableComponent textcomponent = Components.translatable(effectinstance.getDescriptionId());
 				MobEffect effect = effectinstance.getEffect();
-				Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
+				Map<Attribute, AttributeModifierTemplate> map = effect.getAttributeModifiers();
 				if (!map.isEmpty()) {
-					for (Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-						AttributeModifier attributemodifier = entry.getValue();
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(),
-							effect.getAttributeModifierValue(effectinstance.getAmplifier(), attributemodifier),
-							attributemodifier.getOperation());
+					for (Entry<Attribute, AttributeModifierTemplate> entry : map.entrySet()) {
+						AttributeModifierTemplate attributemodifier = entry.getValue();
+						AttributeModifier attributemodifier1 = attributemodifier.create(effectinstance.getAmplifier());
 						list1.add(new Tuple<>(
 							entry.getKey().getDescriptionId(),
 							attributemodifier1));

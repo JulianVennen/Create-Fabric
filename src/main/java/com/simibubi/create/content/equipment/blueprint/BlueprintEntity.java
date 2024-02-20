@@ -10,6 +10,8 @@ import io.github.fabricators_of_create.porting_lib.entity.IEntityAdditionalSpawn
 
 import net.fabricmc.fabric.api.entity.FakePlayer;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.apache.commons.lang3.Validate;
 
 import com.simibubi.create.AllEntityTypes;
@@ -321,7 +323,7 @@ public class BlueprintEntity extends HangingEntity
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void lerpTo(double p_180426_1_, double p_180426_3_, double p_180426_5_, float p_180426_7_, float p_180426_8_,
-		int p_180426_9_, boolean p_180426_10_) {
+		int p_180426_9_) {
 		BlockPos blockpos =
 			this.pos.offset(BlockPos.containing(p_180426_1_ - this.getX(), p_180426_3_ - this.getY(), p_180426_5_ - this.getZ()));
 		this.setPos((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ());
@@ -389,7 +391,8 @@ public class BlueprintEntity extends HangingEntity
 
 						if (!recipe.isPresent())
 							recipe = level().getRecipeManager()
-									.getRecipeFor(RecipeType.CRAFTING, craftingInventory, level());
+									.getRecipeFor(RecipeType.CRAFTING, craftingInventory, level())
+									.map(RecipeHolder::value);
 						ItemStack result = recipe.filter(r -> r.matches(craftingInventory, level()))
 								.map(r -> r.assemble(craftingInventory, level().registryAccess()))
 								.orElse(ItemStack.EMPTY);

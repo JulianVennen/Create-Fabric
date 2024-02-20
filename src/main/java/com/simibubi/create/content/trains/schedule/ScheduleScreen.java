@@ -370,7 +370,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (menu.slotsActive)
 			super.render(graphics, mouseX, mouseY, partialTicks);
 		else {
-			renderBackground(graphics);
+			renderBackground(graphics, mouseX, mouseY, partialTicks);
 			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : ((ScreenAccessor) this).port_lib$getRenderables())
 				widget.render(graphics, mouseX, mouseY, partialTicks);
@@ -926,11 +926,11 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	}
 
 	@Override
-	public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
-		if (destinationSuggestions != null && destinationSuggestions.mouseScrolled(Mth.clamp(pDelta, -1.0D, 1.0D)))
+	public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
+		if (destinationSuggestions != null && destinationSuggestions.mouseScrolled(Mth.clamp(pScrollY, -1.0D, 1.0D)))
 			return true;
 		if (editingCondition != null || editingDestination != null)
-			return super.mouseScrolled(pMouseX, pMouseY, pDelta);
+			return super.mouseScrolled(pMouseX, pMouseY, pScrollX, pScrollY);
 
 		if (hasShiftDown()) {
 			List<ScheduleEntry> entries = schedule.entries;
@@ -959,12 +959,12 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 					break;
 				float chaseTarget = horizontalScrolls.get(i)
 					.getChaseTarget();
-				if (pDelta > 0 && !Mth.equal(chaseTarget, 0)) {
+				if (pScrollY > 0 && !Mth.equal(chaseTarget, 0)) {
 					horizontalScrolls.get(i)
 						.chase(chaseTarget - 1, 0.5f, Chaser.EXP);
 					return true;
 				}
-				if (pDelta < 0 && !Mth.equal(chaseTarget, entry.conditions.size() - 1)) {
+				if (pScrollY < 0 && !Mth.equal(chaseTarget, entry.conditions.size() - 1)) {
 					horizontalScrolls.get(i)
 						.chase(chaseTarget + 1, 0.5f, Chaser.EXP);
 					return true;
@@ -982,13 +982,13 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			max += CARD_HEADER + 24 + maxRows * 18 + 10;
 		}
 		if (max > 0) {
-			chaseTarget -= pDelta * 12;
+			chaseTarget -= pScrollY * 12;
 			chaseTarget = Mth.clamp(chaseTarget, 0, max);
 			scroll.chase((int) chaseTarget, 0.7f, Chaser.EXP);
 		} else
 			scroll.chase(0, 0.7f, Chaser.EXP);
 
-		return super.mouseScrolled(pMouseX, pMouseY, pDelta);
+		return super.mouseScrolled(pMouseX, pMouseY, pScrollX, pScrollX);
 	}
 
 	@Override

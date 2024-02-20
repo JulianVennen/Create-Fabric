@@ -8,7 +8,11 @@
   "processingTime": 50,
   "results": [
     {
-      "item": "minecraft:stripped_warped_hyphae"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:stripped_warped_hyphae"
+      }
     }
   ]
 }

@@ -19,8 +19,9 @@ import com.simibubi.create.foundation.utility.RegisteredObjects;
 
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
-import net.minecraft.core.Registry;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -110,30 +111,29 @@ public class MechanicalCraftingRecipeBuilder {
 	/**
 	 * Builds this recipe into a {@link FinishedRecipe}.
 	 */
-	public void build(Consumer<FinishedRecipe> p_200464_1_) {
-		this.build(p_200464_1_, RegisteredObjects.getKeyOrThrow(this.result));
+	public void build(RecipeOutput output) {
+		this.build(output, RegisteredObjects.getKeyOrThrow(this.result));
 	}
 
 	/**
 	 * Builds this recipe into a {@link FinishedRecipe}. Use
-	 * {@link #build(Consumer)} if save is the same as the ID for the result.
+	 * {@link #build(RecipeOutput)} if save is the same as the ID for the result.
 	 */
-	public void build(Consumer<FinishedRecipe> p_200466_1_, String p_200466_2_) {
+	public void build(RecipeOutput output, String p_200466_2_) {
 		ResourceLocation resourcelocation = RegisteredObjects.getKeyOrThrow(this.result);
 		if ((new ResourceLocation(p_200466_2_)).equals(resourcelocation)) {
 			throw new IllegalStateException("Shaped Recipe " + p_200466_2_ + " should remove its 'save' argument");
 		} else {
-			this.build(p_200466_1_, new ResourceLocation(p_200466_2_));
+			this.build(output, new ResourceLocation(p_200466_2_));
 		}
 	}
 
 	/**
 	 * Builds this recipe into a {@link FinishedRecipe}.
 	 */
-	public void build(Consumer<FinishedRecipe> p_200467_1_, ResourceLocation p_200467_2_) {
+	public void build(RecipeOutput output, ResourceLocation p_200467_2_) {
 		validate(p_200467_2_);
-		p_200467_1_
-			.accept(new MechanicalCraftingRecipeBuilder.Result(p_200467_2_, result, count, pattern, key, acceptMirrored, recipeConditions));
+		output.accept(new MechanicalCraftingRecipeBuilder.Result(p_200467_2_, result, count, pattern, key, acceptMirrored, recipeConditions));
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class MechanicalCraftingRecipeBuilder {
 			JsonObject jsonobject = new JsonObject();
 			for (Entry<Character, Ingredient> entry : this.key.entrySet())
 				jsonobject.add(String.valueOf(entry.getKey()), entry.getValue()
-					.toJson());
+					.toJson(false));
 
 			p_218610_1_.add("key", jsonobject);
 			JsonObject jsonobject1 = new JsonObject();
@@ -224,21 +224,19 @@ public class MechanicalCraftingRecipeBuilder {
 			p_218610_1_.add("conditions", conds);
 		}
 
-		public RecipeSerializer<?> getType() {
+		@Override
+		public RecipeSerializer<?> type() {
 			return AllRecipeTypes.MECHANICAL_CRAFTING.getSerializer();
 		}
 
-		public ResourceLocation getId() {
+		@Override
+		public ResourceLocation id() {
 			return this.id;
 		}
 
+		@Override
 		@Nullable
-		public JsonObject serializeAdvancement() {
-			return null;
-		}
-
-		@Nullable
-		public ResourceLocation getAdvancementId() {
+		public AdvancementHolder advancement() {
 			return null;
 		}
 	}

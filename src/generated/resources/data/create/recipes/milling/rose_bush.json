@@ -8,18 +8,25 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 3,
-      "item": "minecraft:red_dye"
+      "chance": 1.0,
+      "item": {
+        "Count": 3,
+        "id": "minecraft:red_dye"
+      }
     },
     {
       "chance": 0.05,
-      "count": 2,
-      "item": "minecraft:green_dye"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:green_dye"
+      }
     },
     {
       "chance": 0.25,
-      "count": 2,
-      "item": "minecraft:red_dye"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:red_dye"
+      }
     }
   ]
 }

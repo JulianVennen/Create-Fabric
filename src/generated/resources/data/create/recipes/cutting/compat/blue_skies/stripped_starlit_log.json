@@ -9,15 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "blue_skies:stripped_starlit_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "blue_skies:starlit_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

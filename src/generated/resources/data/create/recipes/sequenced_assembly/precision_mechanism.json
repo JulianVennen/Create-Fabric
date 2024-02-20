@@ -4,93 +4,144 @@
     "tag": "c:gold_plates"
   },
   "loops": 5,
-  "results": [
+  "resultPool": [
     {
       "chance": 120.0,
-      "item": "create:precision_mechanism"
+      "item": {
+        "Count": 1,
+        "id": "create:precision_mechanism"
+      }
     },
     {
       "chance": 8.0,
-      "item": "create:golden_sheet"
+      "item": {
+        "Count": 1,
+        "id": "create:golden_sheet"
+      }
     },
     {
       "chance": 8.0,
-      "item": "create:andesite_alloy"
+      "item": {
+        "Count": 1,
+        "id": "create:andesite_alloy"
+      }
     },
     {
       "chance": 5.0,
-      "item": "create:cogwheel"
+      "item": {
+        "Count": 1,
+        "id": "create:cogwheel"
+      }
     },
     {
       "chance": 3.0,
-      "item": "minecraft:gold_nugget"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:gold_nugget"
+      }
     },
     {
       "chance": 2.0,
-      "item": "create:shaft"
+      "item": {
+        "Count": 1,
+        "id": "create:shaft"
+      }
     },
     {
       "chance": 2.0,
-      "item": "create:crushed_raw_gold"
+      "item": {
+        "Count": 1,
+        "id": "create:crushed_raw_gold"
+      }
     },
     {
-      "item": "minecraft:iron_ingot"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:iron_ingot"
+      }
     },
     {
-      "item": "minecraft:clock"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:clock"
+      }
     }
   ],
   "sequence": [
     {
       "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        },
-        {
-          "item": "create:cogwheel"
-        }
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        }
-      ]
+      "value": {
+        "ingredients": [
+          {
+            "item": "create:incomplete_precision_mechanism"
+          },
+          {
+            "item": "create:cogwheel"
+          }
+        ],
+        "results": [
+          {
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_precision_mechanism"
+            }
+          }
+        ]
+      }
     },
     {
       "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        },
-        {
-          "item": "create:large_cogwheel"
-        }
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        }
-      ]
+      "value": {
+        "ingredients": [
+          {
+            "item": "create:incomplete_precision_mechanism"
+          },
+          {
+            "item": "create:large_cogwheel"
+          }
+        ],
+        "results": [
+          {
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_precision_mechanism"
+            }
+          }
+        ]
+      }
     },
     {
       "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        },
-        {
-          "tag": "c:iron_nuggets"
-        }
-      ],
-      "results": [
-        {
-          "item": "create:incomplete_precision_mechanism"
-        }
-      ]
+      "value": {
+        "ingredients": [
+          {
+            "item": "create:incomplete_precision_mechanism"
+          },
+          {
+            "tag": "c:iron_nuggets"
+          }
+        ],
+        "results": [
+          {
+            "chance": 1.0,
+            "item": {
+              "Count": 1,
+              "id": "create:incomplete_precision_mechanism"
+            }
+          }
+        ]
+      }
     }
   ],
   "transitionalItem": {
-    "item": "create:incomplete_precision_mechanism"
+    "chance": 1.0,
+    "item": {
+      "Count": 1,
+      "id": "create:incomplete_precision_mechanism"
+    }
   }
 }

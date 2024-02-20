@@ -8,20 +8,32 @@
   "processingTime": 350,
   "results": [
     {
-      "count": 7,
-      "item": "create:crushed_raw_copper"
+      "chance": 1.0,
+      "item": {
+        "Count": 7,
+        "id": "create:crushed_raw_copper"
+      }
     },
     {
       "chance": 0.25,
-      "item": "create:crushed_raw_copper"
+      "item": {
+        "Count": 1,
+        "id": "create:crushed_raw_copper"
+      }
     },
     {
       "chance": 0.75,
-      "item": "create:experience_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:experience_nugget"
+      }
     },
     {
       "chance": 0.125,
-      "item": "minecraft:cobbled_deepslate"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:cobbled_deepslate"
+      }
     }
   ]
 }

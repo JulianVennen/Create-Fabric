@@ -8,7 +8,11 @@
   "processingTime": 100,
   "results": [
     {
-      "item": "minecraft:string"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:string"
+      }
     }
   ]
 }

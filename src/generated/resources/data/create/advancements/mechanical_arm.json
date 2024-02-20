@@ -2,7 +2,6 @@
   "parent": "create:speed_controller",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:mechanical_arm_builtin"
     }
   },

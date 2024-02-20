@@ -8,18 +8,24 @@
     }
   ],
   "type": "create:filling",
-  "ingredients": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
+  "fluidIngredients": [
     {
       "amount": 27000,
       "fluidTag": "c:milk"
     }
   ],
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
   "results": [
     {
-      "item": "farmersdelight:milk_bottle"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

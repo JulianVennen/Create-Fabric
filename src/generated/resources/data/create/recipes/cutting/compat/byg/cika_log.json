@@ -9,14 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "byg:cika_log"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "byg:stripped_cika_log"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

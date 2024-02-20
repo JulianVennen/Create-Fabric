@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_zinc_ingots",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_zinc_ingots"
     ]
   ],
   "rewards": {

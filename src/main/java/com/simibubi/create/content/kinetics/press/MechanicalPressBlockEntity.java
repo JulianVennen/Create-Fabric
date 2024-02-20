@@ -33,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -186,7 +187,8 @@ public class MechanicalPressBlockEntity extends BasinOperatingBlockEntity implem
 			return assemblyRecipe;
 
 		pressingInv.setItem(0, item);
-		return AllRecipeTypes.PRESSING.find(pressingInv, level);
+		Optional<RecipeHolder<PressingRecipe>> recipe = AllRecipeTypes.PRESSING.find(pressingInv, level);
+		return recipe.map(RecipeHolder::value);
 	}
 
 	public static <C extends Container> boolean canCompress(Recipe<C> recipe) {
@@ -197,10 +199,12 @@ public class MechanicalPressBlockEntity extends BasinOperatingBlockEntity implem
 	}
 
 	@Override
-	protected <C extends Container> boolean matchStaticFilters(Recipe<C> recipe) {
-		return (recipe instanceof CraftingRecipe && !(recipe instanceof MechanicalCraftingRecipe) && canCompress(recipe)
-			&& !AllRecipeTypes.shouldIgnoreInAutomation(recipe))
-			|| recipe.getType() == AllRecipeTypes.COMPACTING.getType();
+	protected boolean matchStaticFilters(RecipeHolder<?> recipe) {
+		return (recipe.value() instanceof CraftingRecipe
+				&& !(recipe.value() instanceof MechanicalCraftingRecipe)
+				&& canCompress(recipe.value())
+				&& !AllRecipeTypes.shouldIgnoreInAutomation(recipe)
+		) || recipe.value().getType() == AllRecipeTypes.COMPACTING.getType();
 	}
 
 	@Override

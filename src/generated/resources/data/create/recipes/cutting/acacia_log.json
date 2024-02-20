@@ -8,7 +8,11 @@
   "processingTime": 50,
   "results": [
     {
-      "item": "minecraft:stripped_acacia_log"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:stripped_acacia_log"
+      }
     }
   ]
 }

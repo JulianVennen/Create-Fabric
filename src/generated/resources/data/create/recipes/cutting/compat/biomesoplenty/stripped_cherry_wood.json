@@ -9,15 +9,16 @@
   ],
   "type": "create:cutting",
   "ingredients": [
-    {
-      "item": "biomesoplenty:stripped_cherry_wood"
-    }
+    []
   ],
   "processingTime": 50,
   "results": [
     {
-      "count": 6,
-      "item": "biomesoplenty:cherry_planks"
+      "chance": 1.0,
+      "item": {
+        "Count": 0,
+        "id": "minecraft:air"
+      }
     }
   ]
 }

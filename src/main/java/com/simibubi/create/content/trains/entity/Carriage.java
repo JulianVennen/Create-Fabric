@@ -32,7 +32,7 @@ import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
 import com.tterrag.registrate.fabric.EnvExecutor;
 
-import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
+// import io.github.fabricators_of_create.porting_lib.util.NBTSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -454,9 +454,9 @@ public class Carriage {
 			if (contraption == null)
 				continue;
 			Map<UUID, Integer> mapping = contraption.getSeatMapping();
-			for (Entity passenger : entity.getPassengers())
+/*			for (Entity passenger : entity.getPassengers())
 				if (mapping.containsKey(passenger.getUUID()))
-					passengerMap.put(mapping.get(passenger.getUUID()), NBTSerializer.serializeNBTCompound(passenger));
+					passengerMap.put(mapping.get(passenger.getUUID()), NBTSerializer.serializeNBTCompound(passenger));*/
 		}
 
 		tag.put("Entity", serialisedEntity.copy());
@@ -477,7 +477,7 @@ public class Carriage {
 	}
 
 	private void serialize(Entity entity) {
-		serialisedEntity = NBTSerializer.serializeNBTCompound(entity);
+		// serialisedEntity = NBTSerializer.serializeNBTCompound(entity);
 		serialisedEntity.remove("Passengers");
 		serialisedEntity.getCompound("Contraption")
 			.remove("Passengers");
@@ -734,7 +734,7 @@ public class Carriage {
 					continue;
 				}
 
-				serialisedPassengers.put(seat, NBTSerializer.serializeNBTCompound(passenger));
+				// serialisedPassengers.put(seat, NBTSerializer.serializeNBTCompound(passenger));
 				passenger.discard();
 			}
 
@@ -827,7 +827,7 @@ public class Carriage {
 						continue;
 					}
 
-					serialisedPassengers.put(seat, NBTSerializer.serializeNBTCompound(passenger));
+					// serialisedPassengers.put(seat, NBTSerializer.serializeNBTCompound(passenger));
 				}
 			}
 

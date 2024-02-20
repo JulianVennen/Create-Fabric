@@ -1,17 +1,23 @@
 {
   "type": "create:filling",
-  "ingredients": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
+  "fluidIngredients": [
     {
       "amount": 20250,
       "fluidTag": "c:honey"
     }
   ],
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
   "results": [
     {
-      "item": "minecraft:honey_bottle"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:honey_bottle"
+      }
     }
   ]
 }

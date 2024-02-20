@@ -16,18 +16,19 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class BasinEmiRecipe extends CreateEmiRecipe<BasinRecipe> {
+public class BasinEmiRecipe<T extends BasinRecipe> extends CreateEmiRecipe<T> {
 	private final List<EmiIngredient> catalysts = Lists.newArrayList();
 	private final boolean needsHeating;
 
-	public BasinEmiRecipe(EmiRecipeCategory category, BasinRecipe recipe, boolean needsHeating) {
+	public BasinEmiRecipe(EmiRecipeCategory category, RecipeHolder<T> recipe, boolean needsHeating) {
 		super(category, recipe, 177, 108);
 		if (!needsHeating) {
 			height = 90;
 		}
 		this.needsHeating = needsHeating;
-		HeatCondition requiredHeat = recipe.getRequiredHeat();
+		HeatCondition requiredHeat = recipe.value().getRequiredHeat();
 		if (!requiredHeat.testBlazeBurner(HeatLevel.NONE)) {
 			catalysts.add(EmiStack.of(AllBlocks.BLAZE_BURNER.get()));
 		}
@@ -46,7 +47,7 @@ public class BasinEmiRecipe extends CreateEmiRecipe<BasinRecipe> {
 		int inputSize = input.size();
 		int outputSize = output.size();
 		int vRows = (1 + outputSize) / 2;
-		HeatCondition requiredHeat = recipe.getRequiredHeat();
+		HeatCondition requiredHeat = recipe.value().getRequiredHeat();
 
 		if (vRows <= 2) {
 			addTexture(widgets, AllGuiTextures.JEI_DOWN_ARROW, 136, 32 - 19 * (vRows - 1));

@@ -34,9 +34,12 @@ import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -55,6 +58,8 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public class StandardRecipeGen extends CreateRecipeProvider {
@@ -1467,10 +1472,18 @@ public class StandardRecipeGen extends CreateRecipeProvider {
 					if (unlockedBy != null)
 						b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
 
-					b.save(result -> {
-						consumer.accept(
-							isOtherMod ? new ModdedCookingRecipeResult(result, compatDatagenOutput, recipeConditions)
-								: result);
+					b.save(new RecipeOutput() {
+						@Override
+						public void accept(FinishedRecipe recipe) {
+							if (isOtherMod) {
+								recipe = new ModdedCookingRecipeResult(recipe, compatDatagenOutput, recipeConditions);
+							}
+							consumer.accept(recipe);
+						}
+						@Override
+						public Advancement.Builder advancement() {
+							return consumer.advancement();
+						}
 					}, createSimpleLocation(RegisteredObjects.getKeyOrThrow(serializer)
 						.getPath()));
 				});
@@ -1501,23 +1514,19 @@ public class StandardRecipeGen extends CreateRecipeProvider {
 		}
 
 		@Override
-		public ResourceLocation getId() {
-			return wrapped.getId();
+		public ResourceLocation id() {
+			return wrapped.id();
 		}
 
 		@Override
-		public RecipeSerializer<?> getType() {
-			return wrapped.getType();
+		public RecipeSerializer<?> type() {
+			return wrapped.type();
 		}
 
+		@Nullable
 		@Override
-		public JsonObject serializeAdvancement() {
-			return wrapped.serializeAdvancement();
-		}
-
-		@Override
-		public ResourceLocation getAdvancementId() {
-			return wrapped.getAdvancementId();
+		public AdvancementHolder advancement() {
+			return wrapped.advancement();
 		}
 
 		@Override

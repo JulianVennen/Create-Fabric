@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.Block;
 
 public class ToolboxDyeingRecipe extends CustomRecipe {
 
-	public ToolboxDyeingRecipe(ResourceLocation rl, CraftingBookCategory category) {
-		super(rl, category);
+	public ToolboxDyeingRecipe(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override

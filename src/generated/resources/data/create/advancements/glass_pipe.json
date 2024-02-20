@@ -2,7 +2,6 @@
   "parent": "create:mechanical_pump_0",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:glass_pipe_builtin"
     }
   },

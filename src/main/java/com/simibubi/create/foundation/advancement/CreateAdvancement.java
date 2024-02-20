@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.advancement;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
@@ -9,6 +11,9 @@ import com.simibubi.create.foundation.utility.Components;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -36,7 +41,7 @@ public class CreateAdvancement {
 	private SimpleCreateTrigger builtinTrigger;
 	private CreateAdvancement parent;
 
-	Advancement datagenResult;
+	AdvancementHolder datagenResult;
 
 	private String id;
 	private String title;
@@ -51,7 +56,7 @@ public class CreateAdvancement {
 
 		if (!t.externalTrigger) {
 			builtinTrigger = AllTriggers.addSimple(id + "_builtin");
-			builder.addCriterion("0", builtinTrigger.instance());
+			builder.addCriterion("0", builtinTrigger.criterion());
 		}
 
 		builder.display(t.icon, Components.translatable(titleKey()),
@@ -75,9 +80,9 @@ public class CreateAdvancement {
 	public boolean isAlreadyAwardedTo(Player player) {
 		if (!(player instanceof ServerPlayer sp))
 			return true;
-		Advancement advancement = sp.getServer()
+		AdvancementHolder advancement = sp.getServer()
 			.getAdvancements()
-			.getAdvancement(Create.asResource(id));
+			.get(Create.asResource(id));
 		if (advancement == null)
 			return true;
 		return sp.getAdvancements()
@@ -94,7 +99,7 @@ public class CreateAdvancement {
 		builtinTrigger.trigger(sp);
 	}
 
-	void save(Consumer<Advancement> t) {
+	void save(Consumer<AdvancementHolder> t) {
 		if (parent != null)
 			builder.parent(parent.datagenResult);
 		datagenResult = builder.save(t, Create.asResource(id)
@@ -188,15 +193,15 @@ public class CreateAdvancement {
 
 		Builder whenItemCollected(TagKey<Item> tag) {
 			return externalTrigger(InventoryChangeTrigger.TriggerInstance
-				.hasItems(new ItemPredicate(tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,
-					EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)));
+				.hasItems(new ItemPredicate(Optional.ofNullable(tag), Optional.empty(), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,
+						List.of(), List.of(), Optional.empty(), Optional.empty())));
 		}
 
 		Builder awardedForFree() {
 			return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[] {}));
 		}
 
-		Builder externalTrigger(CriterionTriggerInstance trigger) {
+		Builder externalTrigger(Criterion trigger) {
 			builder.addCriterion(String.valueOf(keyIndex), trigger);
 			externalTrigger = true;
 			keyIndex++;

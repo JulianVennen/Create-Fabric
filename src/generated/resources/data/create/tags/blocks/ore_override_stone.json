@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#minecraft:stone_ore_replaceables",
     "#minecraft:stone_ore_replaceables"
   ]
 }

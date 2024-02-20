@@ -8,11 +8,18 @@
   "processingTime": 500,
   "results": [
     {
-      "item": "create:powdered_obsidian"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:powdered_obsidian"
+      }
     },
     {
       "chance": 0.75,
-      "item": "minecraft:obsidian"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:obsidian"
+      }
     }
   ]
 }

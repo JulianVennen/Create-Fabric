@@ -10,7 +10,11 @@
   ],
   "results": [
     {
-      "item": "create:andesite_alloy"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:andesite_alloy"
+      }
     }
   ]
 }

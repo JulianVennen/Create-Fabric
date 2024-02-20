@@ -106,10 +106,10 @@ public class DeployerFakePlayer extends FakePlayer {
 		return owner == null ? super.getUUID() : owner;
 	}
 
-	public static void deployerHasEyesOnHisFeet(EntityEvents.Size event) {
+	/*public static void deployerHasEyesOnHisFeet(EntityEvents.Size event) {
 		if (event.getEntity() instanceof DeployerFakePlayer)
 			event.setNewEyeHeight(0);
-	}
+	}*/
 
 	public static boolean deployerCollectsDropsFromKilledEntities(LivingEntity target, DamageSource source, Collection<ItemEntity> drops, int lootingLevel, boolean recentlyHit) {
 		Entity trueSource = source.getEntity();

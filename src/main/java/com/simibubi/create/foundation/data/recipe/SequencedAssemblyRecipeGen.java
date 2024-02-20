@@ -80,9 +80,8 @@ public class SequencedAssemblyRecipeGen extends CreateRecipeProvider {
 	}
 
 	protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
-		GeneratedRecipe generatedRecipe =
-			c -> transform.apply(new SequencedAssemblyRecipeBuilder(Create.asResource(name)))
-				.build(c);
+		GeneratedRecipe generatedRecipe = c -> transform.apply(new SequencedAssemblyRecipeBuilder())
+				.build(c, Create.asResource(name));
 		all.add(generatedRecipe);
 		return generatedRecipe;
 	}

@@ -18,13 +18,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.block.Block;
 
 public final class ToolboxColoringRecipeMaker {
 
 	// From JEI's ShulkerBoxColoringRecipeMaker
-	public static Stream<CraftingRecipe> createRecipes() {
+	public static Stream<RecipeHolder<CraftingRecipe>> createRecipes() {
 		String group = "create.toolbox.color";
 		ItemStack baseShulkerStack = AllBlocks.TOOLBOXES.get(DyeColor.BROWN)
 			.asStack();
@@ -46,7 +47,8 @@ public final class ToolboxColoringRecipeMaker {
 					.get();
 				ItemStack output = new ItemStack(coloredShulkerBox);
 				ResourceLocation id = Create.asResource(group + "." + output.getDescriptionId());
-				return new ShapelessRecipe(id, group, CraftingBookCategory.MISC, output, inputs);
+				ShapelessRecipe recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC, output, inputs);
+				return new RecipeHolder<>(id, recipe);
 			});
 	}
 

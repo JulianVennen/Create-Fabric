@@ -12,6 +12,11 @@
     "minecraft:mangrove_roots",
     "#minecraft:campfires",
     "#minecraft:fences",
+    "#minecraft:leaves",
+    "minecraft:iron_bars",
+    "minecraft:mangrove_roots",
+    "#minecraft:campfires",
+    "#minecraft:fences",
     "#minecraft:leaves"
   ]
 }

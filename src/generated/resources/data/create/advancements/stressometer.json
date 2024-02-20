@@ -2,7 +2,6 @@
   "parent": "create:wrench_goggles",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:stressometer_builtin"
     }
   },

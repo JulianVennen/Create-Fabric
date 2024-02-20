@@ -8,11 +8,18 @@
   "processingTime": 250,
   "results": [
     {
-      "item": "create:cinder_flour"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "create:cinder_flour"
+      }
     },
     {
       "chance": 0.5,
-      "item": "create:cinder_flour"
+      "item": {
+        "Count": 1,
+        "id": "create:cinder_flour"
+      }
     }
   ]
 }

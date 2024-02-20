@@ -289,6 +289,11 @@ public class UIRenderHelper {
 			return framebuffer;
 		}
 
+		@Override
+		public void enableStencil() {
+
+		}
+
 		public void renderWithAlpha(float alpha) {
 			Window window = Minecraft.getInstance().getWindow();
 

@@ -8,12 +8,18 @@
   "processingTime": 100,
   "results": [
     {
-      "item": "minecraft:black_dye"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:black_dye"
+      }
     },
     {
       "chance": 0.1,
-      "count": 2,
-      "item": "minecraft:gray_dye"
+      "item": {
+        "Count": 2,
+        "id": "minecraft:gray_dye"
+      }
     }
   ]
 }

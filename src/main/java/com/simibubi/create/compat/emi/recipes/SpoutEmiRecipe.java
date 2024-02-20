@@ -9,16 +9,17 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.widget.WidgetHolder;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class SpoutEmiRecipe extends CreateEmiRecipe<FillingRecipe> {
 
-	public SpoutEmiRecipe(FillingRecipe recipe) {
+	public SpoutEmiRecipe(RecipeHolder<FillingRecipe> recipe) {
 		super(CreateEmiPlugin.SPOUT_FILLING, recipe, 134, 74, c -> {});
 		input = List.of(
-				firstIngredientOrEmpty(recipe.getIngredients()),
-				firstFluidOrEmpty(recipe.getRequiredFluid().getMatchingFluidStacks())
+				firstIngredientOrEmpty(recipe.value().getIngredients()),
+				firstFluidOrEmpty(recipe.value().getRequiredFluid().getMatchingFluidStacks())
 		);
-		output = List.of(firstResultOrEmpty(recipe.getRollableResults()));
+		output = List.of(firstResultOrEmpty(recipe.value().getRollableResults()));
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class SpoutEmiRecipe extends CreateEmiRecipe<FillingRecipe> {
 
 		addSlot(widgets, output.get(0), 109, 50).recipeContext(this);
 
-		List<FluidStack> fluids = recipe.getRequiredFluid().getMatchingFluidStacks();
+		List<FluidStack> fluids = recipe.value().getRequiredFluid().getMatchingFluidStacks();
 		CreateEmiAnimations.addSpout(widgets, widgets.getWidth() / 2 - 13, 22, fluids.isEmpty() ? List.of(FluidStack.EMPTY) : fluids);
 	}
 }

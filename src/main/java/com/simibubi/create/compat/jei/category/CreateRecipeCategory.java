@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.simibubi.create.AllFluids;
@@ -49,7 +51,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 	protected final IDrawable background;
 	protected final IDrawable icon;
 
-	private final Supplier<List<T>> recipes;
+	private final Supplier<List<RecipeHolder<? extends T>>> recipes;
 	private final List<Supplier<? extends ItemStack>> catalysts;
 
 	public CreateRecipeCategory(Info<T> info) {
@@ -83,7 +85,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 	}
 
 	public void registerRecipes(IRecipeRegistration registration) {
-		registration.addRecipes(type, recipes.get());
+		registration.addRecipes(type, recipes.get().stream().map(RecipeHolder::value).collect(Collectors.toList()));
 	}
 
 	public void registerCatalysts(IRecipeCatalystRegistration registration) {
@@ -213,7 +215,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 		};
 	}
 
-	public record Info<T extends Recipe<?>>(RecipeType<T> recipeType, Component title, IDrawable background, IDrawable icon, Supplier<List<T>> recipes, List<Supplier<? extends ItemStack>> catalysts) {
+	public record Info<T extends Recipe<?>>(RecipeType<T> recipeType, Component title, IDrawable background, IDrawable icon, Supplier<List<RecipeHolder<? extends T>>> recipes, List<Supplier<? extends ItemStack>> catalysts) {
 	}
 
 	public interface Factory<T extends Recipe<?>> {

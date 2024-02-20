@@ -1,18 +1,25 @@
 {
   "type": "create:filling",
+  "fluidIngredients": [
+    [
+      {
+        "Amount": 40500,
+        "FluidName": "minecraft:water"
+      }
+    ]
+  ],
   "ingredients": [
     {
       "item": "minecraft:dirt"
-    },
-    {
-      "amount": 40500,
-      "fluid": "minecraft:water",
-      "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "minecraft:grass_block"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:grass_block"
+      }
     }
   ]
 }

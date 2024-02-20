@@ -4,7 +4,6 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType;
 
-import io.github.fabricators_of_create.porting_lib.entity.events.ProjectileImpactEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -26,9 +25,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class BlazeBurnerHandler {
 
-	public static boolean onThrowableImpact(ProjectileImpactEvent event) {
-		splashExtinguishesBurner(event.getProjectile(), event.getRayTraceResult());
-		return thrownEggsGetEatenByBurner(event.getProjectile(), event.getRayTraceResult());
+	public static boolean onThrowableImpact(Projectile projectile, HitResult hitResult) {
+		splashExtinguishesBurner(projectile, hitResult);
+		return thrownEggsGetEatenByBurner(projectile, hitResult);
 	}
 
 	public static boolean thrownEggsGetEatenByBurner(Projectile projectile, HitResult hitResult) {
@@ -109,5 +108,4 @@ public class BlazeBurnerHandler {
 			world.setBlockAndUpdate(pos, AllBlocks.BLAZE_BURNER.getDefaultState());
 		}
 	}
-
 }

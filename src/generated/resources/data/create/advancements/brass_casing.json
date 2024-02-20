@@ -2,7 +2,6 @@
   "parent": "create:brass",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:brass_casing_builtin"
     }
   },

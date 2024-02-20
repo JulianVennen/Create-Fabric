@@ -7,12 +7,13 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class CrushingEmiRecipe extends CreateEmiRecipe<AbstractCrushingRecipe> {
+public class CrushingEmiRecipe<T extends AbstractCrushingRecipe> extends CreateEmiRecipe<T> {
 
-	public CrushingEmiRecipe(AbstractCrushingRecipe recipe) {
+	public CrushingEmiRecipe(RecipeHolder<T> recipe) {
 		super(CreateEmiPlugin.CRUSHING, recipe, 134, 110);
-		ResourceLocation rid = recipe.getId();
+		ResourceLocation rid = recipe.id();
 		this.id = new ResourceLocation("emi", "create/crushing/" + rid.getNamespace() + "/" + rid.getPath());
 	}
 

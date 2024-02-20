@@ -100,7 +100,7 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		partialTicks = minecraft.getFrameTime();
 
-		renderBackground(graphics);
+		renderBackground(graphics, mouseX, mouseY, partialTicks);
 
 		super.render(graphics, mouseX, mouseY, partialTicks);
 

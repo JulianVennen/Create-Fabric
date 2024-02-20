@@ -35,6 +35,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 @ParametersAreNonnullByDefault
 public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
@@ -45,16 +46,16 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 		super(info);
 	}
 
-	public static void consumeRecipes(Consumer<EmptyingRecipe> consumer, IIngredientManager ingredientManager) {
+	public static void consumeRecipes(Consumer<RecipeHolder<EmptyingRecipe>> consumer, IIngredientManager ingredientManager) {
 		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK)) {
 			if (stack.getItem() instanceof PotionItem) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient potion = Ingredient.of(stack);
-				consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new, Create.asResource("potions"))
-					.withItemIngredients(potion)
-					.withFluidOutputs(fluidFromPotionItem)
-					.withSingleItemOutput(new ItemStack(Items.GLASS_BOTTLE))
-					.build());
+				consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new)
+						.withItemIngredients(potion)
+						.withFluidOutputs(fluidFromPotionItem)
+						.withSingleItemOutput(new ItemStack(Items.GLASS_BOTTLE))
+						.build(Create.asResource("potions")));
 				continue;
 			}
 
@@ -77,12 +78,12 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			ResourceLocation itemName = RegisteredObjects.getKeyOrThrow(stack.getItem());
 			ResourceLocation fluidName = RegisteredObjects.getKeyOrThrow(extracted.getFluid());
 
-			consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new,
-				Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
-					+ fluidName.getNamespace() + "_" + fluidName.getPath())).withItemIngredients(ingredient)
-						.withFluidOutputs(extracted)
-						.withSingleItemOutput(result.toStack(ItemHelper.truncateLong(ctx.getAmount())))
-						.build());
+			consumer.accept(new ProcessingRecipeBuilder<>(EmptyingRecipe::new)
+					.withItemIngredients(ingredient)
+					.withFluidOutputs(extracted)
+					.withSingleItemOutput(result.toStack(ItemHelper.truncateLong(ctx.getAmount())))
+					.build(Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
+							+ fluidName.getNamespace() + "_" + fluidName.getPath())));
 		}
 	}
 
@@ -108,7 +109,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 		AllGuiTextures.JEI_SHADOW.render(graphics, 62, 37);
 		AllGuiTextures.JEI_DOWN_ARROW.render(graphics, 73, 4);
 		drain.withFluid(recipe.getResultingFluid())
-			.draw(graphics, getBackground().getWidth() / 2 - 13, 40);
+				.draw(graphics, getBackground().getWidth() / 2 - 13, 40);
 	}
 
 }

@@ -8,12 +8,18 @@
   "processingTime": 50,
   "results": [
     {
-      "count": 2,
-      "item": "minecraft:sugar"
+      "chance": 1.0,
+      "item": {
+        "Count": 2,
+        "id": "minecraft:sugar"
+      }
     },
     {
       "chance": 0.1,
-      "item": "minecraft:sugar"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:sugar"
+      }
     }
   ]
 }

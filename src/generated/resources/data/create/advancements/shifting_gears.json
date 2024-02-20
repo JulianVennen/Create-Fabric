@@ -2,7 +2,6 @@
   "parent": "create:windmill",
   "criteria": {
     "0": {
-      "conditions": {},
       "trigger": "create:shifting_gears_builtin"
     }
   },

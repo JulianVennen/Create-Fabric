@@ -20,16 +20,21 @@ import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+
+import org.jetbrains.annotations.Nullable;
 
 public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 
@@ -37,8 +42,8 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 	protected ProcessingRecipeParams params;
 	protected List<ConditionJsonProvider> recipeConditions;
 
-	public ProcessingRecipeBuilder(ProcessingRecipeFactory<T> factory, ResourceLocation recipeId) {
-		params = new ProcessingRecipeParams(recipeId);
+	public ProcessingRecipeBuilder(ProcessingRecipeFactory<T> factory) {
+		params = new ProcessingRecipeParams();
 		recipeConditions = new ArrayList<>();
 		this.factory = factory;
 	}
@@ -98,21 +103,25 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 	}
 
 	public T build() {
-		validateFluidAmounts();
 		return factory.create(params);
 	}
 
-	public void build(Consumer<FinishedRecipe> consumer) {
-		consumer.accept(new DataGenResult<>(build(), recipeConditions));
+	public RecipeHolder<T> build(ResourceLocation id) {
+		validateFluidAmounts(id);
+		return new RecipeHolder<>(id, build());
+	}
+
+	public void build(RecipeOutput output, ResourceLocation id) {
+		output.accept(new DataGenResult<>(build(id), recipeConditions));
 	}
 
 	public static final long[] SUS_AMOUNTS = { 10, 250, 500, 1000 };
 
-	private void validateFluidAmounts() {
+	private void validateFluidAmounts(ResourceLocation id) {
 		for (FluidIngredient ingredient : params.fluidIngredients) {
 			for (long amount : SUS_AMOUNTS) {
 				if (ingredient.getRequiredAmount() == amount) {
-					Create.LOGGER.warn("Suspicious fluid amount in recipe [{}]: {}", params.id, amount);
+					Create.LOGGER.warn("Suspicious fluid amount in recipe [{}]: {}", id, amount);
 				}
 			}
 		}
@@ -235,7 +244,6 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 
 	public static class ProcessingRecipeParams {
 
-		protected ResourceLocation id;
 		protected NonNullList<Ingredient> ingredients;
 		protected NonNullList<ProcessingOutput> results;
 		protected NonNullList<FluidIngredient> fluidIngredients;
@@ -245,8 +253,7 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 
 		public boolean keepHeldItem;
 
-		protected ProcessingRecipeParams(ResourceLocation id) {
-			this.id = id;
+		protected ProcessingRecipeParams() {
 			ingredients = NonNullList.create();
 			results = NonNullList.create();
 			fluidIngredients = NonNullList.create();
@@ -263,26 +270,26 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 		private List<ConditionJsonProvider> recipeConditions;
 		private ProcessingRecipeSerializer<S> serializer;
 		private ResourceLocation id;
-		private S recipe;
+		private RecipeHolder<S> recipe;
 
 		@SuppressWarnings("unchecked")
-		public DataGenResult(S recipe, List<ConditionJsonProvider> recipeConditions) {
+		public DataGenResult(RecipeHolder<S> recipe, List<ConditionJsonProvider> recipeConditions) {
 			this.recipe = recipe;
 			this.recipeConditions = recipeConditions;
-			IRecipeTypeInfo recipeType = this.recipe.getTypeInfo();
+			IRecipeTypeInfo recipeType = this.recipe.value().getTypeInfo();
 			ResourceLocation typeId = recipeType.getId();
 
 			if (!(recipeType.getSerializer() instanceof ProcessingRecipeSerializer))
 				throw new IllegalStateException("Cannot datagen ProcessingRecipe of type: " + typeId);
 
-			this.id = new ResourceLocation(recipe.getId().getNamespace(),
-					typeId.getPath() + "/" + recipe.getId().getPath());
-			this.serializer = (ProcessingRecipeSerializer<S>) recipe.getSerializer();
+			this.id = new ResourceLocation(recipe.id().getNamespace(),
+					typeId.getPath() + "/" + recipe.id().getPath());
+			this.serializer = (ProcessingRecipeSerializer<S>) recipe.value().getSerializer();
 		}
 
 		@Override
 		public void serializeRecipeData(JsonObject json) {
-			serializer.write(json, recipe);
+			serializer.write(json, recipe.value());
 			if (recipeConditions.isEmpty())
 				return;
 
@@ -292,25 +299,20 @@ public class ProcessingRecipeBuilder<T extends ProcessingRecipe<?>> {
 		}
 
 		@Override
-		public ResourceLocation getId() {
+		public ResourceLocation id() {
 			return id;
 		}
 
 		@Override
-		public RecipeSerializer<?> getType() {
+		public RecipeSerializer<?> type() {
 			return serializer;
 		}
 
+		@Nullable
 		@Override
-		public JsonObject serializeAdvancement() {
+		public AdvancementHolder advancement() {
 			return null;
 		}
-
-		@Override
-		public ResourceLocation getAdvancementId() {
-			return null;
-		}
-
 	}
 
 }

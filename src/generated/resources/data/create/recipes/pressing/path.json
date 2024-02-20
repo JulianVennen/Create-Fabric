@@ -12,7 +12,11 @@
   ],
   "results": [
     {
-      "item": "minecraft:dirt_path"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:dirt_path"
+      }
     }
   ]
 }

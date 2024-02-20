@@ -9,23 +9,38 @@
   "results": [
     {
       "chance": 0.25,
-      "item": "minecraft:flint"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:flint"
+      }
     },
     {
       "chance": 0.1,
-      "item": "minecraft:gold_nugget"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:gold_nugget"
+      }
     },
     {
       "chance": 0.1,
-      "item": "create:copper_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:copper_nugget"
+      }
     },
     {
       "chance": 0.1,
-      "item": "create:zinc_nugget"
+      "item": {
+        "Count": 1,
+        "id": "create:zinc_nugget"
+      }
     },
     {
       "chance": 0.1,
-      "item": "minecraft:iron_nugget"
+      "item": {
+        "Count": 1,
+        "id": "minecraft:iron_nugget"
+      }
     }
   ]
 }

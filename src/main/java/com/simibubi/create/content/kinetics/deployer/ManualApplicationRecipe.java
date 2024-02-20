@@ -24,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -51,11 +52,12 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 			.getAllRecipesFor(type)
 			.stream()
 			.filter(r -> {
-				ManualApplicationRecipe mar = (ManualApplicationRecipe) r;
+				ManualApplicationRecipe mar = (ManualApplicationRecipe) r.value();
 				return mar.testBlock(blockState) && mar.ingredients.get(1)
 					.test(heldItem);
 			})
-			.findFirst();
+			.findFirst()
+			.map(RecipeHolder::value);
 
 		if (foundRecipe.isEmpty())
 			return InteractionResult.PASS;
@@ -112,18 +114,17 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 		super(AllRecipeTypes.ITEM_APPLICATION, params);
 	}
 
-	public static DeployerApplicationRecipe asDeploying(Recipe<?> recipe) {
-		ManualApplicationRecipe mar = (ManualApplicationRecipe) recipe;
+	public static RecipeHolder<DeployerApplicationRecipe> asDeploying(RecipeHolder<?> recipe) {
+		ManualApplicationRecipe mar = (ManualApplicationRecipe) recipe.value();
 		ProcessingRecipeBuilder<DeployerApplicationRecipe> builder =
-			new ProcessingRecipeBuilder<>(DeployerApplicationRecipe::new,
-				new ResourceLocation(mar.id.getNamespace(), mar.id.getPath() + "_using_deployer"))
+			new ProcessingRecipeBuilder<>(DeployerApplicationRecipe::new)
 					.require(mar.ingredients.get(0))
 					.require(mar.ingredients.get(1));
 		for (ProcessingOutput output : mar.results)
 			builder.output(output);
 		if (mar.shouldKeepHeldItem())
 			builder.toolNotConsumed();
-		return builder.build();
+		return builder.build(new ResourceLocation(mar.id.getNamespace(), mar.id.getPath() + "_using_deployer"));
 	}
 
 	public boolean testBlock(BlockState in) {

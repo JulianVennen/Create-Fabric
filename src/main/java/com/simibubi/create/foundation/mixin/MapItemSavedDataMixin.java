@@ -98,19 +98,20 @@ public class MapItemSavedDataMixin implements StationMapData {
 		byte localXByte = (byte) (int) (localX * 2.0F + 0.5F);
 		byte localZByte = (byte) (int) (localZ * 2.0F + 0.5F);
 
-		MapDecoration decoration = new StationMarker.Decoration(localXByte, localZByte, marker.getName());
+		// TODO: SM.Deco
+/*		MapDecoration decoration = new StationMarker.Decoration(localXByte, localZByte, marker.getName());
 		MapDecoration oldDecoration = decorations.put(marker.getId(), decoration);
 		if (!decoration.equals(oldDecoration)) {
-			if (oldDecoration != null && oldDecoration.getType().shouldTrackCount()) {
+			if (oldDecoration != null && oldDecoration.type().shouldTrackCount()) {
 				--trackedDecorationCount;
 			}
 
-			if (decoration.getType().shouldTrackCount()) {
+			if (decoration.type().shouldTrackCount()) {
 				++trackedDecorationCount;
 			}
 
 			setDecorationsDirty();
-		}
+		}*/
 	}
 
 	@Shadow

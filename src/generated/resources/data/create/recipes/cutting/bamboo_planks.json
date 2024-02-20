@@ -8,7 +8,11 @@
   "processingTime": 20,
   "results": [
     {
-      "item": "minecraft:bamboo_mosaic"
+      "chance": 1.0,
+      "item": {
+        "Count": 1,
+        "id": "minecraft:bamboo_mosaic"
+      }
     }
   ]
 }

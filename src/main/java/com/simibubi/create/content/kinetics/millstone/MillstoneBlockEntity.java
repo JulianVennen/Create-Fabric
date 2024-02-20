@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerSlot;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,12 +111,12 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements SidedSto
 			return;
 
 		if (lastRecipe == null || !lastRecipe.matches(inputInv, level)) {
-			Optional<MillingRecipe> recipe = AllRecipeTypes.MILLING.find(inputInv, level);
+			Optional<RecipeHolder<MillingRecipe>> recipe = AllRecipeTypes.MILLING.find(inputInv, level);
 			if (!recipe.isPresent()) {
 				timer = 100;
 				sendData();
 			} else {
-				lastRecipe = recipe.get();
+				lastRecipe = recipe.get().value();
 				timer = lastRecipe.getProcessingDuration();
 				sendData();
 			}
@@ -139,10 +141,10 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements SidedSto
 
 	private void process() {
 		if (lastRecipe == null || !lastRecipe.matches(inputInv, level)) {
-			Optional<MillingRecipe> recipe = AllRecipeTypes.MILLING.find(inputInv, level);
+			Optional<RecipeHolder<MillingRecipe>> recipe = AllRecipeTypes.MILLING.find(inputInv, level);
 			if (!recipe.isPresent())
 				return;
-			lastRecipe = recipe.get();
+			lastRecipe = recipe.get().value();
 		}
 
 		try (Transaction t = TransferUtil.getTransaction()) {
