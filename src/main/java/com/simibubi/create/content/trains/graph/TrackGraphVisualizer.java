@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.Create;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.trains.signal.SignalBoundary;
@@ -260,7 +260,7 @@ public class TrackGraphVisualizer {
 						.lineWidth(1 / 4f);
 					continue;
 				}
-				if (other.hashCode() > hashCode && !AllKeys.isKeyDown(GLFW.GLFW_KEY_LEFT_CONTROL))
+				if (other.hashCode() > hashCode && !KeyUtils.isKeyDown(GLFW.GLFW_KEY_LEFT_CONTROL))
 					continue;
 
 				yOffset = new Vec3(0, (other.hashCode() > hashCode ? 6 : 4) / 16f, 0);

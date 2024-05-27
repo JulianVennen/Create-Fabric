@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
-import com.simibubi.create.AllTags;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -56,7 +55,7 @@ public class ScrollValueRenderer {
 			return;
 		boolean highlight = behaviour.testHit(target.getLocation()) && !clipboard;
 
-		if (behaviour instanceof BulkScrollValueBehaviour && AllKeys.ctrlDown()) {
+		if (behaviour instanceof BulkScrollValueBehaviour && KeyUtils.ctrlDown()) {
 			BulkScrollValueBehaviour bulkScrolling = (BulkScrollValueBehaviour) behaviour;
 			for (SmartBlockEntity smartBlockEntity : bulkScrolling.getBulk()) {
 				ScrollValueBehaviour other = smartBlockEntity.getBehaviour(ScrollValueBehaviour.TYPE);

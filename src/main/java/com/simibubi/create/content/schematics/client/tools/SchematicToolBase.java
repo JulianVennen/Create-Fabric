@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllSpecialTextures;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.schematics.client.SchematicHandler;
@@ -137,7 +137,7 @@ public abstract class SchematicToolBase implements ISchematicTool {
 			outline.getParams()
 				.highlightFace(selectedFace)
 				.withFaceTextures(AllSpecialTextures.CHECKERED,
-					AllKeys.ctrlDown() ? AllSpecialTextures.HIGHLIGHT_CHECKERED : AllSpecialTextures.CHECKERED);
+					KeyUtils.ctrlDown() ? AllSpecialTextures.HIGHLIGHT_CHECKERED : AllSpecialTextures.CHECKERED);
 		}
 		outline.getParams()
 			.colored(0x6886c5)

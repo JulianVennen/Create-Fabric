@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 import com.google.common.collect.ImmutableList;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.content.contraptions.BlockMovementChecks;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -271,7 +271,7 @@ public class ChassisBlockEntity extends SmartBlockEntity {
 		public void newSettingHovered(ValueSettings valueSetting) {
 			if (!level.isClientSide)
 				return;
-			if (!AllKeys.ctrlDown())
+			if (!KeyUtils.ctrlDown())
 				currentlySelectedRange = valueSetting.value() + 1;
 			else
 				for (SmartBlockEntity be : getBulk())

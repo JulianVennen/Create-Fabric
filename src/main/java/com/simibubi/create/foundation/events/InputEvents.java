@@ -9,7 +9,6 @@ import com.simibubi.create.content.trains.entity.TrainRelocator;
 import com.simibubi.create.content.trains.track.CurvedTrackInteraction;
 
 import io.github.fabricators_of_create.porting_lib.event.client.InteractEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.KeyInputCallback;
 import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.MouseInputEvents.Action;
 import net.minecraft.client.Minecraft;
@@ -18,16 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.phys.HitResult;
 
 public class InputEvents {
-
-	public static void onKeyInput(int key, int scancode, int action, int mods) {
-		if (Minecraft.getInstance().screen != null)
-			return;
-
-		boolean pressed = !(action == 0);
-
-		CreateClient.SCHEMATIC_HANDLER.onKeyInput(key, pressed);
-		ToolboxHandlerClient.onKeyInput(key, pressed);
-	}
 
 	public static boolean onMouseScrolled(double deltaX, double delta /* Y */) {
 		if (Minecraft.getInstance().screen != null)
@@ -93,7 +82,6 @@ public class InputEvents {
 	}
 
 	public static void register() {
-		KeyInputCallback.EVENT.register(InputEvents::onKeyInput);
 		MouseInputEvents.BEFORE_SCROLL.register(InputEvents::onMouseScrolled);
 		MouseInputEvents.BEFORE_BUTTON.register(InputEvents::onMouseInput);
 		InteractEvents.USE.register(InputEvents::onUse);

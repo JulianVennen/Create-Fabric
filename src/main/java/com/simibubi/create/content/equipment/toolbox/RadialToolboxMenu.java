@@ -7,12 +7,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllKeys;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
@@ -22,7 +20,6 @@ import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.Lang;
 
-import io.github.fabricators_of_create.porting_lib.util.KeyBindingHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -379,16 +376,6 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 		}
 
 		return super.keyPressed(code, scanCode, modifiers);
-	}
-
-	@Override
-	public boolean keyReleased(int code, int scanCode, int modifiers) {
-		InputConstants.Key mouseKey = InputConstants.getKey(code, scanCode);
-		if (KeyBindingHelper.isActiveAndMatches(AllKeys.TOOLBELT.getKeybind(), mouseKey)) {
-			onClose();
-			return true;
-		}
-		return super.keyReleased(code, scanCode, modifiers);
 	}
 
 	public static enum State {

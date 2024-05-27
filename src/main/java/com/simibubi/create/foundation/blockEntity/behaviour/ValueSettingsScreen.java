@@ -6,7 +6,7 @@ import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBehaviour.ValueSettings;
@@ -255,7 +255,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		AllGuiTextures.BRASS_FRAME_BL.render(graphics, x, y + h - 4);
 		AllGuiTextures.BRASS_FRAME_BR.render(graphics, x + w - 4, y + h - 4);
 		int zLevel = 0;
-		
+
 		if (h > 8) {
 			UIRenderHelper.drawStretched(graphics, x, y + 4, 3, h - 8, zLevel, AllGuiTextures.BRASS_FRAME_LEFT);
 			UIRenderHelper.drawStretched(graphics, x + w - 3, y + 4, 3, h - 8, zLevel, AllGuiTextures.BRASS_FRAME_RIGHT);
@@ -319,7 +319,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		// FIXME: value settings may be face-sensitive on future components
 		AllPackets.getChannel()
 			.sendToServer(new ValueSettingsPacket(pos, closest.row(), closest.value(), null, Direction.UP,
-				AllKeys.ctrlDown()));
+				KeyUtils.ctrlDown()));
 		onClose();
 	}
 

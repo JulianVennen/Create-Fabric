@@ -101,7 +101,6 @@ public class CreateClient implements ClientModInitializer {
 		BUFFER_CACHE.registerCompartment(SBBContraptionManager.CONTRAPTION, 20);
 		BUFFER_CACHE.registerCompartment(WorldSectionElement.DOC_WORLD_SECTION, 20);
 
-		AllKeys.register();
 		AllPartialModels.init();
 
 		AllPonderTags.register();

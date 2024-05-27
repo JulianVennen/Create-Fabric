@@ -3,7 +3,7 @@ package com.simibubi.create.foundation.gui.widget;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour.StepContext;
 import com.simibubi.create.foundation.utility.Components;
@@ -96,7 +96,7 @@ public class ScrollInput extends AbstractSimiWidget {
 			writeToLabel();
 		return this;
 	}
-	
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -127,13 +127,13 @@ public class ScrollInput extends AbstractSimiWidget {
 			delta *= -1;
 
 		StepContext context = new StepContext();
-		context.control = AllKeys.ctrlDown();
-		context.shift = AllKeys.shiftDown();
+		context.control = KeyUtils.ctrlDown();
+		context.shift = KeyUtils.shiftDown();
 		context.currentValue = state;
 		context.forward = delta > 0;
 
 		int priorState = state;
-		boolean shifted = AllKeys.shiftDown();
+		boolean shifted = KeyUtils.shiftDown();
 		int step = (int) Math.signum(delta) * this.step.apply(context);
 
 		state += step;

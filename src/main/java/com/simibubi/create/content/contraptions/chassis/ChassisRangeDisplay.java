@@ -11,9 +11,8 @@ import java.util.Set;
 
 import com.mojang.datafixers.util.Pair;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllSpecialTextures;
-import com.simibubi.create.AllTags;
 import com.simibubi.create.CreateClient;
 
 import net.minecraft.client.Minecraft;
@@ -125,7 +124,7 @@ public class ChassisRangeDisplay {
 		if (!(blockEntity instanceof ChassisBlockEntity))
 			return;
 
-		boolean ctrl = AllKeys.ctrlDown();
+		boolean ctrl = KeyUtils.ctrlDown();
 		ChassisBlockEntity chassisBlockEntity = (ChassisBlockEntity) blockEntity;
 
 		if (ctrl) {
@@ -170,7 +169,7 @@ public class ChassisRangeDisplay {
 	public static void display(ChassisBlockEntity chassis) {
 
 		// Display a group and kill any selections of its contained chassis blocks
-		if (AllKeys.ctrlDown()) {
+		if (KeyUtils.ctrlDown()) {
 			GroupEntry hoveredGroup = new GroupEntry(chassis);
 
 			for (ChassisBlockEntity included : hoveredGroup.includedBEs)

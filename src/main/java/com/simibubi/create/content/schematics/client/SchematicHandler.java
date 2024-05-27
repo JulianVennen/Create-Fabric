@@ -8,7 +8,7 @@ import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.contraptions.StructureTransform;
@@ -269,20 +269,6 @@ public class SchematicHandler {
 			.handleRightClick();
 	}
 
-	public void onKeyInput(int key, boolean pressed) {
-		if (!active)
-			return;
-		if (key != AllKeys.TOOL_MENU.getBoundCode())
-			return;
-
-		if (pressed && !selectionScreen.focused)
-			selectionScreen.focused = true;
-		if (!pressed && selectionScreen.focused) {
-			selectionScreen.focused = false;
-			selectionScreen.onClose();
-		}
-	}
-
 	public boolean mouseScrolled(double delta) {
 		if (!active)
 			return false;
@@ -291,7 +277,7 @@ public class SchematicHandler {
 			selectionScreen.cycle((int) delta);
 			return true;
 		}
-		if (AllKeys.ctrlDown())
+		if (KeyUtils.ctrlDown())
 			return currentTool.getTool()
 				.handleMouseWheel(delta);
 		return false;

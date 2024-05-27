@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllKeys;
 import com.simibubi.create.content.schematics.client.tools.ToolType;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.Components;
@@ -100,18 +99,11 @@ public class ToolSelectionScreen extends Screen {
 
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		if (tools.size() > 1) {
-			String keyName = AllKeys.TOOL_MENU.getBoundKey();
-			int width = minecraft.getWindow()
-				.getGuiScaledWidth();
-			if (!focused)
-				graphics.drawCenteredString(minecraft.font, Lang.translateDirect(holdToFocus, keyName), width / 2,
-					y - 10, 0xCCDDFF);
-			else
-				graphics.drawCenteredString(minecraft.font, scrollToCycle, width / 2, y - 10, 0xCCDDFF);
+			graphics.drawCenteredString(minecraft.font, scrollToCycle, width / 2, y - 10, 0xCCDDFF);
 		} else {
 			x += 65;
 		}
-		
+
 
 		for (int i = 0; i < tools.size(); i++) {
 			RenderSystem.enableBlend();

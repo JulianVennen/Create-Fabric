@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
 import com.simibubi.create.content.logistics.filter.AttributeFilterMenu.WhitelistMode;
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -71,7 +71,7 @@ public class FilterItem extends Item implements MenuProvider {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		if (!AllKeys.shiftDown()) {
+		if (!KeyUtils.shiftDown()) {
 			List<Component> makeSummary = makeSummary(stack);
 			if (makeSummary.isEmpty())
 				return;

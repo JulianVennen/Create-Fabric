@@ -5,17 +5,13 @@ import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_HOTBAR_
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_SELECTED_OFF;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_SELECTED_ON;
 
-import java.util.Comparator;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllKeys;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.gui.ScreenOpener;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
@@ -34,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -43,11 +38,6 @@ import net.minecraft.world.phys.HitResult;
 public class ToolboxHandlerClient {
 
 	static int COOLDOWN = 0;
-
-	public static void clientTick() {
-		if (COOLDOWN > 0 && !AllKeys.TOOLBELT.isPressed())
-			COOLDOWN--;
-	}
 
 	public static boolean onPickItem() {
 		Minecraft mc = Minecraft.getInstance();
@@ -107,60 +97,6 @@ public class ToolboxHandlerClient {
 		}
 
 		return false;
-	}
-
-	public static void onKeyInput(int key, boolean pressed) {
-		Minecraft mc = Minecraft.getInstance();
-		if (mc.gameMode == null || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
-			return;
-
-		if (key != AllKeys.TOOLBELT.getBoundCode() || !pressed)
-			return;
-		if (COOLDOWN > 0)
-			return;
-		LocalPlayer player = mc.player;
-		if (player == null)
-			return;
-		Level level = player.level();
-
-		List<ToolboxBlockEntity> toolboxes = ToolboxHandler.getNearest(player.level(), player, 8);
-		toolboxes.sort(Comparator.comparing(ToolboxBlockEntity::getUniqueId));
-
-		CompoundTag compound = player.getCustomData()
-			.getCompound("CreateToolboxData");
-
-		String slotKey = String.valueOf(player.getInventory().selected);
-		boolean equipped = compound.contains(slotKey);
-
-		if (equipped) {
-			BlockPos pos = NbtUtils.readBlockPos(compound.getCompound(slotKey)
-				.getCompound("Pos"));
-			double max = ToolboxHandler.getMaxRange(player);
-			boolean canReachToolbox = ToolboxHandler.distance(player.position(), pos) < max * max;
-
-			if (canReachToolbox) {
-				BlockEntity blockEntity = level.getBlockEntity(pos);
-				if (blockEntity instanceof ToolboxBlockEntity) {
-					RadialToolboxMenu screen = new RadialToolboxMenu(toolboxes,
-						RadialToolboxMenu.State.SELECT_ITEM_UNEQUIP, (ToolboxBlockEntity) blockEntity);
-					screen.prevSlot(compound.getCompound(slotKey)
-						.getInt("Slot"));
-					ScreenOpener.open(screen);
-					return;
-				}
-			}
-
-			ScreenOpener.open(new RadialToolboxMenu(ImmutableList.of(), RadialToolboxMenu.State.DETACH, null));
-			return;
-		}
-
-		if (toolboxes.isEmpty())
-			return;
-
-		if (toolboxes.size() == 1)
-			ScreenOpener.open(new RadialToolboxMenu(toolboxes, RadialToolboxMenu.State.SELECT_ITEM, toolboxes.get(0)));
-		else
-			ScreenOpener.open(new RadialToolboxMenu(toolboxes, RadialToolboxMenu.State.SELECT_BOX, null));
 	}
 
 	public static void renderOverlay(GuiGraphics graphics, float partialTicks, Window window) {

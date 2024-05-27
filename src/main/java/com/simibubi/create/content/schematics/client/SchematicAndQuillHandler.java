@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
+import com.simibubi.create.KeyUtils;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllSpecialTextures;
 import com.simibubi.create.Create;
@@ -15,7 +15,6 @@ import com.simibubi.create.content.schematics.SchematicExport.SchematicExportRes
 import com.simibubi.create.content.schematics.packet.InstantSchematicPacket;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 import com.simibubi.create.foundation.outliner.Outliner;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 import com.simibubi.create.foundation.utility.RaycastHelper.PredicateTraceResult;
@@ -50,7 +49,7 @@ public class SchematicAndQuillHandler {
 	public boolean mouseScrolled(double delta) {
 		if (!isActive())
 			return false;
-		if (!AllKeys.ctrlDown())
+		if (!KeyUtils.ctrlDown())
 			return false;
 		if (secondPos == null)
 			range = (int) Mth.clamp(range + delta, 1, 100);
@@ -137,28 +136,20 @@ public class SchematicAndQuillHandler {
 			return;
 
 		LocalPlayer player = Minecraft.getInstance().player;
-		if (AllKeys.ACTIVATE_TOOL.isPressed()) {
-			float pt = AnimationTickHolder.getPartialTicks();
-			Vec3 targetVec = player.getEyePosition(pt)
-				.add(player.getLookAngle()
-					.scale(range));
-			selectedPos = BlockPos.containing(targetVec);
 
-		} else {
-			BlockHitResult trace = RaycastHelper.rayTraceRange(player.level(), player, 75);
-			if (trace != null && trace.getType() == Type.BLOCK) {
+		BlockHitResult trace = RaycastHelper.rayTraceRange(player.level(), player, 75);
+		if (trace != null && trace.getType() == Type.BLOCK) {
 
-				BlockPos hit = trace.getBlockPos();
-				boolean replaceable = player.level().getBlockState(hit)
-					.canBeReplaced(new BlockPlaceContext(new UseOnContext(player, InteractionHand.MAIN_HAND, trace)));
-				if (trace.getDirection()
-					.getAxis()
-					.isVertical() && !replaceable)
-					hit = hit.relative(trace.getDirection());
-				selectedPos = hit;
-			} else
-				selectedPos = null;
-		}
+			BlockPos hit = trace.getBlockPos();
+			boolean replaceable = player.level().getBlockState(hit)
+				.canBeReplaced(new BlockPlaceContext(new UseOnContext(player, InteractionHand.MAIN_HAND, trace)));
+			if (trace.getDirection()
+				.getAxis()
+				.isVertical() && !replaceable)
+				hit = hit.relative(trace.getDirection());
+			selectedPos = hit;
+		} else
+			selectedPos = null;
 
 		selectedFace = null;
 		if (secondPos != null) {

@@ -2,7 +2,6 @@ package com.simibubi.create.content.schematics.client.tools;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllKeys;
 import com.simibubi.create.content.schematics.client.SchematicTransformation;
 import com.simibubi.create.foundation.outliner.AABBOutline;
 import com.simibubi.create.foundation.render.SuperRenderTypeBuffer;
@@ -31,7 +30,6 @@ public class DeployTool extends PlacementToolBase {
 				.length() / 2);
 			selectionRange = Mth.clamp(selectionRange, 1, 100);
 		}
-		selectIgnoreBlocks = AllKeys.ACTIVATE_TOOL.isPressed();
 		super.updateSelection();
 	}
 

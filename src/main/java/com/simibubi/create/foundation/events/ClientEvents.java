@@ -8,7 +8,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllKeys;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllParticleTypes;
 import com.simibubi.create.Create;
@@ -30,7 +29,6 @@ import com.simibubi.create.content.equipment.blueprint.BlueprintOverlayRenderer;
 import com.simibubi.create.content.equipment.clipboard.ClipboardValueSettingsHandler;
 import com.simibubi.create.content.equipment.extendoGrip.ExtendoGripRenderHandler;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryHandler;
-import com.simibubi.create.content.equipment.toolbox.ToolboxHandlerClient;
 import com.simibubi.create.content.equipment.zapper.ZapperItem;
 import com.simibubi.create.content.equipment.zapper.terrainzapper.WorldshaperRenderHandler;
 import com.simibubi.create.content.kinetics.KineticDebugger;
@@ -81,7 +79,6 @@ import io.github.fabricators_of_create.porting_lib.event.client.ClientWorldEvent
 import io.github.fabricators_of_create.porting_lib.event.client.DrawSelectionEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
-import io.github.fabricators_of_create.porting_lib.event.client.InteractEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.ParticleManagerRegistrationCallback;
 import io.github.fabricators_of_create.porting_lib.event.client.RenderHandCallback;
 import io.github.fabricators_of_create.porting_lib.event.client.RenderTickStartCallback;
@@ -98,7 +95,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -115,7 +111,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -188,7 +183,6 @@ public class ClientEvents {
 		CreateClient.GHOST_BLOCKS.tickGhosts();
 		ContraptionRenderDispatcher.tick(world);
 		BlueprintOverlayRenderer.tick();
-		ToolboxHandlerClient.clientTick();
 		TrackTargetingClient.clientTick();
 		TrackPlacement.clientTick();
 		TrainRelocator.clientTick();
@@ -202,7 +196,6 @@ public class ClientEvents {
 		ScrollValueHandler.tick();
 		NetheriteBacktankFirstPersonRenderer.clientTick();
 		// fabric: see comment
-		AllKeys.fixBinds();
 	}
 
 	public static void onJoin(ClientPacketListener handler, PacketSender sender, Minecraft client) {
