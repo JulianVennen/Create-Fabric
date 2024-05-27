@@ -197,7 +197,7 @@ public class MinecartContraptionItem extends Item {
 
 			Direction intialOrientation = NBTHelper.readEnum(contraptionTag, "InitialOrientation", Direction.class);
 
-			Contraption mountedContraption = Contraption.fromNBT(world, contraptionTag, false);
+			Contraption mountedContraption = Contraption.fromNBT(world, contraptionTag, false, null);
 			OrientedContraptionEntity contraptionEntity =
 				newFacing == null ? OrientedContraptionEntity.create(world, mountedContraption, intialOrientation)
 					: OrientedContraptionEntity.createAtYaw(world, mountedContraption, intialOrientation,

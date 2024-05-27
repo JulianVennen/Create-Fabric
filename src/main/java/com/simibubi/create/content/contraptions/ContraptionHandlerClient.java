@@ -1,25 +1,14 @@
 package com.simibubi.create.content.contraptions;
 
-import java.lang.ref.WeakReference;
-import java.util.Collection;
-
 import javax.annotation.Nullable;
-
-import net.minecraft.world.phys.HitResult;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.AllPackets;
-import com.simibubi.create.content.contraptions.sync.ContraptionInteractionPacket;
-import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
-import com.simibubi.create.content.trains.entity.TrainRelocator;
 import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 import com.simibubi.create.foundation.utility.RaycastHelper.PredicateTraceResult;
-import com.simibubi.create.foundation.utility.VecHelper;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -29,12 +18,9 @@ import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -63,67 +49,6 @@ public class ContraptionHandlerClient {
 		float limbSwing = data.getFloat("OverrideLimbSwing");
 		remotePlayer.xo = remotePlayer.getX() - (limbSwing / 4);
 		remotePlayer.zo = remotePlayer.getZ();
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static InteractionResult rightClickingOnContraptionsGetsHandledLocally(Minecraft mc, HitResult result, InteractionHand hand) {
-		if (Minecraft.getInstance().screen != null) // this is the only input event that doesn't check this?
-			return InteractionResult.PASS;
-
-		LocalPlayer player = mc.player;
-
-		if (player == null)
-			return InteractionResult.PASS;
-		if (player.isSpectator())
-			return InteractionResult.PASS;
-		if (mc.level == null)
-			return InteractionResult.PASS;
-		if (mc.gameMode == null)
-			return InteractionResult.PASS;
-//		if (!event.isUseItem())
-//			return InteractionResult.PASS;
-
-		Couple<Vec3> rayInputs = getRayInputs(player);
-		Vec3 origin = rayInputs.getFirst();
-		Vec3 target = rayInputs.getSecond();
-		AABB aabb = new AABB(origin, target).inflate(16);
-
-		Collection<WeakReference<AbstractContraptionEntity>> contraptions =
-			ContraptionHandler.loadedContraptions.get(mc.level)
-				.values();
-
-		for (WeakReference<AbstractContraptionEntity> ref : contraptions) {
-			AbstractContraptionEntity contraptionEntity = ref.get();
-			if (contraptionEntity == null)
-				continue;
-			if (!contraptionEntity.getBoundingBox()
-				.intersects(aabb))
-				continue;
-
-			BlockHitResult rayTraceResult = rayTraceContraption(origin, target, contraptionEntity);
-			if (rayTraceResult == null)
-				continue;
-
-			Direction face = rayTraceResult.getDirection();
-			BlockPos pos = rayTraceResult.getBlockPos();
-
-			if (contraptionEntity.handlePlayerInteraction(player, pos, face, hand)) {
-				AllPackets.getChannel().sendToServer(new ContraptionInteractionPacket(contraptionEntity, hand, pos, face));
-			} else if (handleSpecialInteractions(contraptionEntity, player, pos, face, hand)) {
-			} else
-				continue;
-
-			return InteractionResult.FAIL;
-		}
-		return InteractionResult.PASS;
-	}
-
-	private static boolean handleSpecialInteractions(AbstractContraptionEntity contraptionEntity, Player player,
-		BlockPos localPos, Direction side, InteractionHand interactionHand) {
-		if (AllItems.WRENCH.isIn(player.getItemInHand(interactionHand))
-			&& contraptionEntity instanceof CarriageContraptionEntity car)
-			return TrainRelocator.carriageWrenched(car.toGlobalVector(VecHelper.getCenterOf(localPos), 1), car);
-		return false;
 	}
 
 	@Environment(EnvType.CLIENT)

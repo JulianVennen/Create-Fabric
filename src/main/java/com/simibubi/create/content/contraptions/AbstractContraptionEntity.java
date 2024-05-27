@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import com.simibubi.create.foundation.utility.AdventureUtil;
 
+import io.github.fabricators_of_create.porting_lib.entity.ExtraSpawnDataEntity;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.EntityAccessor;
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 
@@ -42,7 +43,6 @@ import com.simibubi.create.foundation.collision.Matrix3d;
 import com.simibubi.create.foundation.mixin.accessor.ServerLevelAccessor;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.fabricators_of_create.porting_lib.entity.ExtraSpawnDataEntity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -54,9 +54,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -228,6 +225,9 @@ public abstract class AbstractContraptionEntity extends Entity implements ExtraS
 	}
 
 	public Vec3 getPassengerPosition(Entity passenger, float partialTicks) {
+		if (contraption == null)
+			return null;
+
 		UUID id = passenger.getUUID();
 		if (passenger instanceof OrientedContraptionEntity) {
 			BlockPos localPos = contraption.getBearingPosOf(id);
@@ -242,6 +242,7 @@ public abstract class AbstractContraptionEntity extends Entity implements ExtraS
 		BlockPos seat = contraption.getSeatOf(id);
 		if (seat == null)
 			return null;
+
 		Vec3 transformedVector = toGlobalVector(Vec3.atLowerCornerOf(seat)
 			.add(.5, passenger.getMyRidingOffset() + ySize - .15f, .5), partialTicks)
 				.add(VecHelper.getCenterOf(BlockPos.ZERO))
@@ -647,8 +648,7 @@ public abstract class AbstractContraptionEntity extends Entity implements ExtraS
 			return;
 
 		initialized = compound.getBoolean("Initialized");
-		contraption = Contraption.fromNBT(level(), compound.getCompound("Contraption"), spawnData);
-		contraption.entity = this;
+		contraption = Contraption.fromNBT(level(), compound.getCompound("Contraption"), spawnData, this);
 		entityData.set(STALLED, compound.getBoolean("Stalled"));
 	}
 

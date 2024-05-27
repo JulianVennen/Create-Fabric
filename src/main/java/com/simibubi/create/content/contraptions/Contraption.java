@@ -73,7 +73,6 @@ import com.simibubi.create.content.trains.bogey.AbstractBogeyBlock;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
-import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.utility.BBHelper;
 import com.simibubi.create.foundation.utility.BlockFace;
 import com.simibubi.create.foundation.utility.BlockHelper;
@@ -135,6 +134,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class Contraption {
+	private static final HashMap<UUID, List<AABB>> colliderCache = new HashMap<>();
 
 	public Optional<List<AABB>> simplifiedEntityColliders;
 	public AbstractContraptionEntity entity;
@@ -214,11 +214,12 @@ public abstract class Contraption {
 		return true;
 	}
 
-	public static Contraption fromNBT(Level world, CompoundTag nbt, boolean spawnData) {
+	public static Contraption fromNBT(Level world, CompoundTag nbt, boolean spawnData, AbstractContraptionEntity entity) {
 		String type = nbt.getString("Type");
 		Contraption contraption = ContraptionType.fromType(type);
 		contraption.readNBT(world, nbt, spawnData);
 		contraption.world = new ContraptionWorld(world, contraption);
+		contraption.entity = entity;
 		contraption.gatherBBsOffThread();
 		return contraption;
 	}
@@ -1313,10 +1314,17 @@ public abstract class Contraption {
 
 	public void invalidateColliders() {
 		simplifiedEntityColliders = Optional.empty();
+		if (entity != null) {
+			colliderCache.remove(entity.getUUID());
+		}
 		gatherBBsOffThread();
 	}
 
 	private void gatherBBsOffThread() {
+		if (entity != null && colliderCache.containsKey(entity.getUUID())) {
+			return;
+		}
+
 		getContraptionWorld();
 		simplifiedEntityColliderProvider = CompletableFuture.supplyAsync(() -> {
 					VoxelShape combinedShape = Shapes.empty();
@@ -1335,6 +1343,9 @@ public abstract class Contraption {
 				.thenAccept(r -> {
 					simplifiedEntityColliders = Optional.of(r);
 					simplifiedEntityColliderProvider = null;
+					if (entity != null) {
+						colliderCache.put(entity.getUUID(), r);
+					}
 				});
 	}
 
